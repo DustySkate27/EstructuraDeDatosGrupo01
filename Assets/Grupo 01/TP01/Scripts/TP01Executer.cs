@@ -1,12 +1,14 @@
+using Assets.Grupo_01.TP01.Scripts;
 using Assets.Script;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class TP01Execute : MonoBehaviour
+internal class TP01Execute : MonoBehaviour
 {
-    private SimpleList<int> intList = new SimpleList<int>();
+    public SimpleList<int> intList = new SimpleList<int>();
     private Texts texts;
 
 
@@ -17,18 +19,16 @@ public class TP01Execute : MonoBehaviour
         intList.Add(2);
         intList.Add(6);
 
-        Debug.Log(intList.ToString());
-
-        texts = GameObject.FindGameObjectWithTag("resultText").GetComponent<Texts>();
-        texts.resultText.text = intList.ToString();
-
+        ShowValueInConsole();
+        
+        texts = GameObject.FindGameObjectWithTag("resultText").GetComponent<Texts>();      
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShowValueInConsole() //Actuliza el array en consola y en escena
     {
+        Debug.Log(intList.ToString());
 
-        
-
+        //La funcion de texts no funcion actualmente
+        texts.ArrayUpdate();
     }
 }

@@ -1,8 +1,10 @@
-﻿namespace Assets.Script
+﻿using Unity.VisualScripting;
+
+namespace Assets.Script
 {
-    internal class SimpleList<T> : ISimpleList<T>
+    public class SimpleList<T> : ISimpleList<T>
     {
-        private T[] arrayD;
+        public T[] arrayD;
         int lastAddedIndex = 0;
         int arrayBaseLenght = 4;
 
@@ -100,5 +102,6 @@
             return text;
 
         }
+
     }
 }

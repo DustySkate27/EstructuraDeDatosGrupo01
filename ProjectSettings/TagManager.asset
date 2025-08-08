@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - resultText
+  - mainExecuter
+  - remove
+  - clear
+  - add
+  - addRange
   layers:
   - Default
   - TransparentFX
