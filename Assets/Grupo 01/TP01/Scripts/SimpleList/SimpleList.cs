@@ -1,4 +1,5 @@
 ﻿using Unity.VisualScripting;
+using UnityEngine.Assertions.Must;
 
 namespace Assets.Script
 {
@@ -74,7 +75,7 @@ namespace Assets.Script
                 if (arrayD[i].Equals(item))
                 {
                     arrayD[i] = default;
-                    lastAddedIndex--;
+                    //lastAddedIndex--;
                     return true;
                 }
             }
@@ -83,26 +84,16 @@ namespace Assets.Script
 
         public void RemoveLastItem()
         {
-            if (arrayD[lastAddedIndex] == null) { return; }
-
-            arrayD[lastAddedIndex] = default;
-
-            if (arrayD[lastAddedIndex] == null)
+            if (arrayD[lastAddedIndex] != null)
             {
+                arrayD[lastAddedIndex] = default;
                 lastAddedIndex--;
                 return;
             }
-            else
-                return;
         }
 
         public void Clear()
         {
-            for (int i = 0; i < arrayD.Length; i++)
-            {
-                arrayD[i] = default(T);
-            }
-
             arrayD = new T[4];
 
             lastAddedIndex = 0;
@@ -112,11 +103,14 @@ namespace Assets.Script
         {
             string text = "";
 
-            for (int i = 0; i < lastAddedIndex; i++)
-                text += arrayD[i].ToString() + ", ";
+            if (arrayD == null)
+                text = "null";
+
+            else
+                for (int i = 0; i < lastAddedIndex; i++)
+                    text += arrayD[i].ToString() + ", ";
 
             return text;
-
         }
 
     }

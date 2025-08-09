@@ -24,7 +24,7 @@ public class RemoveButton : MonoBehaviour, IButtons
 
     public void OnClickAction() //Funcion clear
     {
-        //mainExecuter.intList.RemoveLastItem(1);
+        mainExecuter.intList.RemoveLastItem();
 
         mainExecuter.ShowValueInConsole();
     }
