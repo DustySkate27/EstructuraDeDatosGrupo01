@@ -1,4 +1,3 @@
-using Assets.Grupo_01.TP01.Scripts;
 using Assets.Script;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using UnityEngine.UI;
 internal class TP01Execute : MonoBehaviour
 {
     public SimpleList<int> intList = new SimpleList<int>();
-    private Texts texts;
+    private TextRefresher texts;
 
 
     void Start()
@@ -19,9 +18,10 @@ internal class TP01Execute : MonoBehaviour
         intList.Add(2);
         intList.Add(6);
 
+        texts = GameObject.FindGameObjectWithTag("resultText").GetComponent<TextRefresher>();  
+        
         ShowValueInConsole();
         
-        texts = GameObject.FindGameObjectWithTag("resultText").GetComponent<Texts>();      
     }
 
     public void ShowValueInConsole() //Actuliza el array en consola y en escena

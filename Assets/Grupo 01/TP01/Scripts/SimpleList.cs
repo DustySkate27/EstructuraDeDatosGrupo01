@@ -74,7 +74,6 @@ namespace Assets.Script
                 if (arrayD[i].Equals(item))
                 {
                     arrayD[i] = default;
-                    lastAddedIndex--;
                     return true;
                 }
             }
