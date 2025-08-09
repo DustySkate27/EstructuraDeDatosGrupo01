@@ -16,6 +16,8 @@ public interface ISimpleList<T>
     //Tambien devolver true si se pudo borrar un elemento, false si no
     public bool Remove(T item);
 
+    public void RemoveLastItem();
+
     //Debe limpiar toda la lista
     public void Clear();
 }
