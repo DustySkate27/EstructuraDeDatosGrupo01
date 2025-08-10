@@ -37,6 +37,6 @@ public class AddRangeInputField : MonoBehaviour, I_InputField
         }
         mainExecuter.intList.AddRange(addToArray);
 
-        mainExecuter.ShowValue();
+        mainExecuter.ShowResult();
     }
 }

@@ -9,6 +9,8 @@ using UnityEngine;
 
     public class Texts : MonoBehaviour
     {
+
+        //UNUSED CODE
         public TextMeshProUGUI resultText;
         private TP01Execute mainExecuter;
 

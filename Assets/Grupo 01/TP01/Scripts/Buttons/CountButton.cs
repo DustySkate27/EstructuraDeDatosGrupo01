@@ -19,6 +19,6 @@ public class CountButton : MonoBehaviour, IButtons
 
     public void OnClickAction()
     {
-        
+        mainExecuter.ShowCount();
     }
 }

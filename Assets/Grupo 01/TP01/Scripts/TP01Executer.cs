@@ -8,22 +8,25 @@ using UnityEngine.UI;
 internal class TP01Execute : MonoBehaviour
 {
     public SimpleList<int> intList = new SimpleList<int>();
-    private TextRefresher texts;
+    private TextRefresher resultText;
+    private TextCounter counterText;
 
 
     void Start()
     {
-
-        texts = GameObject.FindGameObjectWithTag("resultText").GetComponent<TextRefresher>();  
-        
-        ShowValue();
-        
+        resultText = GameObject.FindGameObjectWithTag("resultText").GetComponent<TextRefresher>();
+        counterText = GameObject.FindGameObjectWithTag("counterText").GetComponent<TextCounter>();
     }
 
-    public void ShowValue() //Actuliza el array en consola y en escena
+    public void ShowResult() //Actuliza el array en consola y en escena
     {
         Debug.Log(intList.ToString());
 
-        texts.ArrayUpdate();
+        resultText.ArrayUpdate();
+    }
+
+    public void ShowCount()
+    {
+        counterText.CounterUpdate();
     }
 }

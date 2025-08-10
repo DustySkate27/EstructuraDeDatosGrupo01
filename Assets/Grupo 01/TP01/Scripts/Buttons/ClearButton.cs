@@ -26,6 +26,6 @@ public class ClearButton : MonoBehaviour, IButtons
     {
         mainExecuter.intList.Clear();
 
-        mainExecuter.ShowValue();
+        mainExecuter.ShowResult();
     }
 }

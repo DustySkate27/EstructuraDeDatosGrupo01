@@ -10,6 +10,7 @@ TagManager:
   - clear
   - add
   - addRange
+  - counterText
   layers:
   - Default
   - TransparentFX

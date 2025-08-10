@@ -22,10 +22,10 @@ public class RemoveButton : MonoBehaviour, IButtons
 
     }
 
-    public void OnClickAction() //Funcion clear
+    public void OnClickAction() 
     {
         mainExecuter.intList.RemoveLastItem();
 
-        mainExecuter.ShowValue();
+        mainExecuter.ShowResult();
     }
 }

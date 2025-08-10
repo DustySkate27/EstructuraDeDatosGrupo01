@@ -8,7 +8,6 @@ using TMPro;
 public class TextRefresher : MonoBehaviour
 {   
     public TextMeshProUGUI resultText;
-    public TextMeshProUGUI countText;
     private TP01Execute mainExecuter;
 
 
@@ -21,10 +20,5 @@ public class TextRefresher : MonoBehaviour
     public void ArrayUpdate() // Actualiza los resultado del arrey que deberian mostrarse en patalla
     {
         resultText.text = mainExecuter.intList.ToString();
-    }
-
-    public void ArrayCount()
-    {
-
     }
 }
