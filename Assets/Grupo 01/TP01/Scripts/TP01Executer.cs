@@ -13,22 +13,17 @@ internal class TP01Execute : MonoBehaviour
 
     void Start()
     {
-        intList.Add(0);
-        intList.Add(1);
-        intList.Add(2);
-        intList.Add(6);
 
         texts = GameObject.FindGameObjectWithTag("resultText").GetComponent<TextRefresher>();  
         
-        ShowValueInConsole();
+        ShowValue();
         
     }
 
-    public void ShowValueInConsole() //Actuliza el array en consola y en escena
+    public void ShowValue() //Actuliza el array en consola y en escena
     {
         Debug.Log(intList.ToString());
 
-        //La funcion de texts no funcion actualmente
         texts.ArrayUpdate();
     }
 }

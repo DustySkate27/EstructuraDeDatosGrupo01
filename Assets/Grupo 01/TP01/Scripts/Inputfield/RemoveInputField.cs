@@ -25,6 +25,6 @@ public class RemoveInputField : MonoBehaviour, I_InputField
         int numberInt = Int32.Parse(number); //transforma el valor string del inputfield por un int
         mainExecuter.intList.Remove(numberInt);
 
-        mainExecuter.ShowValueInConsole();
+        mainExecuter.ShowValue();
     }
 }

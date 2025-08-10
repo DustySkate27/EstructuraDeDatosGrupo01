@@ -25,6 +25,6 @@ public class AddInputField : MonoBehaviour, I_InputField
         int numberInt = Int32.Parse(number); //transforma el valor string del inputfield por un int
         mainExecuter.intList.Add(numberInt);
 
-        mainExecuter.ShowValueInConsole();
+        mainExecuter.ShowValue();
     }
 }

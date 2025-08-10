@@ -82,26 +82,11 @@ namespace Assets.Script
 
         public void RemoveLastItem()
         {
-            if (arrayD[lastAddedIndex] == null) { return; }
-
             arrayD[lastAddedIndex] = default;
-
-            if (arrayD[lastAddedIndex] == null)
-            {
-                lastAddedIndex--;
-                return;
-            }
-            else
-                return;
         }
 
         public void Clear()
         {
-            for (int i = 0; i < arrayD.Length; i++)
-            {
-                arrayD[i] = default(T);
-            }
-
             arrayD = new T[4];
 
             lastAddedIndex = 0;
