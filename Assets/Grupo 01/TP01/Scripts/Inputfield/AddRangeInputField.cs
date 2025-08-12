@@ -33,7 +33,7 @@ public class AddRangeInputField : MonoBehaviour, I_InputField
 
         for (int i = 0; i < fullNumbers.Length; i++) //Convierte todos los valores de tipo string dentro del array en int
         {
-            addToArray[i] = Int32.Parse(fullNumbers[i]);
+            addToArray[i] = int.Parse(fullNumbers[i]);
         }
         mainExecuter.intList.AddRange(addToArray);
 

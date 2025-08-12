@@ -16,6 +16,8 @@ public interface ISimpleList<T>
     //Tambien devolver true si se pudo borrar un elemento, false si no
     public bool Remove(T item);
 
+    //Debe remover el ultimo elemento agregado al arrat.
+    //No funciona todavia
     public void RemoveLastItem();
 
     //Debe limpiar toda la lista

@@ -22,7 +22,7 @@ public class AddInputField : MonoBehaviour, I_InputField
 
     public void OnEndEditAction(string number) //toma el valor ingresado del inputfield
     {
-        int numberInt = Int32.Parse(number); //transforma el valor string del inputfield por un int
+        int numberInt = int.Parse(number); //transforma el valor string del inputfield por un int
         mainExecuter.intList.Add(numberInt);
 
         mainExecuter.ShowResult();

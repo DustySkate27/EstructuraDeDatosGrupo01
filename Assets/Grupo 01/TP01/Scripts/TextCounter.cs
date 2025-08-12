@@ -16,7 +16,6 @@ public class TextCounter : MonoBehaviour
 
     public void CounterUpdate() // Actualiza los resultado del arrey que deberian mostrarse en patalla
     {
-        Debug.Log("HOla");
         counterText.text = mainExecuter.intList.Count.ToString();
     }
 }

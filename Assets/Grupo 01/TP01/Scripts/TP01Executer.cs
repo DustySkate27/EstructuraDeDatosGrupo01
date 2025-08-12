@@ -20,8 +20,6 @@ internal class TP01Execute : MonoBehaviour
 
     public void ShowResult() //Actuliza el array en consola y en escena
     {
-        Debug.Log(intList.ToString());
-
         resultText.ArrayUpdate();
     }
 
