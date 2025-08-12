@@ -69,6 +69,8 @@ namespace Assets.Script
 
         public bool Remove(T item)
         {
+            int removedIndex = -1;
+
             for (int i = 0; i < arrayD.Length; i++)
             {
                 if (arrayD[i].Equals(item))
