@@ -1,4 +1,5 @@
 ﻿using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 
 namespace Assets.Script
 {
@@ -6,6 +7,7 @@ namespace Assets.Script
     {
         public T[] arrayD;
         int lastAddedIndex = 0;
+        int counter = 0;
         int arrayBaseLenght = 4;
 
         public SimpleList()
@@ -27,18 +29,23 @@ namespace Assets.Script
         {
             get
             {
-                return lastAddedIndex;
+                return counter;
             }
+        }
+
+        public int LastAddedIndex
+        {
+            get => lastAddedIndex;
         }
 
         public void Add(T item)
         {
-
-            if (lastAddedIndex >= arrayD.Length) //comprueba si el array dinamico esta lleno
+            if (counter >= arrayD.Length) //comprueba si el array dinamico esta lleno
                 ExpandArray();
 
-            arrayD[lastAddedIndex] = item;
-            lastAddedIndex++;
+            arrayD[counter] = item;
+            counter++;
+            lastAddedIndex = counter -1;
         }
 
         public void AddRange(T[] collection)
@@ -71,15 +78,58 @@ namespace Assets.Script
         {
             int removedIndex = -1;
 
+            #region position
+
             for (int i = 0; i < arrayD.Length; i++)
             {
                 if (arrayD[i].Equals(item))
                 {
-                    arrayD[i] = default;
-                    return true;
+                    removedIndex = i;
                 }
             }
-            return false;
+
+            #endregion
+
+            if (removedIndex != -1)
+            {
+                T[] auxiliar = new T[arrayD.Length];
+
+                for (int i = 0; i < arrayD.Length; i++)
+                {
+                    //copying the prevs
+                    if (i < removedIndex)
+                    {
+                        auxiliar[i] = arrayD[i];
+                    }
+
+                    //arrays tail
+                    if (i == arrayD.Length - 1)
+                    {
+                        counter--;
+                        break;
+                    }
+
+                    //copying the posts
+                    else if (i >= removedIndex)
+                    {
+                        auxiliar[i] = arrayD[i + 1];
+                    }
+
+                }
+
+                #region copy
+                arrayD = new T[counter];
+
+                for (int i = 0; i < arrayD.Length; i++)
+                {
+                    arrayD[i] = auxiliar[i];
+                }
+                #endregion
+
+                return true;
+            }
+            else
+                return false;
         }
 
         public void RemoveLastItem()
@@ -91,14 +141,14 @@ namespace Assets.Script
         {
             arrayD = new T[4];
 
-            lastAddedIndex = 0;
+            counter = 0;
         }
 
         public override string ToString()
         {
             string text = "";
 
-            for (int i = 0; i < lastAddedIndex; i++)
+            for (int i = 0; i < counter; i++)
                 text += arrayD[i].ToString() + ", ";
 
             return text;
