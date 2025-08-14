@@ -12,14 +12,31 @@ namespace MyLinkedList
     {
 
         private T value;
-        private int nextIndex, prevIndex, index;
+        private MyNode<T> prevNode, nextNode;
 
-        public MyNode(T value,int prevIndex, int nextIndex, int index)
+        public MyNode<T> PrevNode { 
+            get { return prevNode; }
+            set { prevNode = value; }
+        }
+
+        public MyNode<T> NextNode { 
+            get { return nextNode; }
+            set { nextNode = value; }
+        }
+
+        public T Value { 
+            get { return value; } 
+            set { this.value = Value; }    
+        }
+       
+
+
+        public MyNode(T value)
         {
             this.value = value;
-            this.index = index; 
-            this.nextIndex = nextIndex;
-            this.prevIndex = prevIndex;
+            nextNode = null;
+            prevNode = null;
+
         }
 
         public bool isEquals(T value)
