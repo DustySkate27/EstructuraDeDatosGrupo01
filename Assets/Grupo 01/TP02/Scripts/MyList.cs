@@ -139,9 +139,46 @@ public class MyList <T>
         }
     }
 
-    public void Insert(int index, T value) { }
+    public void Insert(int index, T value)
+    {
+        if(root == null)
+        {
+            root = new MyNode<T>(value);
+            tail = root;
+            counter = 1;
+        }
+        else
+        {
+            MyNode<T> auxNode = root;
 
-    //public bool IsEmpty() {  }
+            for (int i = 0;i <= index; i++)
+            {
+                if (i == index)
+                {
+                    MyNode<T> nextNode = auxNode.NextNode;
+                    MyNode<T> prevNode = auxNode.PrevNode;
+                    MyNode<T> insertingNode = new MyNode<T> (value);
+
+                    insertingNode.NextNode = nextNode;
+                    insertingNode.PrevNode = prevNode;
+                    nextNode.PrevNode = insertingNode;
+                    prevNode.NextNode = insertingNode;
+                    counter++;
+                    return;
+                }
+                else { auxNode = auxNode.NextNode; }
+            }
+        }
+    }
+
+    public bool IsEmpty()
+    {
+        if (root != null)
+        {
+            return true;
+        }
+        else return false;
+    }
 
     public void Clear()
     {
@@ -161,16 +198,17 @@ public class MyList <T>
         counter = 0;
     }
 
-    //public override string ToString()
-    //{
-    //    string text = "";
+    public override string ToString()
+    {
+        string text = "";
+        MyNode<T> auxNode = root;
 
-    //    for (int i = 0; i < counter; i++)
-    //        text += arrayD[i].ToString() + ", ";
+        for (int i = 0; i < counter; i++)
+            text += auxNode.Value.ToString() + ", ";
 
-    //    return text;
+        return text;
 
-    //}
+    }
 
 
 
