@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyLinkedList;
 using NUnit.Framework;
+using Unity.VisualScripting;
 
 
 
@@ -13,7 +15,6 @@ public class MyList <T>
     private MyNode<T> root;
     private MyNode<T> tail;
     private List<T> list;
-    private bool hasRoot = false;
     private int counter;
 
     public int Count { get => counter; }
@@ -67,12 +68,16 @@ public class MyList <T>
         {
             root = new MyNode<T>(value);
             tail = root;
+            counter = 1;
         }
         else
         {
             MyNode<T> nodeToAdd = new MyNode<T>(value);
-            nodeToAdd.PrevNode = tail;
-            tail = nodeToAdd;
+
+            nodeToAdd.PrevNode = tail; //points new node prev to tail
+            tail.NextNode = nodeToAdd; //points tails next to new node
+            tail = nodeToAdd; //equals tail to new node
+            counter++;
         }
     }
 
@@ -105,19 +110,56 @@ public class MyList <T>
                     auxNode.PrevNode.NextNode = auxNode.NextNode;
                     auxNode.NextNode.PrevNode = auxNode.PrevNode;
                     auxNode = null;
+                    counter--;
+                    return;
                 }
                 else { auxNode = auxNode.NextNode;}
             }
         }
     }
 
-    public void RemoveAt(int index) { }
+    public void RemoveAt(int index)
+    {
+        if (root != null)
+        {
+            MyNode<T> auxNode = root;
+
+            for(int i = 0; i <= index; i++)
+            {
+                if(i == index)
+                {
+                    auxNode.PrevNode.NextNode = auxNode.NextNode;
+                    auxNode.NextNode.PrevNode = auxNode.PrevNode;
+                    auxNode = null;
+                    counter--;
+                    return;
+                }
+                else { auxNode = auxNode.NextNode; }
+            }
+        }
+    }
 
     public void Insert(int index, T value) { }
 
     //public bool IsEmpty() {  }
 
-    public void Clear() { }
+    public void Clear()
+    {
+        MyNode<T> inClearNode = root;
+        MyNode<T> nextNodeToClear = null;
+
+        for(int i = 0; i < counter; i++)
+        {
+            nextNodeToClear = inClearNode.NextNode;
+            inClearNode.NextNode = null;
+            inClearNode.PrevNode = null;
+            inClearNode = null;
+
+            inClearNode = nextNodeToClear;
+        }
+
+        counter = 0;
+    }
 
     //public override string ToString()
     //{
