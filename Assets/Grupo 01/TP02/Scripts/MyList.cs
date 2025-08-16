@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using MyLinkedList;
 using NUnit.Framework;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
+using UnityEngine;
 
 
 
@@ -68,6 +70,8 @@ public class MyList <T>
         {
             root = new MyNode<T>(value);
             tail = root;
+            root.PrevNode = root;
+            root.NextNode = tail;
             counter = 1;
         }
         else
@@ -107,9 +111,35 @@ public class MyList <T>
             {
                 if (auxNode.isEquals(value))
                 {
-                    auxNode.PrevNode.NextNode = auxNode.NextNode;
-                    auxNode.NextNode.PrevNode = auxNode.PrevNode;
-                    auxNode = null;
+                    MyNode<T> nextNode = auxNode.NextNode;
+                    MyNode<T> prevNode = auxNode.PrevNode;
+
+                    if (counter == 1)
+                    {
+                        auxNode = null;
+                        root = null;
+                        tail = null;
+                    }
+                    else if (auxNode == root)
+                    {
+                        auxNode = auxNode.NextNode;
+                        auxNode.PrevNode = auxNode;
+                        root = auxNode;
+                    }
+                    else if (auxNode == tail)
+                    {
+                        auxNode = auxNode.PrevNode;
+                        auxNode.NextNode = auxNode;
+                        tail = auxNode;
+                    }
+                    else
+                    {
+                        nextNode.PrevNode = prevNode;
+                        prevNode.NextNode = nextNode;
+
+                        auxNode = null;
+                    }
+                        
                     counter--;
                     return;
                 }
@@ -120,6 +150,7 @@ public class MyList <T>
 
     public void RemoveAt(int index)
     {
+
         if (root != null)
         {
             MyNode<T> auxNode = root;
@@ -204,7 +235,10 @@ public class MyList <T>
         MyNode<T> auxNode = root;
 
         for (int i = 0; i < counter; i++)
+        {
             text += auxNode.Value.ToString() + ", ";
+            auxNode = auxNode.NextNode;
+        }
 
         return text;
 

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class TP02Executer : MonoBehaviour
 {
+    public MyList<string> myList = new MyList<string>();
+
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         
     }
@@ -14,5 +16,15 @@ public class TP02Executer : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ShowResult() //Actuliza el array en consola y en escena
+    {
+        ShowCount();
+    }
+
+    public void ShowCount()
+    {
+        Debug.Log(myList.ToString());
     }
 }
