@@ -5,25 +5,20 @@ using UnityEngine;
 public class TP02Executer : MonoBehaviour
 {
     public MyList<string> myList = new MyList<string>();
+    private TextRefreshTP02 resultText;
 
-    // Start is called before the first frame update
-    private void Awake()
+    void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        resultText = GameObject.FindGameObjectWithTag("resultText").GetComponent<TextRefreshTP02>();
     }
 
     public void ShowResult() //Actuliza el array en consola y en escena
     {
+        resultText.ArrayUpdate();
         ShowCount();
     }
 
-    public void ShowCount()
+    private void ShowCount()
     {
         Debug.Log(myList.ToString());
     }
