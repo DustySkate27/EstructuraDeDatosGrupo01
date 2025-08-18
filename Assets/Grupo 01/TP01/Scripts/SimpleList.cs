@@ -132,10 +132,13 @@ namespace Assets.Script
                 return false;
         }
 
+
+        #region unused
         public void RemoveLastItem()
         {
             arrayD[lastAddedIndex] = default;
         }
+        #endregion
 
         public void Clear()
         {
