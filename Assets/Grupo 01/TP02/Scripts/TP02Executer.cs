@@ -21,5 +21,9 @@ public class TP02Executer : MonoBehaviour
     private void ShowCount()
     {
         Debug.Log(myList.ToString());
+
+        Debug.Log(myList.IsEmpty());
+
+        Debug.Log(myList.Count);
     }
 }

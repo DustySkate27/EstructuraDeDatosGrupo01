@@ -9,6 +9,7 @@ using NUnit.Framework;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 
 
@@ -101,7 +102,7 @@ public class MyList <T>
         }
     }
 
-    public void Remove(T value)
+    public bool Remove(T value)
     {
         if (root != null)
         {
@@ -122,15 +123,13 @@ public class MyList <T>
                     }
                     else if (auxNode == root)
                     {
-                        auxNode = auxNode.NextNode;
-                        auxNode.PrevNode = auxNode;
-                        root = auxNode;
+                        root = auxNode.NextNode;
+                        auxNode = null;
                     }
                     else if (auxNode == tail)
                     {
-                        auxNode = auxNode.PrevNode;
-                        auxNode.NextNode = auxNode;
-                        tail = auxNode;
+                        tail = auxNode.PrevNode;
+                        auxNode = null;
                     }
                     else
                     {
@@ -141,11 +140,13 @@ public class MyList <T>
                     }
                         
                     counter--;
-                    return;
+                    return true;
                 }
                 else { auxNode = auxNode.NextNode;}
             }
         }
+
+        return false;
     }
 
     public void RemoveAt(int index)
@@ -157,13 +158,36 @@ public class MyList <T>
 
             for(int i = 0; i <= index; i++)
             {
-                if(i == index)
+                if (i == index)
                 {
-                    auxNode.PrevNode.NextNode = auxNode.NextNode;
-                    auxNode.NextNode.PrevNode = auxNode.PrevNode;
-                    auxNode = null;
+                    MyNode<T> nextNode = auxNode.NextNode;
+                    MyNode<T> prevNode = auxNode.PrevNode;
+
+                    if (counter == 1)
+                    {
+                        auxNode = null;
+                        root = null;
+                        tail = null;
+                    }
+                    else if (auxNode == root)
+                    {
+                        root = auxNode.NextNode;
+                        auxNode = null;
+                    }
+                    else if (auxNode == tail)
+                    {
+                        tail = auxNode.PrevNode;
+                        auxNode = null;
+                    }
+                    else
+                    {
+                        nextNode.PrevNode = prevNode;
+                        prevNode.NextNode = nextNode;
+
+                        auxNode = null;
+                    }
+
                     counter--;
-                    return;
                 }
                 else { auxNode = auxNode.NextNode; }
             }
@@ -178,6 +202,10 @@ public class MyList <T>
             tail = root;
             counter = 1;
         }
+        else if (index > counter - 2)
+        {
+            Debug.Log("Out of range");
+        }
         else
         {
             MyNode<T> auxNode = root;
@@ -186,14 +214,14 @@ public class MyList <T>
             {
                 if (i == index)
                 {
-                    MyNode<T> nextNode = auxNode.NextNode;
-                    MyNode<T> prevNode = auxNode.PrevNode;
+                    MyNode<T> siguiente = auxNode.NextNode;
+                    MyNode<T> anterior = auxNode.PrevNode;
                     MyNode<T> insertingNode = new MyNode<T> (value);
 
-                    insertingNode.NextNode = nextNode;
-                    insertingNode.PrevNode = prevNode;
-                    nextNode.PrevNode = insertingNode;
-                    prevNode.NextNode = insertingNode;
+                    siguiente.PrevNode = insertingNode;
+                    auxNode.NextNode = insertingNode;
+                    insertingNode.NextNode = siguiente;
+                    insertingNode.PrevNode = auxNode;
                     counter++;
                     return;
                 }
@@ -232,12 +260,21 @@ public class MyList <T>
     public override string ToString()
     {
         string text = "";
-        MyNode<T> auxNode = root;
+        MyNode<T> auxNode;
 
-        for (int i = 0; i < counter; i++)
+        if (counter == 0)
         {
-            text += auxNode.Value.ToString() + ", ";
-            auxNode = auxNode.NextNode;
+            text = "Is Empty";
+        }
+        else
+        {
+            auxNode = root;
+
+            for (int i = 0; i < counter; i++)
+            {
+                text += auxNode.Value.ToString() + ", ";
+                auxNode = auxNode.NextNode;
+            }
         }
 
         return text;

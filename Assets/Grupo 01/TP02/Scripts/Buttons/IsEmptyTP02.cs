@@ -27,5 +27,7 @@ public class IsEmptyTP02 : MonoBehaviour, IButtons
         mainExecuter.myList.IsEmpty();
 
         mainExecuter.ShowResult();
+
+        
     }
 }
