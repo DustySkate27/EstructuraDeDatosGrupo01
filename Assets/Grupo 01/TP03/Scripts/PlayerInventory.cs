@@ -2,11 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Items;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public Dictionary<int, Item> playerInventory = new Dictionary<int, Item>();
+    public Dictionary<int, IItem> playerInventory = new Dictionary<int, IItem>();
 
     public int Count
     {
@@ -15,9 +14,9 @@ public class PlayerInventory : MonoBehaviour
 
     public int QuantityChecker (int id) //checks for the quantity of the item the player owns
     {
-        if (playerInventory.TryGetValue(id, out Item item))
+        if (playerInventory.TryGetValue(id, out IItem item))
         {
-            return item.Quantity;
+            return item.quantity;
         }
         else
         {

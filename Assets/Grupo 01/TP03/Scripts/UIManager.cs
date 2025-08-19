@@ -7,7 +7,6 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> storeItems;
     [SerializeField] private List<GameObject> playerItems;
-    [SerializeField] private SimpleList<ItemSO> exampleItems;
 
     public void sellActivator(int id)
     {
