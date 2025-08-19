@@ -5,7 +5,7 @@ using Items;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public Dictionary<int, IItem> playerInventory = new Dictionary<int, IItem>();
+    public Dictionary<int, Item> playerInventory = new Dictionary<int, Item>();
 
     public int Count
     {
@@ -14,9 +14,9 @@ public class PlayerInventory : MonoBehaviour
 
     public int QuantityChecker (int id) //checks for the quantity of the item the player owns
     {
-        if (playerInventory.TryGetValue(id, out IItem item))
+        if (playerInventory.TryGetValue(id, out Item item))
         {
-            return item.quantity;
+            return item.Quantity;
         }
         else
         {

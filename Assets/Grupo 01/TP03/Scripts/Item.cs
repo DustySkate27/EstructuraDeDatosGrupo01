@@ -4,19 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEngine;
 
 
 namespace Items
 {
-    public interface IItem
+    public abstract class Item
     {
-        int id { get;}
-        string name { get; }
-        int price { get; }
-        int quantity { get; set; }
-        int rarity { get; }
-        string type { get; }
+        public abstract int id { get;}
+        public abstract string name { get; }
+        public abstract int price { get; }
 
-        string ToString();
+        private readonly int quantity;
+        public abstract int Quantity { get; set; }
+        public abstract int rarity { get; }
+        public abstract string type { get; }
+
     }
 }

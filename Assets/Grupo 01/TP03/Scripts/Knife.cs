@@ -5,19 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using Items;
 
-public class Knife : IItem
+public class Knife : Item
 {
-    public int id => 01100;
+    public override int id => 01100;
 
-    public string name => "Knife";
+    public override string name => "Knife";
 
-    public int price => 10;
+    public override int price => 10;
 
-    public int rarity => 00;
+    public override int rarity => 00;
 
-    public string type => "Melee";
+    public override string type => "Melee";
 
-    public int quantity
+    private int quantity;
+
+    public override int Quantity
     {
         get => quantity;
         set => quantity = value;

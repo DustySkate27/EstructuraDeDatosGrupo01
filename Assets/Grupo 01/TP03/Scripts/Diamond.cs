@@ -7,19 +7,21 @@ using System.Xml.Linq;
 using Items;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
-public class Diamond : IItem
+public class Diamond : Item
 {
-    public int id => 04503;
+    public override int id => 04503;
 
-    public string name => "Diamond";
+    public override string name => "Diamond";
 
-    public int price => 50;
+    public override int price => 50;
 
-    public int rarity => 03;
+    public override int rarity => 03;
 
-    public string type => "Collectible";
+    public override string type => "Collectible";
 
-    public int quantity
+    private int quantity;
+
+    public override int Quantity
     {
         get => quantity;
         set => quantity = value;
