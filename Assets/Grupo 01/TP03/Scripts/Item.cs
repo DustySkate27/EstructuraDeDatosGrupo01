@@ -9,16 +9,14 @@ using UnityEngine;
 
 namespace Items
 {
-    public abstract class Item
+    public interface IItem
     {
-        public abstract int id { get;}
-        public abstract string name { get; }
-        public abstract int price { get; }
-
-        private readonly int quantity;
-        public abstract int Quantity { get; set; }
-        public abstract int rarity { get; }
-        public abstract string type { get; }
+        int id { get; }
+        string name { get; }
+        int price { get; }
+        int quantity { get; set; }
+        int rarity { get; }
+        string type { get; }
 
     }
 }

@@ -12,7 +12,7 @@ public class TP03Executer : MonoBehaviour
 
     public void BuyItem(int id, int price)
     {
-        if(storeStock.stockIn.TryGetValue(id, out Item item) /*&& MoneyManager.Instance.Money > price*/)
+        if(storeStock.stockIn.TryGetValue(id, out Item item) && MoneyManager.Instance.Money > price)
         {
             switch (inventory.QuantityChecker(id))
             {

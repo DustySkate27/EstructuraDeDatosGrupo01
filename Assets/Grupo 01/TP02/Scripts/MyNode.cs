@@ -14,20 +14,11 @@ namespace MyLinkedList
         private T value;
         private MyNode<T> prevNode, nextNode;
 
-        public MyNode<T> PrevNode { 
-            get { return prevNode; }
-            set { prevNode = value; }
-        }
+        public MyNode<T> PrevNode;
 
-        public MyNode<T> NextNode { 
-            get { return nextNode; }
-            set { nextNode = value; }
-        }
+        public MyNode<T> NextNode;
 
-        public T Value { 
-            get { return value; } 
-            set { this.value = Value; }    
-        }
+        public T Value;
        
 
 

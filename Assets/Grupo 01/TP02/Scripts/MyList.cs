@@ -94,7 +94,7 @@ public class MyList <T>
         }
     }
 
-    public void AddRange(MyList<T> values)
+    public void AddRange(MyList<T> values) //Podria haberse hecho conectando el ultimo con el nuevo.
     { 
         for (int i = 0;i < values.Count; i++)
         {
@@ -202,9 +202,13 @@ public class MyList <T>
             tail = root;
             counter = 1;
         }
-        else if (index > counter - 2)
+        else if (index == counter)
         {
-            Debug.Log("Out of range");
+            Add(value);
+        }
+        else if (index > counter || index < 0)
+        {
+            throw new IndexOutOfRangeException();
         }
         else
         {
@@ -214,13 +218,13 @@ public class MyList <T>
             {
                 if (i == index)
                 {
-                    MyNode<T> siguiente = auxNode.NextNode;
-                    MyNode<T> anterior = auxNode.PrevNode;
+                    MyNode<T> next = auxNode.NextNode;
+                    MyNode<T> prev = auxNode.PrevNode;
                     MyNode<T> insertingNode = new MyNode<T> (value);
 
-                    siguiente.PrevNode = insertingNode;
+                    next.PrevNode = insertingNode;
                     auxNode.NextNode = insertingNode;
-                    insertingNode.NextNode = siguiente;
+                    insertingNode.NextNode = next;
                     insertingNode.PrevNode = auxNode;
                     counter++;
                     return;

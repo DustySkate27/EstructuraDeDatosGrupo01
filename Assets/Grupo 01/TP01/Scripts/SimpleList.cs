@@ -1,7 +1,7 @@
 ﻿using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 
-namespace Assets.Script
+namespace SimpleListLibrary
 {
     public class SimpleList<T> : ISimpleList<T>
     {
