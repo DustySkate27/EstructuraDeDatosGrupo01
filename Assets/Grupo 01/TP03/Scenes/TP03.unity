@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 269.75378, y: 0}
+  m_AnchoredPosition: {x: 269.75378, y: -38}
   m_SizeDelta: {x: 129.292, y: 129.292}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &178392541
@@ -252,6 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ae870e65e4b2d4ebb7ac7ae8363217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activateButton: {fileID: 450604462}
   item: {fileID: 11400000, guid: 2bc8d2bc8e9f40b419d2107da99445d1, type: 2}
   TP03Executer: {fileID: 974312775}
 --- !u!1 &285637688
@@ -270,7 +271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &285637689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,6 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 2bc8d2bc8e9f40b419d2107da99445d1, type: 2}
+  activateButton: {fileID: 178392541}
   TP03Executer: {fileID: 974312775}
 --- !u!1 &494709365
 GameObject:
@@ -479,7 +481,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -99.53653, y: 0}
+  m_AnchoredPosition: {x: -99.53653, y: 16}
   m_SizeDelta: {x: 129.292, y: 129.292}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &494709367
@@ -546,7 +548,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4581605816881528996, guid: fcb33dd7a534d904c9a437a82eba64ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fcb33dd7a534d904c9a437a82eba64ff, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -576,6 +578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ae870e65e4b2d4ebb7ac7ae8363217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activateButton: {fileID: 1157208265}
   item: {fileID: 11400000, guid: 3f521d57ae5febf4abdea51c24dae030, type: 2}
   TP03Executer: {fileID: 974312775}
 --- !u!1 &716580864
@@ -822,6 +825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 10e9b4deebf35714fa365b8b94a6eb7e, type: 2}
+  activateButton: {fileID: 2015093360}
   TP03Executer: {fileID: 974312775}
 --- !u!1 &887060521
 GameObject:
@@ -926,7 +930,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1007848829192211098, guid: e0502a4f0b0c3464686a4093d9764e2c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0502a4f0b0c3464686a4093d9764e2c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -957,6 +961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 313bcfc58e45a2b4097465023ad50e71, type: 2}
+  activateButton: {fileID: 1752608023}
   TP03Executer: {fileID: 974312775}
 --- !u!1 &974312774
 GameObject:
@@ -989,7 +994,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storeStock: {fileID: 1581020511}
   inventory: {fileID: 1637849011}
-  uiManager: {fileID: 285637689}
 --- !u!4 &974312776
 Transform:
   m_ObjectHideFlags: 0
@@ -1108,7 +1112,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4581605816881528996, guid: fcb33dd7a534d904c9a437a82eba64ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fcb33dd7a534d904c9a437a82eba64ff, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1139,6 +1143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 3f521d57ae5febf4abdea51c24dae030, type: 2}
+  activateButton: {fileID: 494709367}
   TP03Executer: {fileID: 974312775}
 --- !u!1 &1344698921
 GameObject:
@@ -1276,11 +1281,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28bc2f2b4c453464e9fc4f11dd1f3431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxQuantity: 3
-  knife: {fileID: 0}
-  skull: {fileID: 0}
-  potion: {fileID: 0}
-  diamond: {fileID: 0}
+  itemLister: {fileID: 11400000, guid: 80bef167e33925a4780e97676e22ab0a, type: 2}
+  maxQuantity: 6
 --- !u!1 &1637849010
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,7 +1363,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -266, y: 0}
+  m_AnchoredPosition: {x: -266, y: -38}
   m_SizeDelta: {x: 129.292, y: 129.292}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1752608023
@@ -1428,7 +1430,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1007848829192211098, guid: e0502a4f0b0c3464686a4093d9764e2c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0502a4f0b0c3464686a4093d9764e2c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1458,6 +1460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ae870e65e4b2d4ebb7ac7ae8363217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activateButton: {fileID: 887060524}
   item: {fileID: 11400000, guid: 313bcfc58e45a2b4097465023ad50e71, type: 2}
   TP03Executer: {fileID: 974312775}
 --- !u!1 &1823519158
@@ -1632,14 +1635,14 @@ RectTransform:
   m_GameObject: {fileID: 2015093358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.94697, y: 0.94697, z: 0.94697}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 716580868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 86.32074, y: 0}
+  m_AnchoredPosition: {x: 86.32074, y: 16}
   m_SizeDelta: {x: 129.292, y: 129.292}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2015093360
@@ -1736,6 +1739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ae870e65e4b2d4ebb7ac7ae8363217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activateButton: {fileID: 853163748}
   item: {fileID: 11400000, guid: 10e9b4deebf35714fa365b8b94a6eb7e, type: 2}
   TP03Executer: {fileID: 974312775}
 --- !u!1 &2036851940

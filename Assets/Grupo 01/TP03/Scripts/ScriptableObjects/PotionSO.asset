@@ -16,4 +16,4 @@ MonoBehaviour:
   price: 35
   rarity: 2
   type: Consumable
-  quantity: 3
+  quantity: 0

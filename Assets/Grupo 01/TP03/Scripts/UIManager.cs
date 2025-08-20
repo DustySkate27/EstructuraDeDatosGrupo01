@@ -17,10 +17,12 @@ public class UIManager : MonoBehaviour
                 if (storeItems[0].activeSelf == true)
                 {
                     break;
+                    
                 }
                 else
                 {
                     storeItems[0].SetActive(true);
+
                     break;
 
 

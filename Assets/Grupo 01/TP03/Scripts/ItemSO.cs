@@ -17,6 +17,7 @@ public class ItemSO : ScriptableObject
 
     public int quantity;
 
+
     public ItemSO(int id, int price, int rarity, string type, int quantity)
     {
         this.id = id;
