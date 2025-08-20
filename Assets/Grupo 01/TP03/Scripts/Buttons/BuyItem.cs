@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PotionSellButton : MonoBehaviour
+public class BuyItem : MonoBehaviour
 {
     private Button button;
+    [SerializeField] ItemSO item;
     [SerializeField] TP03Executer TP03Executer;
 
     // Start is called before the first frame update
@@ -17,6 +18,6 @@ public class PotionSellButton : MonoBehaviour
 
     public void OnClick()
     {
-        TP03Executer.SellItem(03352, 10);
+        TP03Executer.BuyItem(item.id, item.price);
     }
 }

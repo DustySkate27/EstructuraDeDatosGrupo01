@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e3f953512bc7ed43b2ab5e18aff3ebf, type: 3}
   m_Name: KnifeSO
   m_EditorClassIdentifier: 
+  id: 1100
+  price: 10
+  rarity: 0
+  type: Weapon
+  quantity: 3

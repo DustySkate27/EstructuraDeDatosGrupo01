@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e3f953512bc7ed43b2ab5e18aff3ebf, type: 3}
   m_Name: PotionSO
   m_EditorClassIdentifier: 
+  id: 23502
+  price: 35
+  rarity: 2
+  type: Consumable
+  quantity: 3

@@ -11,7 +11,7 @@ public class TP03Executer : MonoBehaviour
 
     public void BuyItem(int id, int price)
     {
-        if(storeStock.stockIn.TryGetValue(id, out IItem item) && MoneyManager.Instance.Money > price)
+        if(storeStock.stockIn.TryGetValue(id, out ItemSO item) && MoneyManager.Instance.Money > price)
         {
             switch (inventory.QuantityChecker(id))
             {
@@ -43,7 +43,7 @@ public class TP03Executer : MonoBehaviour
 
     public void SellItem(int id, int price)
     {
-        if (inventory.playerInventory.TryGetValue(id, out IItem item))
+        if (inventory.playerInventory.TryGetValue(id, out ItemSO item))
         {
             switch (inventory.QuantityChecker(id))
             {

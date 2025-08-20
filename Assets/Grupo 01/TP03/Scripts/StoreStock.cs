@@ -9,21 +9,21 @@ using UnityEngine.UI;
 
 public class StoreStock : MonoBehaviour
 {
-    public Dictionary<int, IItem> stockIn = new Dictionary<int, IItem>();
+    public Dictionary<int, ItemSO> stockIn = new Dictionary<int, ItemSO>();
     public int maxQuantity = 3;
 
-    public IItem knife;
-    public IItem skull;
-    public IItem potion;
-    public IItem diamond;
+    public ItemSO knife;
+    public ItemSO skull;
+    public ItemSO potion;
+    public ItemSO diamond;
     
 
     public void Awake()
     {
-        knife = new ItemSO(01100, 10, 00, "Weapon", maxQuantity);
-        skull = new ItemSO(11501, 15, 01, "Collectible", maxQuantity);
-        potion = new ItemSO(23502, 35, 02, "Consumable", maxQuantity);
-        diamond = new ItemSO(35003, 50, 03, "Treasure", maxQuantity);
+        knife = new ItemSO(01100, 10, 0, "Weapon", maxQuantity);
+        skull = new ItemSO(11501, 15, 1, "Collectible", maxQuantity);
+        potion = new ItemSO(23502, 35, 2, "Consumable", maxQuantity);
+        diamond = new ItemSO(35003, 50, 3, "Treasure", maxQuantity);
 
         stockIn.Add(knife.id, knife);
         stockIn.Add(potion.id, potion); 

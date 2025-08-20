@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e3f953512bc7ed43b2ab5e18aff3ebf, type: 3}
   m_Name: DIamondSO
   m_EditorClassIdentifier: 
+  id: 35003
+  price: 50
+  rarity: 3
+  type: Treasure
+  quantity: 3

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkullSellButton : MonoBehaviour
+public class SellItem : MonoBehaviour
 {
     private Button button;
+    [SerializeField] private ItemSO item;
     [SerializeField] TP03Executer TP03Executer;
 
     // Start is called before the first frame update
@@ -17,6 +18,6 @@ public class SkullSellButton : MonoBehaviour
 
     public void OnClick()
     {
-        TP03Executer.SellItem(02151, 15);
+        TP03Executer.SellItem(item.id, item.price);
     }
 }
