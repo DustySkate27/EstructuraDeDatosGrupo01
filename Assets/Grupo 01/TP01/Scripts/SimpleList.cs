@@ -32,7 +32,7 @@ namespace SimpleListLibrary
                 return counter;
             }
         }
-
+       
         public int LastAddedIndex
         {
             get => lastAddedIndex;
@@ -130,6 +130,43 @@ namespace SimpleListLibrary
             }
             else
                 return false;
+        }
+
+        public void RemoveAt(int index)
+        {                  
+            T[] auxiliar = new T[arrayD.Length];
+
+            for (int i = 0; i < arrayD.Length; i++)
+            {
+                //copying the prevs
+                if (i < index)
+                {
+                    auxiliar[i] = arrayD[i];
+                }
+
+
+                //copying the posts
+                else if (i >= index)
+                {
+                    auxiliar[i] = arrayD[i + 1];
+                }
+
+                //arrays tail
+                if (i == arrayD.Length - 1)
+                {
+                    counter--;
+                    break;
+                }
+            }
+            #region copy
+            arrayD = new T[counter];
+
+            for (int i = 0; i < arrayD.Length; i++)
+            {
+                arrayD[i] = auxiliar[i];
+            }
+            #endregion
+          
         }
 
 
