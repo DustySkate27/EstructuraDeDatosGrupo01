@@ -3,6 +3,7 @@ using SimpleListLibrary;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Text;
 using UnityEngine;
 
 
@@ -14,6 +15,11 @@ public class MyQueue<T>
     {
         queue = new SimpleList<T>();
         queue.Add(value);
+    }
+
+    public MyQueue()
+    {
+        queue = new SimpleList<T>();
     }
 
     public void Enqueue(T value)
@@ -73,10 +79,26 @@ public class MyQueue<T>
         }
         return auxArray;
     }
-    public string ToString(SimpleList<T> stack)
+    public string ToString()
     {
-        return stack.ToString();
+        //return stack.ToString();
+
+        string result = "";
+
+        for (int i = 0; i < queue.Count; i++)
+        {
+            result += queue[i].ToString();
+
+            if (i < queue.Count - 1)
+            {
+                result += ", ";
+            }
+        }
+
+        return result;
     }
 
+    public int Count { get { return queue.Count; } }
 }
+
 
