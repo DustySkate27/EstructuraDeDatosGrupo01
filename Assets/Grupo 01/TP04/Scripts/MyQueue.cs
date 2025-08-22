@@ -1,67 +1,68 @@
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using SimpleListLibrary;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class MyStack<T>
+
+public class MyQueue<T>
 {
-    private SimpleList<T> stack;
+     private SimpleList<T> queue;
 
-    public MyStack(T value)
+    public MyQueue(T value)
     {
-        stack = new SimpleList<T>();
-        stack.Add(value);
+        queue = new SimpleList<T>();
+        queue.Add(value);
     }
 
-    public void Push(T value)
+    public void Enqueue(T value)
     {
-        stack.Add(value);
+        queue.Add(value);
     }
 
-    public T Pop()
+    public T Dequeue()
     {
-        T value = stack[stack.Count - 1];
-        stack.RemoveAt(stack.Count - 1);
-        Debug.Log("Popped");
+        T value = queue[0];
+        queue.RemoveAt(0);
+        Debug.Log("Dequeued");
         return value;
     }
-    public bool TryPop(out T value)
+    public bool TryDequeue(out T value)
     {
-        if (stack.Count == 0)
+        if (queue.Count == 0)
         {
             value = default(T);
             return false;
         }
         else
         {
-            value = stack[stack.Count - 1];
-            stack.RemoveAt(stack.Count - 1);
-            Debug.Log("Popped");
+            value = queue[0];
+            queue.RemoveAt(0);
+            Debug.Log("Dequeued");
             return true;
         }
     }
     public T Peek()
     {
-        return stack[stack.Count - 1];
+        return queue[0];
     }
     public bool TryPeek(out T value)
     {
-        if (stack.Count == 0)
+        if (queue.Count == 0)
         {
             value = default(T);
             return false;
         }
         else
         {
-            value = stack[stack.Count - 1];
+            value = queue[0];
             return true;
         }
     }
     public void Clear()
     {
-        stack.Clear();
+        queue.Clear();
     }
     public T[] ToArray(SimpleList<T> stack)
     {
@@ -76,4 +77,6 @@ public class MyStack<T>
     {
         return stack.ToString();
     }
+
 }
+
