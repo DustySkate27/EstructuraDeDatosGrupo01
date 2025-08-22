@@ -143,14 +143,11 @@ namespace SimpleListLibrary
                 {
                     auxiliar[i] = arrayD[i];
                 }
-
-
                 //copying the posts
                 else if (i >= index)
                 {
                     auxiliar[i] = arrayD[i + 1];
                 }
-
                 //arrays tail
                 if (i == arrayD.Length - 1)
                 {

@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         queue.Enqueue(targetPosition);
-        //Debug.Log(queue.ToString());
+        Debug.Log(queue.ToString());
 
         transform.position = targetPosition;
         isMoving = false;
@@ -85,14 +85,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void ReplayMovements()
     {
-        for (int i = 0; i <= queue.Count; i++)
+        for (int i = 0; i < queue.Count; i++)
         {
             currentTime += Time.deltaTime;
 
             if (currentTime >= moveTime)
             {
-                //transform.position = queue.Dequeue();
-                currentTime = 0;
+                if (queue.TryDequeue(out targetPosition) && queue.Count != 0)
+                {
+                    transform.position = targetPosition;
+                    Debug.Log("moved");
+                    currentTime = 0;
+                }
+                else
+                {
+                    Debug.Log("queue ended");
+                }
             }
         }
     }

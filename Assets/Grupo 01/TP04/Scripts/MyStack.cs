@@ -72,7 +72,7 @@ public class MyStack<T>
         }
         return auxArray;
     }
-    public string ToString(SimpleList<T> stack)
+    public override string ToString()
     {
         return stack.ToString();
     }

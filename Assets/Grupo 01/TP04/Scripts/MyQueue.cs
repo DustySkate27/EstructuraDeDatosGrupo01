@@ -9,13 +9,7 @@ using UnityEngine;
 
 public class MyQueue<T>
 {
-     private SimpleList<T> queue;
-
-    public MyQueue(T value)
-    {
-        queue = new SimpleList<T>();
-        queue.Add(value);
-    }
+    private SimpleList<T> queue;
 
     public MyQueue()
     {
@@ -70,32 +64,18 @@ public class MyQueue<T>
     {
         queue.Clear();
     }
-    public T[] ToArray(SimpleList<T> stack)
+    public T[] ToArray(SimpleList<T> queue)
     {
-        T[] auxArray = new T[stack.Count];
-        for (int i = 0; i < stack.Count; i++)
+        T[] auxArray = new T[queue.Count];
+        for (int i = 0; i < queue.Count; i++)
         {
-            auxArray[i] = stack[i];
+            auxArray[i] = queue[i];
         }
         return auxArray;
     }
-    public string ToString()
+    public override string ToString()
     {
-        //return stack.ToString();
-
-        string result = "";
-
-        for (int i = 0; i < queue.Count; i++)
-        {
-            result += queue[i].ToString();
-
-            if (i < queue.Count - 1)
-            {
-                result += ", ";
-            }
-        }
-
-        return result;
+        return queue.ToString();
     }
 
     public int Count { get { return queue.Count; } }
