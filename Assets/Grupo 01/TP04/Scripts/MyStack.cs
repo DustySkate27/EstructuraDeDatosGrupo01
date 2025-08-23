@@ -3,6 +3,7 @@ using SimpleListLibrary;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UnityEditor.Search;
 using UnityEngine;
 
 public class MyStack<T>
@@ -13,6 +14,11 @@ public class MyStack<T>
     {
         stack = new SimpleList<T>();
         stack.Add(value);
+    }
+
+    public MyStack()
+    {
+        stack = new SimpleList<T>();
     }
 
     public void Push(T value)
@@ -76,4 +82,6 @@ public class MyStack<T>
     {
         return stack.ToString();
     }
+
+    public int Count { get { return stack.Count; } }
 }
