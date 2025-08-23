@@ -14,12 +14,15 @@ public class PlayerMovement : MonoBehaviour
 
     private bool playerTurn = true;
     private Vector2 originalPosition;
+    private Vector2 spawnPosition;
 
     private MyQueue<Vector2> queue = new MyQueue<Vector2>();
 
     private void Awake()
     {
         originalPosition = transform.position;
+        spawnPosition = transform.position;
+        queue.Enqueue(originalPosition);
     }
 
     private void Update()
@@ -37,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            transform.position = originalPosition;
+            
             ReplayMovements();
         }
     }
@@ -85,24 +88,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void ReplayMovements()
     {
-        for (int i = 0; i < queue.Count; i++)
-        {
-            currentTime += Time.deltaTime;
 
-            if (currentTime >= moveTime)
+        currentTime += Time.deltaTime;
+
+        if (currentTime >= 0.25f)
+        {
+            if (queue.Count != 0)
             {
-                if (queue.TryDequeue(out targetPosition) && queue.Count != 0)
-                {
-                    transform.position = targetPosition;
-                    Debug.Log("moved");
-                    currentTime = 0;
-                }
-                else
-                {
-                    Debug.Log("queue ended");
-                }
+                transform.position = queue.Dequeue();
+                Debug.Log(queue.ToString());
+                currentTime = 0;
+            }
+            else
+            {
+                Debug.Log("queue ended");
             }
         }
+        
     }
 
     private void OnDrawGizmos()
@@ -117,12 +119,20 @@ public class PlayerMovement : MonoBehaviour
             if (playerTurn)
             {
                 playerTurn = false;
-                Debug.Log(originalPosition);
+                //Debug.Log(originalPosition);
             }
             else
             {
                 playerTurn = true;
+                Reset();
             }
+            transform.position = spawnPosition;
         }
+    }
+
+    private void Reset()
+    {
+        queue.Clear();
+
     }
 }

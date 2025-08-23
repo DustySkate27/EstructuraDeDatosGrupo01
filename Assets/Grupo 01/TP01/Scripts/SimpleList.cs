@@ -132,38 +132,51 @@ namespace SimpleListLibrary
                 return false;
         }
 
-        public void RemoveAt(int index)
-        {                  
-            T[] auxiliar = new T[arrayD.Length];
+        public bool RemoveAt(int index)
+        {
+            int removedIndex = index;
 
-            for (int i = 0; i < arrayD.Length; i++)
+            if (removedIndex != -10)
             {
-                //copying the prevs
-                if (i < index)
-                {
-                    auxiliar[i] = arrayD[i];
-                }
-                //copying the posts
-                else if (i >= index)
-                {
-                    auxiliar[i] = arrayD[i + 1];
-                }
-                //arrays tail
-                if (i == arrayD.Length - 1)
-                {
-                    counter--;
-                    break;
-                }
-            }
-            #region copy
-            arrayD = new T[counter];
+                T[] auxiliar = new T[arrayD.Length];
 
-            for (int i = 0; i < arrayD.Length; i++)
-            {
-                arrayD[i] = auxiliar[i];
+                for (int i = 0; i < arrayD.Length; i++)
+                {
+                    //copying the prevs
+                    if (i < removedIndex)
+                    {
+                        auxiliar[i] = arrayD[i];
+                    }
+
+                    //arrays tail
+                    if (i == arrayD.Length - 1)
+                    {
+                        counter--;
+                        break;
+                    }
+
+                    //copying the posts
+                    else if (i >= removedIndex)
+                    {
+                        auxiliar[i] = arrayD[i + 1];
+                    }
+
+                }
+
+                #region copy
+                arrayD = new T[counter];
+
+                for (int i = 0; i < arrayD.Length; i++)
+                {
+                    arrayD[i] = auxiliar[i];
+                }
+                #endregion
+
+                return true;
             }
-            #endregion
-          
+            else
+                return false;
+
         }
 
 
