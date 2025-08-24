@@ -43,6 +43,11 @@ namespace SimpleListLibrary
             if (counter >= arrayD.Length) //comprueba si el array dinamico esta lleno
                 ExpandArray();
 
+            if (arrayD.Length <= 0)
+            {
+                arrayD = new T[arrayBaseLenght];
+            }
+
             arrayD[counter] = item;
             counter++;
             lastAddedIndex = counter -1;
