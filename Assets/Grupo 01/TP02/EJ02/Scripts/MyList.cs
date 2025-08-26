@@ -71,8 +71,6 @@ public class MyList <T>
         {
             root = new MyNode<T>(value);
             tail = root;
-            //root.PrevNode = root;
-            //root.NextNode = tail;
         }
         else
         {
@@ -259,6 +257,8 @@ public class MyList <T>
             inClearNode = nextNodeToClear;
         }
 
+        root = null;
+        
         counter = 0;
     }
 
