@@ -18,7 +18,10 @@ namespace MyLinkedList
 
         public MyNode<T> NextNode;
 
-        public T Value;
+        public T Value {
+            get => value;
+            set => this.value = value;
+        }
        
 
 
@@ -40,12 +43,7 @@ namespace MyLinkedList
 
         public override string ToString()
         {
-            string text = "";
-
-            text += value.ToString();
-
-            return text;
-
+            return value.ToString();
         }
     }
 }

@@ -71,9 +71,8 @@ public class MyList <T>
         {
             root = new MyNode<T>(value);
             tail = root;
-            root.PrevNode = root;
-            root.NextNode = tail;
-            counter = 1;
+            //root.PrevNode = root;
+            //root.NextNode = tail;
         }
         else
         {
@@ -82,8 +81,10 @@ public class MyList <T>
             nodeToAdd.PrevNode = tail; //points new node prev to tail
             tail.NextNode = nodeToAdd; //points tails next to new node
             tail = nodeToAdd; //equals tail to new node
-            counter++;
         }
+        Debug.Log(root == null);
+        Debug.Log(root.Value);
+        counter++;
     }
 
     public void AddRange(T[] values) 
@@ -276,6 +277,8 @@ public class MyList <T>
 
             for (int i = 0; i < counter; i++)
             {
+                Debug.Log(text == null);
+                Debug.Log(auxNode == null);
                 text += auxNode.Value.ToString() + ", ";
                 auxNode = auxNode.NextNode;
             }
