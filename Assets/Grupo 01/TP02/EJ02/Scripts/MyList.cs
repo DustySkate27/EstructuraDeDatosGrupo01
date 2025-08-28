@@ -306,26 +306,30 @@ public class MyList <T>
             }
         }
     }
+    */
 
     public void BubbleSort()
     {
-        for (int i = 0; i < list.Count; i++)
+        for (int i = 0; i < counter; i++)
         {
-            for (int j = 0; j < list.Count - i - 1; j++)
-            {
-                int auxValueJ = int.Parse(list[j].ToString());
-                int auxValueJ2 = int.Parse(list[j + 1].ToString());
+            MyNode<T> auxNode = root;
 
-                if (auxValueJ > auxValueJ2)
+            for (int j = 0; j < counter - i - 1; j++)
+            {
+                int auxValue = int.Parse(auxNode.Value.ToString());
+                int nextValue = int.Parse(auxNode.NextNode.Value.ToString());
+
+                if (auxValue > nextValue)
                 {
-                    T auxCopyValue = list[j];
-                    list[j] = list[j + 1];
-                    list[j + 1] = auxCopyValue;
+                    MyNode<T> copyNode = null;
+                    copyNode.Value = auxNode.NextNode.Value;
+                    auxNode.NextNode.Value = auxNode.Value;
+                    auxNode.Value = copyNode.Value;
                 }
+                auxNode = auxNode.NextNode;
             }
         }
     }
-    */
 }
 
 

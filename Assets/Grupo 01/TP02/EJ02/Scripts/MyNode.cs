@@ -12,13 +12,13 @@ namespace MyLinkedList
     {
 
         private T value;
-        private MyNode<T> prevNode, nextNode;
 
-        public MyNode<T> PrevNode ;
+        public MyNode<T> PrevNode;
 
-        public MyNode<T> NextNode ;
+        public MyNode<T> NextNode;
 
-        public T Value {
+        public T Value 
+        {
             get => value;
             set => this.value = value;
         }
@@ -28,8 +28,8 @@ namespace MyLinkedList
         public MyNode(T value)
         {
             this.value = value;
-            nextNode = null;
-            prevNode = null;
+            NextNode = null;
+            PrevNode = null;
 
         }
 
