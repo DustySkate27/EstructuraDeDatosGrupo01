@@ -17,7 +17,7 @@ public class MyList <T>
  {
     private MyNode<T> root;
     private MyNode<T> tail;
-    private List<T> list;
+   // private List<T> list;
     private int counter;
 
     public int Count { get => counter; }
@@ -62,7 +62,7 @@ public class MyList <T>
 
     public MyList()
     {
-        list = new List<T>();
+        //list = new List<T>();
     }
 
     public void Add(T value) 
@@ -285,10 +285,47 @@ public class MyList <T>
         }
 
         return text;
+    }
+    /*
+    public void SelectionSort()
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            int auxValueI = int.Parse(list[i].ToString());
 
+            for (int j = 0; j < list.Count - 1; j++)
+            {
+                int auxValueJ = int.Parse(list[j].ToString());
+
+                if (auxValueI > auxValueJ)
+                {
+                    T auxCopyValue = list[i];
+                    list[i] = list[j];
+                    list[j] = auxCopyValue;
+                }
+            }
+        }
     }
 
+    public void BubbleSort()
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            for (int j = 0; j < list.Count - i - 1; j++)
+            {
+                int auxValueJ = int.Parse(list[j].ToString());
+                int auxValueJ2 = int.Parse(list[j + 1].ToString());
 
-
+                if (auxValueJ > auxValueJ2)
+                {
+                    T auxCopyValue = list[j];
+                    list[j] = list[j + 1];
+                    list[j + 1] = auxCopyValue;
+                }
+            }
+        }
+    }
+    */
 }
+
 

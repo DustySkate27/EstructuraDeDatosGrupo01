@@ -14,9 +14,9 @@ namespace MyLinkedList
         private T value;
         private MyNode<T> prevNode, nextNode;
 
-        public MyNode<T> PrevNode;
+        public MyNode<T> PrevNode ;
 
-        public MyNode<T> NextNode;
+        public MyNode<T> NextNode ;
 
         public T Value {
             get => value;

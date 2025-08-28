@@ -210,5 +210,44 @@ namespace SimpleListLibrary
 
         }
 
+        public void SelectionSort()
+        {
+            for (int i = 0; i < arrayD.Length; i++)
+            {
+                int auxValueI = int.Parse(arrayD[i].ToString());
+
+                for (int j = 0; j < arrayD.Length - 1; j++)
+                {
+                    int auxValueJ = int.Parse(arrayD[j].ToString());
+
+                    if (auxValueI > auxValueJ)
+                    {
+                        T auxCopyValue = arrayD[i];
+                        arrayD[i] = arrayD[j];
+                        arrayD[j] = auxCopyValue;
+                    }
+                }
+            }
+        }
+
+        public void BubbleSort()
+        {
+            for (int i = 0; i < arrayD.Length; i++)
+            {
+                for (int j = 0; j < arrayD.Length - i - 1; j++)
+                {
+                    int auxValueJ = int.Parse(arrayD[j].ToString());
+                    int auxValueJ2 = int.Parse(arrayD[j + 1].ToString());
+
+                    if (auxValueJ > auxValueJ2)
+                    {
+                        T auxCopyValue = arrayD[j];
+                        arrayD[j] = arrayD[j + 1];
+                        arrayD[j + 1] = auxCopyValue;
+                    }
+                }
+            }
+        }
     }
+
 }
