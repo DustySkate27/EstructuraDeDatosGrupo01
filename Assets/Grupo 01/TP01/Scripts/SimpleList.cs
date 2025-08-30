@@ -1,9 +1,10 @@
-﻿using Unity.VisualScripting;
+﻿using System;
+using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 
 namespace SimpleListLibrary
 {
-    public class SimpleList<T> : ISimpleList<T>
+    public class SimpleList<T> : ISimpleList<T> where T : IComparable<T>
     {
         public T[] arrayD;
         int lastAddedIndex = 0;
@@ -21,7 +22,7 @@ namespace SimpleListLibrary
             set
             {
                 if (index < arrayD.Length)
-                arrayD[index] = value;
+                    arrayD[index] = value;
             }
         }
 
@@ -32,7 +33,7 @@ namespace SimpleListLibrary
                 return counter;
             }
         }
-       
+
         public int LastAddedIndex
         {
             get => lastAddedIndex;
@@ -50,7 +51,7 @@ namespace SimpleListLibrary
 
             arrayD[counter] = item;
             counter++;
-            lastAddedIndex = counter -1;
+            lastAddedIndex = counter - 1;
         }
 
         public void AddRange(T[] collection)
@@ -212,42 +213,40 @@ namespace SimpleListLibrary
 
         public void SelectionSort()
         {
-            for (int i = 0; i < arrayD.Length; i++)
+            for (int i = 0; i < counter - 1; i++)
             {
-                int auxValueI = int.Parse(arrayD[i].ToString());
-
-                for (int j = 0; j < arrayD.Length - 1; j++)
+                int minIndex = i;
+                for (int j = i + 1; j < counter; j++)
                 {
-                    int auxValueJ = int.Parse(arrayD[j].ToString());
-
-                    if (auxValueI > auxValueJ)
+                    if (arrayD[j].CompareTo(arrayD[minIndex]) < 0)
                     {
-                        T auxCopyValue = arrayD[i];
-                        arrayD[i] = arrayD[j];
-                        arrayD[j] = auxCopyValue;
+                        minIndex = j;
                     }
+                }
+
+                if (minIndex != i)
+                {
+                    T aux = arrayD[i];
+                    arrayD[i] = arrayD[minIndex];
+                    arrayD[minIndex] = aux;
                 }
             }
         }
 
         public void BubbleSort()
         {
-            for (int i = 0; i < arrayD.Length; i++)
+            for (int i = 0; i < counter; i++)
             {
-                for (int j = 0; j < arrayD.Length - i - 1; j++)
+                for (int j = 0; j < counter - i - 1; j++)
                 {
-                    int auxValueJ = int.Parse(arrayD[j].ToString());
-                    int auxValueJ2 = int.Parse(arrayD[j + 1].ToString());
-
-                    if (auxValueJ > auxValueJ2)
+                    if (arrayD[j].CompareTo(arrayD[j + 1]) > 0)
                     {
-                        T auxCopyValue = arrayD[j];
+                        T aux = arrayD[j];
                         arrayD[j] = arrayD[j + 1];
-                        arrayD[j + 1] = auxCopyValue;
+                        arrayD[j + 1] = aux;
                     }
                 }
             }
         }
     }
-
 }
