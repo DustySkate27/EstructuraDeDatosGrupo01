@@ -286,27 +286,42 @@ public class MyList <T>
 
         return text;
     }
-    /*
+    
     public void SelectionSort()
     {
-        for (int i = 0; i < list.Count; i++)
+        MyNode<T> auxNode = root;
+
+        for (int i = 0; i < counter; i++)
         {
-            int auxValueI = int.Parse(list[i].ToString());
-
-            for (int j = 0; j < list.Count - 1; j++)
+            if (i != 0)
             {
-                int auxValueJ = int.Parse(list[j].ToString());
+                auxNode = root;
 
-                if (auxValueI > auxValueJ)
+                for (int k = 0; k < i; k++) // 'position movement' 
                 {
-                    T auxCopyValue = list[i];
-                    list[i] = list[j];
-                    list[j] = auxCopyValue;
+                    auxNode = auxNode.NextNode;
                 }
+            }
+
+            MyNode<T> comparerNode = auxNode.NextNode;
+
+            for (int j = 0; j < counter - i - 1; j++)
+            {
+                int auxValue = int.Parse(auxNode.Value.ToString());
+                int comparerValue = int.Parse(comparerNode.Value.ToString()); // i + 1
+
+                if (auxValue > comparerValue)
+                {
+                    MyNode<T> copyNode = null;
+                    copyNode.Value = auxNode.Value;
+                    auxNode.Value = comparerNode.Value;
+                    comparerNode.Value = copyNode.Value;
+                }
+
+                comparerNode = comparerNode.NextNode;
             }
         }
     }
-    */
 
     public void BubbleSort()
     {

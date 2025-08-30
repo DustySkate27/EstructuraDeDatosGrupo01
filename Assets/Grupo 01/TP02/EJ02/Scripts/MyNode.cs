@@ -23,8 +23,6 @@ namespace MyLinkedList
             set => this.value = value;
         }
        
-
-
         public MyNode(T value)
         {
             this.value = value;
