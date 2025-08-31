@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 public interface IItem : IComparable<IItem>
 {
-    int id { get; set; }
-    string itemName { get; set; }
-    int price { get; set; }
-    int rarity { get; set; }
-    string type {  get; set; }
+
+    int Id { get; set; }
+    string ItemName { get; set; }
+    int Price { get; set; }
+    int Rarity { get; set; }
+    string Type {  get; set; }
 
 }

@@ -4,14 +4,14 @@ using UnityEditor.ShaderGraph.Internal;
 
 namespace SimpleListLibrary
 {
-    public class SimpleList<T> : ISimpleList<T>
+    public class SortableSimpleList<T> : ISimpleList<T> where T : IComparable<T>
     {
         public T[] arrayD;
         int lastAddedIndex = 0;
         int counter = 0;
         int arrayBaseLenght = 4;
 
-        public SimpleList()
+        public SortableSimpleList()
         {
             arrayD = new T[arrayBaseLenght];
         }
@@ -209,6 +209,44 @@ namespace SimpleListLibrary
 
             return text;
 
+        }
+
+        public void SelectionSort()
+        {
+            for (int i = 0; i < counter - 1; i++)
+            {
+                int minIndex = i;
+                for (int j = i + 1; j < counter; j++)
+                {
+                    if (arrayD[j].CompareTo(arrayD[minIndex]) < 0)
+                    {
+                        minIndex = j;
+                    }
+                }
+
+                if (minIndex != i)
+                {
+                    T aux = arrayD[i];
+                    arrayD[i] = arrayD[minIndex];
+                    arrayD[minIndex] = aux;
+                }
+            }
+        }
+
+        public void BubbleSort()
+        {
+            for (int i = 0; i < counter; i++)
+            {
+                for (int j = 0; j < counter - i - 1; j++)
+                {
+                    if (arrayD[j].CompareTo(arrayD[j + 1]) > 0)
+                    {
+                        T aux = arrayD[j];
+                        arrayD[j] = arrayD[j + 1];
+                        arrayD[j + 1] = aux;
+                    }
+                }
+            }
         }
     }
 }
