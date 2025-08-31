@@ -5,6 +5,15 @@ using UnityEngine;
 
 public class Item : MonoBehaviour, IItem
 {
+    public Item(int id, string itemName, int price, int rarity, string type)
+    {
+        this.id = id;
+        this.itemName = itemName;
+        this.price = price;
+        this.rarity = rarity;
+        this.type = type;
+    }
+
     public int id { get => id; set => id = value; }
     public string itemName { get => itemName; set => itemName = value; }
     public int price { get => price; set => price = value; }

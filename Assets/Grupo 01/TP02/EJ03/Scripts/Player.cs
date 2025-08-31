@@ -5,24 +5,24 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private Dictionary<int, int> inventory; //Va a ser tipo int, IItems
-    private SimpleList<int> listHUD; //Va a ser tipo IItems y va a servir para ordenar la interfaz
+    private Dictionary<int, IItem> inventory; //Va a ser tipo int, IItems
+    private SimpleList<IItem> listHUD; //Va a ser tipo IItems y va a servir para ordenar la interfaz
 
-    public Dictionary<int, int> Inventory;
+    public Dictionary<int, IItem> Inventory;
 
     private void Awake()
     {
-        inventory = new Dictionary<int, int>();
-        listHUD = new SimpleList<int>();
+        inventory = new Dictionary<int, IItem>();
+        listHUD = new SimpleList<IItem>();
 
     }
 
-    public void NewItemOnInv(int newItem, int associatedKey) //Va a ser tipo IItems
+    public void NewItemOnInv(IItem item) //Va a ser tipo IItems
     {
-        listHUD.Add(newItem); //asociado al HUD
+        listHUD.Add(item); //asociado al HUD
     }
 
-    public void SellItemOnInv(int item, int associatedKey)
+    public void SellItemOnInv(IItem item)
     {
         listHUD.Remove(item);
     }

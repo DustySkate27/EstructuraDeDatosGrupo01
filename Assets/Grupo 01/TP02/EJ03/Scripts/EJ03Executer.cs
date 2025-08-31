@@ -15,7 +15,20 @@ public class EJ03Executer : MonoBehaviour
 
     public void BuyItem(int key)
     {
-        store.Stock.TryGetValue(key, out int item);
+        store.Stock.TryGetValue(key, out IItem item);
+        player.Inventory.Add(item.id, item);
+
+        store.SellItemOnStock(item);
+        player.NewItemOnInv(item);
+    }
+
+    public void SellItem(int key)
+    {
+        player.Inventory.TryGetValue(key, out IItem item);
+        store.Stock.Add(item.id, item);
+
+        player.SellItemOnInv(item);
+        store.NewItemOnStock(item);
     }
 
 }

@@ -9,22 +9,37 @@ public class Store : MonoBehaviour
     private SimpleList<IItem> listHUD;
 
     public Dictionary<int, IItem> Stock;
+    private Item knife;
+    private Item skull;
+    private Item potion;
+    private Item diamond;
 
     private void Awake()
     {
         stock = new Dictionary<int, IItem>();
         listHUD = new SimpleList<IItem>();
-        stock.Add(0,);
-        stock.Add(1,1);
-        stock.Add(2,2);
-        stock.Add(3,3);
+
+        knife = new Item(1, "knife", 10, 0, "melee");
+        skull = new Item(2, "skull", 5, 1, "collectable");
+        potion = new Item(3, "potion", 30, 2, "consumable");
+        diamond = new Item(4, "diamond", 100, 3, "gem");
+
+        stock.Add(knife.id ,knife);
+        stock.Add(skull.id ,skull);
+        stock.Add(potion.id ,potion);
+        stock.Add(diamond.id ,diamond);
+
+        NewItemOnStock(knife);
+        NewItemOnStock(skull);
+        NewItemOnStock(potion);
+        NewItemOnStock(diamond);
     }
-    public void NewItemOnStock(int newItem, int associatedKey) //Va a ser tipo IItems
+    public void NewItemOnStock(IItem item) //for visual purposes
     {
-        listHUD.Add(newItem); //asociado al HUD
+        listHUD.Add(item); //asociado al HUD
     }
 
-    public void SellItemOnStock(int item, int associatedKey)
+    public void SellItemOnStock(IItem item)
     {
         listHUD.Remove(item);
     }
