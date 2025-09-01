@@ -12,5 +12,6 @@ public interface IItem : IComparable<IItem>
     int Price { get; set; }
     int Rarity { get; set; }
     string Type {  get; set; }
+    int Quantity { get; set; }
 
 }

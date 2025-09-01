@@ -14,53 +14,78 @@ public class EJ03Executer : MonoBehaviour
 
     public void BuyItem(int key)
     {
-        if (player.money < store.stock[key].Price)
+        if (player.money < store.Stock[key].Price)
         {
             Debug.Log("No tienes suficiente dinero");
             return;
         }
-        else
+
+        if (store.Stock.TryGetValue(key, out IItem item))
         {
-            if (store.Stock.TryGetValue(key, out IItem item))
+
+            if (!player.Inventory.ContainsKey(item.Id))
             {
-                if (!player.Inventory.ContainsKey(item.Id))
-                {
-                    player.Inventory.Add(item.Id, item);
-
-                }
-                else Debug.Log("Added!"); //Aumentar la cantidad cuando se agregue
-
-                //store.SellItemOnStock(item);
-                player.NewItemOnInv(item);
-
-                store.DisableButtonById(item.Id);
-                player.EnableButtonById(item.Id);
-
-                player.money -= store.stock[key].Price;
-
-                Debug.Log("Item " + store.stock[key].Type + " comprado. " + "Sueldo actual: " + player.money);
+                IItem newItem = new Item(item.Id, item.ItemName, item.Price, item.Rarity, item.Type, 1);
+                player.Inventory.Add(newItem.Id, newItem);
             }
-            //Debug.Log(key.ToString());     
+            else
+            {
+                player.Inventory[item.Id].Quantity += 1;
+            }
+
+            player.money -= item.Price;
+
+            store.Stock[key].Quantity -= 1;
+
+           /* Debug.Log($"Compraste {item.ItemName}. " +
+                      $"Cantidad en player: {player.Inventory[item.Id].Quantity}, " +
+                      $"Cantidad en tienda: {store.Stock[key].Quantity}");*/
+
+            if (store.Stock[key].Quantity <= 0)
+            {
+                store.DisableButtonById(item.Id);
+            }
+
+            player.EnableButtonById(item.Id);
         }
     }
 
     public void SellItem(int key)
     {
-        player.Inventory.TryGetValue(key, out IItem item);
-        if (!store.Stock.ContainsKey(item.Id))
+        if (player.Inventory.TryGetValue(key, out IItem item))
         {
-            store.Stock.Add(item.Id, item);
+
+            if (!store.Stock.ContainsKey(item.Id))
+            {
+                IItem newItem = new Item(item.Id, item.ItemName, item.Price, item.Rarity, item.Type, 1);
+                store.Stock.Add(newItem.Id, newItem);
+            }
+            else
+            {
+
+                store.Stock[item.Id].Quantity += 1;
+            }
+
+            player.Inventory[item.Id].Quantity -= 1;
+
+           /* Debug.Log($"Vendiste {item.ItemName}. " +
+                      $"Cantidad en player: {player.Inventory[item.Id].Quantity}, " +
+                      $"Cantidad en tienda: {store.Stock[item.Id].Quantity}");*/
+
+
+            if (player.Inventory[item.Id].Quantity <= 0)
+            {
+                player.DisableButtonById(item.Id);
+            }
+
+            store.EnableButtonById(item.Id);
+
+            player.money += item.Price;
         }
-        else Debug.Log("Added!"); //Aumentar la cantidad cuando se agregue
-
-       // player.SellItemOnInv(item);
-        store.NewItemOnStock(item);
-
-        player.DisableButtonById(key);
-        store.EnableButtonById(key);
-
-        player.money += player.inventory[key].Price;
-
-        Debug.Log("Item " + store.stock[key].Type + " vendido. " + "Sueldo actual: " + player.money);
+        else
+        {
+            Debug.Log("No tienes este item para vender.");
+        }
     }
+
 }
