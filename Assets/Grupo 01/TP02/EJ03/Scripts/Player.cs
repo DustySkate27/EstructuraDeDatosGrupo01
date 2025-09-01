@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    private Dictionary<int, IItem> inventory; //Va a ser tipo int, IItems
+    public Dictionary<int, IItem> inventory; //Va a ser tipo int, IItems
     public SortableSimpleList<IItem> listHUD; //Va a ser tipo IItems y va a servir para ordenar la interfaz
     [SerializeField] private List<InventoryButtons> buttons;
-    
+
+    public int money = 100;
 
     public Dictionary<int, IItem> Inventory => inventory;
 

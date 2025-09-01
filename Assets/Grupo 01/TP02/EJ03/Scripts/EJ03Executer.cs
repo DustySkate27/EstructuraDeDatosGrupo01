@@ -14,21 +14,34 @@ public class EJ03Executer : MonoBehaviour
 
     public void BuyItem(int key)
     {
-        if (store.Stock.TryGetValue(key, out IItem item))
+        if (player.money < store.stock[key].Price)
         {
-            if(!player.Inventory.ContainsKey(item.Id))
-            {
-                player.Inventory.Add(item.Id, item);
-
-            } else Debug.Log("Added!"); //Aumentar la cantidad cuando se agregue
-
-            //store.SellItemOnStock(item);
-            player.NewItemOnInv(item);
-
-            store.DisableButtonById(item.Id);
-            player.EnableButtonById(item.Id);
+            Debug.Log("No tienes suficiente dinero");
+            return;
         }
-        //Debug.Log(key.ToString());        
+        else
+        {
+            if (store.Stock.TryGetValue(key, out IItem item))
+            {
+                if (!player.Inventory.ContainsKey(item.Id))
+                {
+                    player.Inventory.Add(item.Id, item);
+
+                }
+                else Debug.Log("Added!"); //Aumentar la cantidad cuando se agregue
+
+                //store.SellItemOnStock(item);
+                player.NewItemOnInv(item);
+
+                store.DisableButtonById(item.Id);
+                player.EnableButtonById(item.Id);
+
+                player.money -= store.stock[key].Price;
+
+                Debug.Log("Item " + store.stock[key].Type + " comprado. " + "Sueldo actual: " + player.money);
+            }
+            //Debug.Log(key.ToString());     
+        }
     }
 
     public void SellItem(int key)
@@ -45,5 +58,9 @@ public class EJ03Executer : MonoBehaviour
 
         player.DisableButtonById(key);
         store.EnableButtonById(key);
+
+        player.money += player.inventory[key].Price;
+
+        Debug.Log("Item " + store.stock[key].Type + " vendido. " + "Sueldo actual: " + player.money);
     }
 }
