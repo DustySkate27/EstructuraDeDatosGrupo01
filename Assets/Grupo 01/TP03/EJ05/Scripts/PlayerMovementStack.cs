@@ -11,19 +11,11 @@ public class PlayerMovementStack : MonoBehaviour
     private float inputX, inputY;
     private bool isMoving;
 
-    private Vector2 originalPosition;
-
     private MyStack<Vector2> stack = new MyStack<Vector2>();
-
-    private void Awake()
-    {
-        originalPosition = transform.position;
-        stack.Push(transform.position);
-    }
 
     private void Update()
     {
-        /*
+        
         inputX = Input.GetAxisRaw("Horizontal");
         inputY = Input.GetAxisRaw("Vertical");
 
@@ -32,10 +24,6 @@ public class PlayerMovementStack : MonoBehaviour
             CalculateTargetPosition();
             StartCoroutine(Move());
         }
-        */
-        
-        //Reemplazar lo que esta comentado por una version igualmente hardcodeada pero con GetKeyDown
-        CalculateTargetPosition();
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -57,10 +45,10 @@ public class PlayerMovementStack : MonoBehaviour
             yield return null;
         }
 
-        stack.Push(targetPosition);
+        stack.Push(startPosition);
+        transform.position = targetPosition;
         Debug.Log(stack.ToString());
 
-        transform.position = targetPosition;
         isMoving = false;
     }
 
@@ -68,25 +56,10 @@ public class PlayerMovementStack : MonoBehaviour
     {
         //crear Vector3
         //Cambiar por getkeydown derecha
-        if (inputX == 1)
-        {
-            //x = 1
-            targetPosition = (Vector2)transform.position + Vector2.right;
-        }
-        else if (inputX == -1)
-        {
-            targetPosition = (Vector2)transform.position + Vector2.left;
-        }
-        else if (inputY == 1)
-        {
-            targetPosition = (Vector2)transform.position + Vector2.up;
-        }
-        else if (inputY == -1)
-        {
-            targetPosition = (Vector2)transform.position + Vector2.down;
-        }
 
-        //normalizar vector al final
+        targetPosition.x = transform.position.x + inputX;
+        targetPosition.y = transform.position.y + inputY;
+
     }
 
     private void GoBack()
