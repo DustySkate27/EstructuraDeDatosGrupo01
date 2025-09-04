@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,6 +20,14 @@ public class EJ06Executer : MonoBehaviour
 
     private fuction currentFuction;
 
+    #region piramide
+    string line;
+    int baseP = 1;
+    #endregion
+
+    char[] frase;
+    char[] copy;
+
     public void EnterValue(string value)
     {
         switch (currentFuction)
@@ -25,7 +35,7 @@ public class EJ06Executer : MonoBehaviour
             case fuction.fibonacci:
 
                 value = value.Trim();
-                int numberInt = int.Parse(value);
+                numberInt = int.Parse(value);
                 Fibonacci(numberInt);
                 Debug.Log(numberInt);
 
@@ -84,13 +94,41 @@ public class EJ06Executer : MonoBehaviour
         else return n + Suma(n - 1);
     }
 
+    bool Palindromo(string frase)
+    {
+        char[] characters = frase.ToCharArray();
+        char[] copy = new char[characters.Length];
+        return recursividadPalindromo(characters,0);
 
+        bool recursividadPalindromo(char[] original, int index)
+        {
+            if (index == original.Length)
+            {
+                return original.SequenceEqual(copy);
+            }
+            else
+            {
+                copy[index] = original[original.Length - 1 - index];
+                return recursividadPalindromo(original, index + 1);
+            }
+        }
+    }
 
+    string Piramide(int altura, int baseP)
+    {
+        if (altura <= 0)
+        {
+            baseP = 1;
+            return "\nFindePiramide";
+        }
+        else
+        {
+            line = new string('x', baseP * 2);              
 
+            return Piramide(altura - 1, baseP + 1);
+        }
 
-
-
-
+    }
     //Set Enum
     public void SetFibonacci()
     {

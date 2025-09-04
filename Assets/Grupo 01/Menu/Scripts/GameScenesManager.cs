@@ -59,12 +59,6 @@ public class GameScenesManager : MonoBehaviour
         }
     }
 
-    public void SceneButtonClick(int sceneName)
-    {
-        sceneCount = sceneName;
-       LoadGameScene(sceneName);
-    }
-
     public void LoadGameScene(int sceneName) 
     {
         SceneManager.LoadScene("EJ0" + sceneName.ToString());
