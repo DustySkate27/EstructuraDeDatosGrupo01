@@ -6,7 +6,25 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Grupo 01/TP01/Scenes/TP01.unity
+    path: Assets/Grupo 01/Menu/MainMenu.unity
+    guid: 80440850daa3cc549a0ec895454c9865
+  - enabled: 1
+    path: Assets/Grupo 01/TP01/Scenes/EJ01.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Grupo 01/TP02/EJ02/Scenes/EJ02.unity
+    guid: 6cd614f4cb936994aa084710a232a229
+  - enabled: 1
+    path: Assets/Grupo 01/TP02/EJ03/Scene/EJ03.unity
+    guid: 55ed4a3fe2e6b0a4dafbad12d9e38e6e
+  - enabled: 1
+    path: Assets/Grupo 01/TP03/EJ04/Scenes/EJ04.unity
+    guid: 277903559daf2964595cefebfcc9f9bd
+  - enabled: 1
+    path: Assets/Grupo 01/TP03/EJ05/Scene/EJ05.unity
+    guid: 27f840954d0e8a742a191cc25ea8e62a
+  - enabled: 1
+    path: Assets/Grupo 01/TP05/EJ06/EJ06.unity
+    guid: 84154c12522b7984dbb86cb776adde34
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
