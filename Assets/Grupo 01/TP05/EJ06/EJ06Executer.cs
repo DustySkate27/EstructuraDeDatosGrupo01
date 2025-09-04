@@ -24,7 +24,8 @@ public class EJ06Executer : MonoBehaviour
         {
             case fuction.fibonacci:
 
-                numberInt = int.Parse(value);
+                value = value.Trim();
+                int numberInt = int.Parse(value);
                 Fibonacci(numberInt);
                 Debug.Log(numberInt);
 
