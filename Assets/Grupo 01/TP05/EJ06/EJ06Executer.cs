@@ -2,11 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EJ06Executer : MonoBehaviour
 {
+    [SerializeField] private TMP_InputField inputField;
+    [SerializeField] private TextMeshProUGUI resultText;
+
     public enum fuction
     {
         fibonacci,
@@ -28,6 +33,11 @@ public class EJ06Executer : MonoBehaviour
     char[] frase;
     char[] copy;
 
+    private void Awake()
+    {
+        inputField.onEndEdit.AddListener(EnterValue);
+    }
+
     public void EnterValue(string value)
     {
         switch (currentFuction)
@@ -36,31 +46,43 @@ public class EJ06Executer : MonoBehaviour
 
                 value = value.Trim();
                 numberInt = int.Parse(value);
-                Fibonacci(numberInt);
-                Debug.Log(numberInt);
+                Debug.Log(Fibonacci(numberInt));
+                resultText.text = Fibonacci(numberInt).ToString();
 
                 break;
 
             case fuction.factorial:
 
+                value = value.Trim();
                 numberInt = int.Parse(value);
-                Factorial(numberInt);
-                Debug.Log(numberInt);
+                Debug.Log(Factorial(numberInt));
+                resultText.text = Factorial(numberInt).ToString();
 
                 break;
 
             case fuction.suma:
 
+                value = value.Trim();
                 numberInt = int.Parse(value);
-                Suma(numberInt);
-                Debug.Log(numberInt);
+                Debug.Log(Suma(numberInt));
+                resultText.text = Suma(numberInt).ToString();
 
                 break;
 
             case fuction.piramide:
+
+                value = value.Trim();
+                numberInt = int.Parse(value);
+                Debug.Log(Piramide(numberInt, baseP));
+                resultText.text = Piramide(numberInt, baseP).ToString();
+
                 break;
 
             case fuction.palidromo:
+
+                Debug.Log(Palindromo(value));
+                resultText.text = Palindromo(value).ToString();
+
                 break;
 
             default:
