@@ -73,8 +73,9 @@ public class EJ06Executer : MonoBehaviour
 
                 value = value.Trim();
                 numberInt = int.Parse(value);
-                Debug.Log(Piramide(numberInt, baseP));
-                resultText.text = Piramide(numberInt, baseP).ToString();
+                Piramide(numberInt, baseP);
+                resultText.text = line;
+                line = null;
 
                 break;
 
@@ -113,7 +114,7 @@ public class EJ06Executer : MonoBehaviour
     {
         if (n == 0) return 0;
 
-        else return n + Suma(n - 1);
+        else return n - 1 + Suma(n - 1);
     }
 
     bool Palindromo(string frase)
@@ -145,8 +146,8 @@ public class EJ06Executer : MonoBehaviour
         }
         else
         {
-            line = new string('x', baseP * 2);              
-
+            line += "  \n" + new string('x', baseP);
+            Debug.Log(line);
             return Piramide(altura - 1, baseP + 1);
         }
 

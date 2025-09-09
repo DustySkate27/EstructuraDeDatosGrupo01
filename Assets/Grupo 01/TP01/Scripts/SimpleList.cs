@@ -200,6 +200,45 @@ namespace SimpleListLibrary
             counter = 0;
         }
 
+        public void SelectionSort(Comparison<T> comparison)
+        {
+            for (int i = 0; i < counter - 1; i++)
+            {
+                int minIndex = i;
+                for (int j = i + 1; j < counter; j++)
+                {
+                    if (comparison(arrayD[j], arrayD[minIndex]) < 0)
+                    {
+                        minIndex = j;
+                    }
+                }
+
+                if (minIndex != i)
+                {
+                    T aux = arrayD[i];
+                    arrayD[i] = arrayD[minIndex];
+                    arrayD[minIndex] = aux;
+                }
+            }
+        }
+
+        public void BubbleSort(Comparison<T> comparison)
+        {
+            for (int i = 0; i < counter; i++)
+            {
+                for (int j = 0; j < counter - i - 1; j++)
+                {
+                    if (comparison(arrayD[j], arrayD[j + 1]) > 0)
+                    {
+                        T aux = arrayD[j];
+                        arrayD[j] = arrayD[j + 1];
+                        arrayD[j + 1] = aux;
+                    }
+                }
+            }
+        }
+    
+
         public override string ToString()
         {
             string text = "";

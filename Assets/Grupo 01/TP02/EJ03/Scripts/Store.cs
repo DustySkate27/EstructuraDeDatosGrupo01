@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class Store : MonoBehaviour
 {
-    private Dictionary<int, IItem> stock; 
-    private SortableSimpleList<IItem> listHUD;
+    private Dictionary<int, IItem> stock;
+    private List<IItem> listStock;
 
+    public List<IItem> ListStock => listStock;
     public Dictionary<int, IItem> Stock => stock;
     public Item knife;
     public Item skull;
@@ -19,7 +20,6 @@ public class Store : MonoBehaviour
     private void Awake()
     {
         stock = new Dictionary<int, IItem>();
-        listHUD = new SortableSimpleList<IItem>();
 
         knife = new Item(1, "knife", 10, 0, "melee",3);
         skull = new Item(2, "skull", 5, 1, "collectable", 3);
@@ -29,23 +29,17 @@ public class Store : MonoBehaviour
         stock.Add(knife.Id ,knife);
         stock.Add(skull.Id ,skull);
         stock.Add(potion.Id ,potion);
-        stock.Add(diamond.Id ,diamond);
+        stock.Add(diamond.Id, diamond); 
 
-       /* NewItemOnStock(knife);
-        NewItemOnStock(skull);
-        NewItemOnStock(potion);
-        NewItemOnStock(diamond);*/
+        listStock = new List<IItem>();
+
+        listStock.Add(knife);
+        listStock.Add(skull);
+        listStock.Add(potion);
+        listStock.Add(diamond);
     }
-   /* public void NewItemOnStock(IItem item) //for visual purposes
-    {
-        listHUD.Add(item); //asociado al HUD
-       // Debug.Log(item.ItemName + " " + item.Id);
-    }*/
 
-   /* public void SellItemOnStock(IItem item)
-    {
-        listHUD.Remove(item);
-    }*/
+
 
     public void DisableButtonById(int id)
     {
