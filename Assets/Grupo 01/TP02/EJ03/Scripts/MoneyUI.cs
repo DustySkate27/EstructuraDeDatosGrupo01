@@ -16,6 +16,6 @@ public class MoneyUI : MonoBehaviour
 
     public void MoneyTextUpdate(int money)
     {
-        textMeshProUGUI.text = money.ToString();
+        textMeshProUGUI.text = $"Current money: {money.ToString()}";
     }
 }

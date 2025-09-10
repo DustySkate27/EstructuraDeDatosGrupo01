@@ -6,9 +6,9 @@ using UnityEngine;
 public class Store : MonoBehaviour
 {
     private Dictionary<int, IItem> stock;
-    private List<IItem> listStock;
+    private SimpleList<IItem> listStock;
 
-    public List<IItem> ListStock => listStock;
+    //public List<IItem> ListStock => listStock;
     public Dictionary<int, IItem> Stock => stock;
     public Item knife;
     public Item skull;
@@ -31,7 +31,7 @@ public class Store : MonoBehaviour
         stock.Add(potion.Id ,potion);
         stock.Add(diamond.Id, diamond); 
 
-        listStock = new List<IItem>();
+        listStock = new SimpleList<IItem>();
 
         listStock.Add(knife);
         listStock.Add(skull);
@@ -39,7 +39,23 @@ public class Store : MonoBehaviour
         listStock.Add(diamond);
     }
 
+    public void StoreSort(SimpleList<IItem> items)
+    {
+        for (int i = 0;  i < items.Count; i++)
+        {
+            items.BubbleSort();//COMO SE PASA UN COMPARISON
+        }
+    }
 
+    public int CompareIds(int n, int n2)
+    {
+        return n.CompareTo(n2);
+    }
+
+    public int Comparison(string name, string name2)
+    {
+        return name.CompareTo(name2);
+    }
 
     public void DisableButtonById(int id)
     {

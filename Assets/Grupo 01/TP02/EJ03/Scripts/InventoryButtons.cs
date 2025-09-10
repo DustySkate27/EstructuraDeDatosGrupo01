@@ -15,6 +15,7 @@ public class InventoryButtons : MonoBehaviour
     public void EnableButton() 
     {
         selfButton.interactable = true;
+
     }
 
     public void DisableButton()

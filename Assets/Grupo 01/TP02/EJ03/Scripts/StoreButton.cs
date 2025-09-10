@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class StoreButton : MonoBehaviour
 {
-    public int itemId;
+    public int itemId; //links buttons by associated ID; Assigned through Inspector
     private Button button;
 
     private void Awake()
