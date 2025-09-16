@@ -2,20 +2,20 @@ using SimpleListLibrary;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Store : MonoBehaviour
 {
     private Dictionary<int, IItem> stock;
     private SimpleList<IItem> listStock;
 
-    //public List<IItem> ListStock => listStock;
+    public StoreButton[] buttons;
+
     public Dictionary<int, IItem> Stock => stock;
     public Item knife;
     public Item skull;
     public Item potion;
     public Item diamond;
-
-    [SerializeField] private List<StoreButton> buttons;
 
     private void Awake()
     {
@@ -39,24 +39,109 @@ public class Store : MonoBehaviour
         listStock.Add(diamond);
     }
 
-    public void StoreSort(SimpleList<IItem> items)
+    public void StoreSortID()
     {
-        for (int i = 0;  i < items.Count; i++)
+        listStock.BubbleSort(CompareIds);
+
+        for (int i = 0; i < listStock.Count; i++)
         {
-            items.BubbleSort();//COMO SE PASA UN COMPARISON
+            for (int j = 0; j < listStock.Count; j++)
+            {
+                if (buttons[j].itemId == listStock[i].Id)
+                {
+                    buttons[j].transform.SetSiblingIndex(i);
+                }
+            }
+            
+        }
+    }
+    public void StoreSortName()
+    {
+        listStock.BubbleSort(CompareName);
+
+        for (int i = 0; i < listStock.Count; i++)
+        {
+            for (int j = 0; j < listStock.Count; j++)
+            {
+                if (buttons[j].itemId == listStock[i].Id)
+                {
+                    buttons[j].transform.SetSiblingIndex(i);
+                }
+            }
+
+        }
+    }
+    public void StoreSortPrice()
+    {
+        listStock.BubbleSort(ComparePrice);
+
+        for (int i = 0; i < listStock.Count; i++)
+        {
+            for (int j = 0; j < listStock.Count; j++)
+            {
+                if (buttons[j].itemId == listStock[i].Id)
+                {
+                    buttons[j].transform.SetSiblingIndex(i);
+                }
+            }
+
+        }
+    }
+    public void StoreSortRarity()
+    {
+        listStock.BubbleSort(CompareRarity);
+
+        for (int i = 0; i < listStock.Count; i++)
+        {
+            for (int j = 0; j < listStock.Count; j++)
+            {
+                if (buttons[j].itemId == listStock[i].Id)
+                {
+                    buttons[j].transform.SetSiblingIndex(i);
+                }
+            }
+
+        }
+    }
+    public void StoreSortType()
+    {
+        listStock.BubbleSort(CompareType);
+
+        for (int i = 0; i < listStock.Count; i++)
+        {
+            for (int j = 0; j < listStock.Count; j++)
+            {
+                if (buttons[j].itemId == listStock[i].Id)
+                {
+                    buttons[j].transform.SetSiblingIndex(i);
+                }
+            }
+
         }
     }
 
-    public int CompareIds(int n, int n2)
+
+    public int CompareIds(IItem n, IItem n2)
     {
-        return n.CompareTo(n2);
+        return n.Id.CompareTo(n2.Id);
     }
 
-    public int Comparison(string name, string name2)
+    public int CompareName(IItem n, IItem n2)
     {
-        return name.CompareTo(name2);
+        return n.ItemName.CompareTo(n2.ItemName);
     }
-
+    public int ComparePrice(IItem n, IItem n2)
+    {
+        return n.Price.CompareTo(n2.Price);
+    }
+    public int CompareRarity(IItem n, IItem n2)
+    {
+        return n.Rarity.CompareTo(n2.Rarity);
+    }
+    public int CompareType(IItem n, IItem n2)
+    {
+        return n.Type.CompareTo(n2.Type);
+    }
     public void DisableButtonById(int id)
     {
         foreach (var btn in buttons)
