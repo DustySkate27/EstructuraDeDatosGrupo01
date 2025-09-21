@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
+using UnityEngine.Rendering;
 
 namespace SimpleListLibrary
 {
@@ -247,6 +249,42 @@ namespace SimpleListLibrary
                     }
                 }
             }
+        }
+
+        public void QuickSort(T[] array, int low, int high)
+        {
+            if(low < high)
+            {
+                int pivot = Partition(array, low, high);
+
+                QuickSort(array, low, pivot-1);
+                QuickSort(array, pivot + 1, high);
+            }
+        }
+
+        int Partition(T[] array, int low, int high)
+        {
+            T pivot = array[high];
+            int i = low - 1;
+
+            T aux;
+
+            for (int j = low; j < high; j++)
+            {
+                if (array[j].CompareTo ( pivot) < 0)
+                {
+                    i++;
+
+                    aux = array[j];
+                    array[j] = array[i];
+                    array[i] = aux;          
+                }
+            }
+            aux = array[high];
+            array[high] = array[i+1];
+            array[i+1] = aux;   
+
+            return i + 1;
         }
     }
 }

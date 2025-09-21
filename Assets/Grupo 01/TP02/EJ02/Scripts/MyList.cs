@@ -4,6 +4,7 @@ using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using MyLinkedList;
 using NUnit.Framework;
 using Unity.Collections.LowLevel.Unsafe;
@@ -20,7 +21,7 @@ public class MyList <T>
    // private List<T> list;
     private int counter;
 
-    public int Count { get => counter; }
+    public int Counter { get => counter; }
 
     public T this[int index]
     {
@@ -95,7 +96,7 @@ public class MyList <T>
 
     public void AddRange(MyList<T> values) //Podria haberse hecho conectando el ultimo con el nuevo.
     { 
-        for (int i = 0;i < values.Count; i++)
+        for (int i = 0;i < values.Counter; i++)
         {
             Add(values[i]);
         }
@@ -233,6 +234,14 @@ public class MyList <T>
         }
     }
 
+    public void Swap(MyNode<T> node1, MyNode<T> node2)
+    {
+        MyNode<T> auxNode = node1;
+
+        node1.Value = node2.Value;
+        node2.Value = auxNode.Value;
+    }
+
     public bool IsEmpty()
     {
         if (root != null)
@@ -287,7 +296,7 @@ public class MyList <T>
         return text;
     }
     
-    public void SelectionSort()
+    public void SelectionSort(Comparison<T> comparison)
     {
         MyNode<T> auxNode = root;
 
@@ -307,10 +316,9 @@ public class MyList <T>
 
             for (int j = 0; j < counter - i - 1; j++)
             {
-                int auxValue = int.Parse(auxNode.Value.ToString());
-                int comparerValue = int.Parse(comparerNode.Value.ToString()); // i + 1
 
-                if (auxValue > comparerValue)
+
+                if (comparison(auxNode.Value, comparerNode.Value) < 0)
                 {
                     MyNode<T> copyNode = null;
                     copyNode.Value = auxNode.Value;
@@ -323,7 +331,7 @@ public class MyList <T>
         }
     }
 
-    public void BubbleSort()
+    public void BubbleSort(Comparison<T> comparison)
     {
         for (int i = 0; i < counter; i++)
         {
@@ -331,10 +339,8 @@ public class MyList <T>
 
             for (int j = 0; j < counter - i - 1; j++)
             {
-                int auxValue = int.Parse(auxNode.Value.ToString());
-                int nextValue = int.Parse(auxNode.NextNode.Value.ToString());
-
-                if (auxValue > nextValue)
+               
+                if (comparison(auxNode.Value, auxNode.NextNode.Value) < 0)
                 {
                     MyNode<T> copyNode = null;
                     copyNode.Value = auxNode.NextNode.Value;
@@ -344,6 +350,65 @@ public class MyList <T>
                 auxNode = auxNode.NextNode;
             }
         }
+    }
+
+    public void QuickSort(Comparison<T> comparison, int low, int high)
+    {
+        if (low < high)
+        {
+            int pivot = Partition(comparison, low, high);
+
+            QuickSort(comparison, low, pivot-1);
+            QuickSort(comparison, pivot + 1, high);
+
+        }
+    }
+
+    public int Partition(Comparison<T> comparison, int low, int high)
+    {
+        MyNode<T> pivot = root;
+        MyNode<T> auxNode = root;
+    
+        for(int k = 0; k < high; k++)
+        {
+            pivot = pivot.NextNode;
+        }
+
+        for(int l = 0; l < low; l++)
+        {
+            auxNode = auxNode.NextNode;
+        }
+
+        int i = low - 1;
+
+        for (int j = low; j < high; j++)
+        {
+            if (comparison(auxNode.Value, pivot.Value) < 0)
+            {
+                i ++;
+                MyNode<T> swapNode = root;
+
+                for(int m = 0; m < i; m++)
+                {
+                    swapNode = swapNode.NextNode;
+                }
+
+                Swap(auxNode, swapNode);
+               
+            }
+            auxNode = auxNode.NextNode;
+        }
+
+        MyNode<T> finalSwapNode = root;
+
+        for (int m = 0; m < i+1; m++)
+        {
+            finalSwapNode = finalSwapNode.NextNode;
+        }
+
+        Swap(auxNode, finalSwapNode);
+
+        return i+1;
     }
 }
 

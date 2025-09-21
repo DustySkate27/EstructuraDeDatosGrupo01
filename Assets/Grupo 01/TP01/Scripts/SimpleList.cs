@@ -237,7 +237,39 @@ namespace SimpleListLibrary
                 }
             }
         }
-    
+
+        public void QuickSort(Comparison<T> comparison, T[] array, int low, int high)
+        {
+            if (low < high)
+            {
+                int pivot = Partition(comparison, array, low, high);
+
+                QuickSort(comparison, array, low, pivot - 1);
+                QuickSort(comparison, array, pivot + 1, high);
+            }
+        }
+
+        int Partition(Comparison <T> comparison ,T[] array, int low, int high)
+        {
+            T pivot = array[high];
+            int i = low - 1;
+
+            for (int j = low; j < high; j++)
+            {
+                if (comparison(array[j], pivot) < 0)
+                {
+                    i++;
+
+                    (array[i], array[j]) = (array[j], array[i]);
+
+                }
+            }
+
+            (array[i + 1], array[high]) = (array[high], array[i + 1]);
+
+            return i + 1;
+        }
+
 
         public override string ToString()
         {
