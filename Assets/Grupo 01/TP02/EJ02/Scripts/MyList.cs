@@ -393,8 +393,7 @@ public class MyList <T>
                     swapNode = swapNode.NextNode;
                 }
 
-                Swap(auxNode, swapNode);
-               
+                Swap(auxNode, swapNode);             
             }
             auxNode = auxNode.NextNode;
         }
