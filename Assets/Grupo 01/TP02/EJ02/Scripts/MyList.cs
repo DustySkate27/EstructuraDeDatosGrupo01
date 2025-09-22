@@ -18,7 +18,7 @@ public class MyList <T>
  {
     private MyNode<T> root;
     private MyNode<T> tail;
-   // private List<T> list;
+
     private int counter;
 
     public int Counter { get => counter; }
@@ -35,12 +35,12 @@ public class MyList <T>
 
                 for (int i = 0; i < index; i++)
                 {
+
                     auxNode = auxNode.NextNode;
+
                 } return auxNode.Value;
 
-          } else { return default; }
-
-
+          } else return default; 
         }
         set
         {
@@ -61,10 +61,6 @@ public class MyList <T>
         }
     }
 
-    public MyList()
-    {
-        //list = new List<T>();
-    }
 
     public void Add(T value) 
     {
@@ -81,8 +77,7 @@ public class MyList <T>
             tail.NextNode = nodeToAdd; //points tails next to new node
             tail = nodeToAdd; //equals tail to new node
         }
-        Debug.Log(root == null);
-        Debug.Log(root.Value);
+
         counter++;
     }
 
@@ -202,35 +197,40 @@ public class MyList <T>
             tail = root;
             counter = 1;
         }
-        else if (index == counter)
+        else if (index >= counter) 
         {
             Add(value);
         }
-        else if (index > counter || index < 0)
+        else if (index < 0)
         {
             throw new IndexOutOfRangeException();
         }
-        else
+        else if (index == 0) 
+        {
+            MyNode<T> newNode = new MyNode<T>(value);
+            newNode.NextNode = root;
+            root.PrevNode = newNode;
+            root = newNode;
+            counter++;
+        }
+        else 
         {
             MyNode<T> auxNode = root;
-
-            for (int i = 0;i <= index; i++)
+            for (int i = 0; i < index; i++)
             {
-                if (i == index)
-                {
-                    MyNode<T> next = auxNode.NextNode;
-                    MyNode<T> prev = auxNode.PrevNode;
-                    MyNode<T> insertingNode = new MyNode<T> (value);
-
-                    next.PrevNode = insertingNode;
-                    auxNode.NextNode = insertingNode;
-                    insertingNode.NextNode = next;
-                    insertingNode.PrevNode = auxNode;
-                    counter++;
-                    return;
-                }
-                else { auxNode = auxNode.NextNode; }
+                auxNode = auxNode.NextNode;
             }
+
+            MyNode<T> prev = auxNode.PrevNode;
+            MyNode<T> insertingNode = new MyNode<T>(value);
+
+            
+            insertingNode.PrevNode = prev;
+            insertingNode.NextNode = auxNode;
+            prev.NextNode = insertingNode;
+            auxNode.PrevNode = insertingNode;
+
+            counter++;
         }
     }
 
@@ -286,8 +286,6 @@ public class MyList <T>
 
             for (int i = 0; i < counter; i++)
             {
-                Debug.Log(text == null);
-                Debug.Log(auxNode == null);
                 text += auxNode.Value.ToString() + ", ";
                 auxNode = auxNode.NextNode;
             }
@@ -316,7 +314,6 @@ public class MyList <T>
 
             for (int j = 0; j < counter - i - 1; j++)
             {
-
 
                 if (comparison(auxNode.Value, comparerNode.Value) < 0)
                 {

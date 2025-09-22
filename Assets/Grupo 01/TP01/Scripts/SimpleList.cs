@@ -7,7 +7,6 @@ namespace SimpleListLibrary
     public class SimpleList<T> : ISimpleList<T>
     {
         public T[] arrayD;
-        int lastAddedIndex = 0;
         int counter = 0;
         int arrayBaseLenght = 4;
 
@@ -34,10 +33,6 @@ namespace SimpleListLibrary
             }
         }
 
-        public int LastAddedIndex
-        {
-            get => lastAddedIndex;
-        }
 
         public void Add(T item)
         {
@@ -51,7 +46,6 @@ namespace SimpleListLibrary
 
             arrayD[counter] = item;
             counter++;
-            lastAddedIndex = counter - 1;
         }
 
         public void AddRange(T[] collection)
@@ -184,19 +178,9 @@ namespace SimpleListLibrary
                 return false;
 
         }
-
-
-        #region unused
-        public void RemoveLastItem()
-        {
-            arrayD[lastAddedIndex] = default;
-        }
-        #endregion
-
         public void Clear()
         {
             arrayD = new T[4];
-
             counter = 0;
         }
 

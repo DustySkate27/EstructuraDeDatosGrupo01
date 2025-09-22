@@ -27,7 +27,7 @@ public class EJ06Executer : MonoBehaviour
 
     #region piramide
     string line;
-    int baseP = 1;
+    int baseP = 2;
     #endregion
 
     char[] frase;
@@ -141,14 +141,14 @@ public class EJ06Executer : MonoBehaviour
     {
         if (altura <= 0)
         {
-            baseP = 1;
+            baseP = 2;
             return "\nFindePiramide";
         }
         else
         {
             line += "  \n" + new string('x', baseP);
             Debug.Log(line);
-            return Piramide(altura - 1, baseP + 1);
+            return Piramide(altura - 1, baseP + 2);
         }
 
     }

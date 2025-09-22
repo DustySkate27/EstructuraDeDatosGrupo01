@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private InventoryButtons[] buttons;
 
-    public int money = 500;
+    public int money;
 
     public Item knife;
     public Item skull;
@@ -25,10 +25,10 @@ public class Player : MonoBehaviour
     {
         inventory = new Dictionary<int, IItem>();
 
-        knife = new Item(1, "knife", 10, 0, "melee", 3);
-        skull = new Item(2, "skull", 5, 1, "collectable", 3);
-        potion = new Item(3, "potion", 30, 2, "consumable", 3);
-        diamond = new Item(4, "diamond", 100, 3, "gem", 3);
+        knife = new Item(1, "knife", 10, 0, "melee", 0);
+        skull = new Item(2, "skull", 5, 1, "collectable", 0);
+        potion = new Item(3, "potion", 30, 2, "consumable", 0);
+        diamond = new Item(4, "diamond", 100, 3, "gem", 0);
 
         listInventory = new SimpleList<IItem>();
 

@@ -9,11 +9,6 @@ public class EJ03Executer : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private MoneyUI moneyUI;
 
-    private void Awake()
-    {
-
-    }
-
     public void BuyItem(int key) //key == item.Id; Assigned through Inspector
     {
         if (player.money < store.Stock[key].Price) //If there isn't money
@@ -36,7 +31,7 @@ public class EJ03Executer : MonoBehaviour
                 player.Inventory[key].Quantity += 1;
             }
 
-            Debug.Log(store.Stock[key].Quantity);
+            
             store.Stock[key].Quantity -= 1;
 
             if (store.Stock[key].Quantity <= 0)
