@@ -54,12 +54,8 @@ public class PlayerMovementStack : MonoBehaviour
 
     private void CalculateTargetPosition()
     {
-        //crear Vector3
-        //Cambiar por getkeydown derecha
-
         targetPosition.x = transform.position.x + inputX;
         targetPosition.y = transform.position.y + inputY;
-
     }
 
     private void GoBack()

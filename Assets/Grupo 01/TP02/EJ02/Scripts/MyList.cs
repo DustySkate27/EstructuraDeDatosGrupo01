@@ -27,20 +27,23 @@ public class MyList <T>
     {
         get 
         { 
-          if(root != null)
-          {
-            MyNode<T> auxNode = root;
+            if(root != null)
+            {
+                MyNode<T> auxNode = root;
 
-            if (index < 0 || index >= counter) throw new IndexOutOfRangeException();
-
-                for (int i = 0; i < index; i++)
+                if (index < 0 || index >= counter) throw new IndexOutOfRangeException();
                 {
+                    for (int i = 0; i < index; i++)
+                    {
+                        auxNode = auxNode.NextNode;
+                    }
 
-                    auxNode = auxNode.NextNode;
+                }
 
-                } return auxNode.Value;
+                return auxNode.Value;
 
-          } else return default; 
+
+            } else return default; 
         }
         set
         {
@@ -89,7 +92,7 @@ public class MyList <T>
         }
     }
 
-    public void AddRange(MyList<T> values) //Podria haberse hecho conectando el ultimo con el nuevo.
+    public void AddRange(MyList<T> values)
     { 
         for (int i = 0;i < values.Counter; i++)
         {
@@ -244,7 +247,7 @@ public class MyList <T>
 
     public bool IsEmpty()
     {
-        if (root != null)
+        if (root == null)
         {
             return true;
         }

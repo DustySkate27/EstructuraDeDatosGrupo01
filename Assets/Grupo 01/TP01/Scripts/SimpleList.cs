@@ -80,7 +80,7 @@ namespace SimpleListLibrary
 
             #region position
 
-            for (int i = 0; i < arrayD.Length; i++)
+            for (int i = 0; i < arrayD.Length; i++) //se busca registrar el index para poder usarlo como pivot y obviar su valor en la copia.
             {
                 if (arrayD[i].Equals(item))
                 {
@@ -90,7 +90,7 @@ namespace SimpleListLibrary
 
             #endregion
 
-            if (removedIndex != -1)
+            if (removedIndex != -1) //si el index no cambia, no existe tal item
             {
                 T[] auxiliar = new T[arrayD.Length];
 
@@ -118,7 +118,7 @@ namespace SimpleListLibrary
                 }
 
                 #region copy
-                arrayD = new T[counter];
+                arrayD = new T[counter]; 
 
                 for (int i = 0; i < arrayD.Length; i++)
                 {
@@ -186,10 +186,10 @@ namespace SimpleListLibrary
 
         public void SelectionSort(Comparison<T> comparison)
         {
-            for (int i = 0; i < counter - 1; i++)
+            for (int i = 0; i < counter - 1; i++) //El i no puede apuntar al tail, porque queda siempre a la derecha (valor más grande)
             {
                 int minIndex = i;
-                for (int j = i + 1; j < counter; j++)
+                for (int j = i + 1; j < counter; j++) //j empieza una posicion despues del puntero a comparar
                 {
                     if (comparison(arrayD[j], arrayD[minIndex]) < 0)
                     {
@@ -197,7 +197,7 @@ namespace SimpleListLibrary
                     }
                 }
 
-                if (minIndex != i)
+                if (minIndex != i) //Si al final del for(j) el minIndex cambia, se le cambia su valor.
                 {
                     T aux = arrayD[i];
                     arrayD[i] = arrayD[minIndex];
@@ -208,9 +208,9 @@ namespace SimpleListLibrary
 
         public void BubbleSort(Comparison<T> comparison)
         {
-            for (int i = 0; i < counter; i++)
+            for (int i = 0; i < counter; i++) //cantidad de elementos = cantidad de recorridos
             {
-                for (int j = 0; j < counter - i - 1; j++)
+                for (int j = 0; j < counter - i - 1; j++) //j nunca puede valer lo mismo que el tail, porque compara siempre con sí mismo y una posicion despues
                 {
                     if (comparison(arrayD[j], arrayD[j + 1]) > 0)
                     {
@@ -236,7 +236,7 @@ namespace SimpleListLibrary
         int Partition(Comparison <T> comparison ,T[] array, int low, int high)
         {
             T pivot = array[high];
-            int i = low - 1;
+            int i = low - 1; //cantidad de valores menores al pivot
 
             for (int j = low; j < high; j++)
             {

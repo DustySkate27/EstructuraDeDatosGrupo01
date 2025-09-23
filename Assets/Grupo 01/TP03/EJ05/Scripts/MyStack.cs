@@ -10,12 +10,6 @@ public class MyStack<T>
 {
     private SimpleList<T> stack;
 
-    public MyStack(T value)
-    {
-        stack = new SimpleList<T>();
-        stack.Add(value);
-    }
-
     public MyStack()
     {
         stack = new SimpleList<T>();

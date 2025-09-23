@@ -46,7 +46,6 @@ public class EJ06Executer : MonoBehaviour
 
                 value = value.Trim();
                 numberInt = int.Parse(value);
-                Debug.Log(Fibonacci(numberInt));
                 resultText.text = Fibonacci(numberInt).ToString();
 
                 break;
@@ -55,7 +54,6 @@ public class EJ06Executer : MonoBehaviour
 
                 value = value.Trim();
                 numberInt = int.Parse(value);
-                Debug.Log(Factorial(numberInt));
                 resultText.text = Factorial(numberInt).ToString();
 
                 break;
@@ -64,7 +62,6 @@ public class EJ06Executer : MonoBehaviour
 
                 value = value.Trim();
                 numberInt = int.Parse(value);
-                Debug.Log(Suma(numberInt));
                 resultText.text = Suma(numberInt).ToString();
 
                 break;
@@ -80,22 +77,19 @@ public class EJ06Executer : MonoBehaviour
                 break;
 
             case fuction.palidromo:
-
-                Debug.Log(Palindromo(value));
                 resultText.text = Palindromo(value).ToString();
 
                 break;
 
             default:
-                Debug.Log("No se ingreso ninguna fucion a realizar");
+                Debug.Log("No se ingreso ninguna funcion a realizar");
                 break;
         }
     }
 
     private int Fibonacci(int n)
     {
-        if (n == 0) return 1;
-        if (n == 1) return 1;
+        if (n == 0 || n == 1) return 1;
 
         else
         {
