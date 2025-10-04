@@ -35,7 +35,7 @@ public class MyABBTree<T> where T : IComparable<T>
     {
         int height = 0;
         TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
-        SearchForFurthestLeaf(rootRef, 0, ref height);
+        PreOrderSearchForFurthestLeaf(rootRef, 0, ref height);
 
         return height;
     }
@@ -51,9 +51,11 @@ public class MyABBTree<T> where T : IComparable<T>
         else return null;
     }
 
-    private void SearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
+    private void PreOrderSearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
     {
-        if (pivot.left == null && pivot.right == null)
+        if (pivot == null)
+            throw new ArgumentNullException("bye bye");
+        else if (pivot.left == null && pivot.right == null)
         {
             if (currentHeight > maxHeight)
                 maxHeight = currentHeight;
@@ -61,10 +63,85 @@ public class MyABBTree<T> where T : IComparable<T>
         else
         {
             currentHeight++;
-            SearchForFurthestLeaf(pivot.left, currentHeight, ref maxHeight);
-            SearchForFurthestLeaf(pivot.right, currentHeight, ref maxHeight);
+            PreOrderSearchForFurthestLeaf(pivot.left, currentHeight, ref maxHeight);
+            PreOrderSearchForFurthestLeaf(pivot.right, currentHeight, ref maxHeight);
         }
     }
+
+    private void InOrderSearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
+    {
+        if (pivot == null)
+            throw new ArgumentNullException("bye bye");
+        else if (pivot.left != null)
+        {
+            currentHeight++;
+            InOrderSearchForFurthestLeaf(pivot.left, currentHeight, ref maxHeight);
+        }
+        else if (pivot.left == null && pivot.right == null)
+        {
+            if (currentHeight > maxHeight)
+                maxHeight = currentHeight;
+        }
+        else
+        {
+            currentHeight++;
+            InOrderSearchForFurthestLeaf(pivot.right, currentHeight, ref maxHeight);
+        }
+    }
+
+    private void PostOrderSearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
+    {
+        if (pivot == null)
+            throw new ArgumentNullException();
+        else if (pivot.left != null)
+        {
+            currentHeight++;
+            PostOrderSearchForFurthestLeaf(pivot.left, currentHeight, ref maxHeight);
+        }
+        else if (pivot.right != null)
+        {
+            currentHeight++;
+            PostOrderSearchForFurthestLeaf(pivot.right, currentHeight, ref maxHeight);
+        }
+        else if (pivot.left == null && pivot.right == null)
+        {
+            if (currentHeight > maxHeight)
+                maxHeight = currentHeight;
+        }
+
+    }
+
+    private void BreadthSearch(TreeNode<T> current)
+    {
+        MyQueue<TreeNode<T>> queue = new MyQueue<TreeNode<T>>();
+        queue.Enqueue(current);
+
+        while (queue.Count > 0)
+        {
+            current = queue.Dequeue();
+            Console.WriteLine(current.value.ToString());
+            if (current.left != null)
+                queue.Enqueue(current.left);
+            if (current.right != null)
+                queue.Enqueue(current.right);
+        }
+
+    }
+
+    private int BalanceFactor(T value)
+    {
+        int balance = 0;
+        TreeNode<T> aux = TrackRootReference(root, value);
+
+        balance = GetHeight(aux.left.value) - GetHeight(aux.right.value);
+
+        return balance;
+    }
+
+
+
+
+
 }
 
 
