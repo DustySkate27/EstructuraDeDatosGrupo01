@@ -20,14 +20,19 @@ public class MyABBTree<T> where T : IComparable<T>
         TrackLeaf(root, value);
     }
 
-    private void TrackLeaf(TreeNode<T> pivot, T value) //No admite duplicados
+    private TreeNode<T> TrackLeaf(TreeNode<T> pivot, T value) //No admite duplicados
     {
+        if (root == null)
+            return root = new TreeNode<T>(value);
         if (pivot == null)
-            pivot = new TreeNode<T>(value);
+            return pivot = new TreeNode<T>(value);
+
         else if (value.CompareTo(pivot.value) < 0)
-            TrackLeaf(pivot.left, value);
+            return pivot.left = TrackLeaf(pivot.left, value);
         else if (value.CompareTo(pivot.value) > 0)
-            TrackLeaf(pivot.right, value);
+            return pivot.right = TrackLeaf(pivot.right, value);
+ 
+        else return null;
     }
 
 
@@ -35,7 +40,9 @@ public class MyABBTree<T> where T : IComparable<T>
     public int PreOrderGetHeight(T value)
     {
         int height = 0;
+
         TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
+
         PreOrderSearchForFurthestLeaf(rootRef, 0, ref height);
 
         return height;
@@ -73,16 +80,19 @@ public class MyABBTree<T> where T : IComparable<T>
 
     private void PreOrderSearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
     {
+        Debug.Log(pivot.left.value.ToString());
         if (pivot == null)
-            throw new ArgumentNullException("bye bye");
+            Debug.Log("bye bye");
         else if (pivot.left == null && pivot.right == null)
         {
+            
             if (currentHeight > maxHeight)
                 maxHeight = currentHeight;
         }
         else
         {
             currentHeight++;
+
             PreOrderSearchForFurthestLeaf(pivot.left, currentHeight, ref maxHeight);
             PreOrderSearchForFurthestLeaf(pivot.right, currentHeight, ref maxHeight);
         }
@@ -131,6 +141,11 @@ public class MyABBTree<T> where T : IComparable<T>
 
     }
 
+    public void UseBreadthSearch()
+    {
+        BreadthSearch(root);
+    }
+
     private void BreadthSearch(TreeNode<T> current)
     {
         MyQueue<TreeNode<T>> queue = new MyQueue<TreeNode<T>>();
@@ -147,7 +162,7 @@ public class MyABBTree<T> where T : IComparable<T>
         }
     }
 
-    private int BalanceFactor(T value)
+    public int BalanceFactor(T value)
     {
         int balance = 0;
         TreeNode<T> aux = TrackRootReference(root, value);

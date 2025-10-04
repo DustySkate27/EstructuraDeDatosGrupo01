@@ -8,7 +8,7 @@ public class TreeNode<T> where T : IComparable<T>
     public TreeNode(T value)
     {
         this.value = value;
-        this.left = null;
-        this.right = null;
+        left = null;
+        right = null;
     }
 }
