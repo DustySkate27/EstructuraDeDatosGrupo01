@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 public class MyABBTree<T> where T : IComparable<T>
 {
@@ -31,7 +32,7 @@ public class MyABBTree<T> where T : IComparable<T>
 
 
     //Buscar el treenode y desde ahi usarlo como referencia al root del arbol o subarbol
-    public int GetHeight(T value)
+    public int PreOrderGetHeight(T value)
     {
         int height = 0;
         TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
@@ -39,6 +40,25 @@ public class MyABBTree<T> where T : IComparable<T>
 
         return height;
     }
+
+    public int InOrderGetHeight(T value)
+    {
+        int height = 0;
+        TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
+        InOrderSearchForFurthestLeaf(rootRef, 0, ref height);
+
+        return height;
+    }
+
+    public int PostOrderGetHeight(T value)
+    {
+        int height = 0;
+        TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
+        PostOrderSearchForFurthestLeaf(rootRef, 0, ref height);
+
+        return height;
+    }
+
 
     private TreeNode<T> TrackRootReference(TreeNode<T> pivot, T value)
     {
@@ -119,13 +139,12 @@ public class MyABBTree<T> where T : IComparable<T>
         while (queue.Count > 0)
         {
             current = queue.Dequeue();
-            Console.WriteLine(current.value.ToString());
+            Debug.Log(current.value.ToString());
             if (current.left != null)
                 queue.Enqueue(current.left);
             if (current.right != null)
                 queue.Enqueue(current.right);
         }
-
     }
 
     private int BalanceFactor(T value)
@@ -133,7 +152,7 @@ public class MyABBTree<T> where T : IComparable<T>
         int balance = 0;
         TreeNode<T> aux = TrackRootReference(root, value);
 
-        balance = GetHeight(aux.left.value) - GetHeight(aux.right.value);
+        balance = PreOrderGetHeight(aux.left.value) - PreOrderGetHeight(aux.right.value);
 
         return balance;
     }
