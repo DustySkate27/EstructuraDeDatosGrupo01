@@ -4,20 +4,21 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class EJ11Executer : MonoBehaviour
 {
-    //Ingresa valor
+    [Header("Ingresa valor")]
     [SerializeField] private TMP_InputField inputFieldInsert;
 
-    //Devolver Height
+    [Header("Devolver Height")]
     [SerializeField] private TMP_InputField getHeightPreOrder;
     [SerializeField] private TMP_InputField getHeightInOrder;
     [SerializeField] private TMP_InputField getHeightPostOrder;
 
-    //Balance Factor
+    [Header("Balance Factor")]
     [SerializeField] private TMP_InputField getBalanceFactor;
 
-    //Mostrar resultados
+    [Header("Mostrar resultados")]
     [SerializeField] private TextMeshProUGUI resultText;
     [SerializeField] private TextMeshProUGUI heightText;
     [SerializeField] private TextMeshProUGUI balanceText;
@@ -70,7 +71,7 @@ public class EJ11Executer : MonoBehaviour
 
     public void GetBreadthSearch()
     {
-        tree.UseBreadthSearch();
+        tree.BreadthSearch();
     }
 
 }
