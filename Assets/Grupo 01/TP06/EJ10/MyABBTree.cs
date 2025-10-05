@@ -59,7 +59,7 @@ public class MyABBTree<T> where T : IComparable<T>
 
         TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
 
-        PreOrderSearchForFurthestLeaf(rootRef, -1, ref height);
+        PreOrderSearchForFurthestLeaf(rootRef, -1, ref height); //No se cuenta el nodo root
 
         return height;
     }
@@ -67,8 +67,10 @@ public class MyABBTree<T> where T : IComparable<T>
     public int InOrderGetHeight(T value)
     {
         int height = 0;
+
         TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
-        InOrderSearchForFurthestLeaf(rootRef, 0, ref height);
+
+        InOrderSearchForFurthestLeaf(rootRef, -1, ref height);//No se cuenta el nodo root
 
         return height;
     }
@@ -96,19 +98,17 @@ public class MyABBTree<T> where T : IComparable<T>
 
     private void PreOrderSearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
     {
-
         if (pivot == null)
             Debug.Log("Camino Nulleado");
         else if (pivot.left == null && pivot.right == null)
         {
             Debug.Log(pivot.value.ToString());
-
             if (currentHeight > maxHeight)
                 maxHeight = currentHeight;
+            Debug.Log($"MaxHeight: {maxHeight}");
         }
         else
         {
-            Debug.Log(pivot.value.ToString());
             currentHeight++;
 
             PreOrderSearchForFurthestLeaf(pivot.left, currentHeight, ref maxHeight);
@@ -119,19 +119,24 @@ public class MyABBTree<T> where T : IComparable<T>
     private void InOrderSearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
     {
         if (pivot == null)
-            throw new ArgumentNullException("bye bye");
+            Debug.Log("Camino Nulleado");
         else if (pivot.left != null)
         {
+            Debug.Log(pivot.left.value.ToString());
             currentHeight++;
             InOrderSearchForFurthestLeaf(pivot.left, currentHeight, ref maxHeight);
         }
         else if (pivot.left == null && pivot.right == null)
         {
+            Debug.Log(pivot.value.ToString());
+            Debug.Log($"CurrentHeight: {currentHeight}");
+            Debug.Log($"MaxHeight: {maxHeight}");
             if (currentHeight > maxHeight)
                 maxHeight = currentHeight;
         }
         else
         {
+            Debug.Log(pivot.value.ToString());
             currentHeight++;
             InOrderSearchForFurthestLeaf(pivot.right, currentHeight, ref maxHeight);
         }
@@ -172,16 +177,18 @@ public class MyABBTree<T> where T : IComparable<T>
             if (current.left != null)
                 queue.Enqueue(current.left);
             if (current.right != null)
-                queue.Enqueue(current.right);
+                queue.Enqueue(current.right); 
         }
     }
 
     public int BalanceFactor(T value)
     {
-        int balance = 0;
+        Debug.Log(root.value.ToString());
         TreeNode<T> aux = TrackRootReference(root, value);
-
-        balance = PreOrderGetHeight(aux.left.value) - PreOrderGetHeight(aux.right.value);
+        Debug.Log(aux.value.ToString());
+        Debug.Log(root.left.value.ToString());
+        Debug.Log(aux.right.value.ToString());
+        int balance = PreOrderGetHeight(aux.left.value) - PreOrderGetHeight(aux.right.value);
 
         return balance;
     }
