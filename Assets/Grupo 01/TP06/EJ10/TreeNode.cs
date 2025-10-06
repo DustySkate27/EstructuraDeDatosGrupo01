@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 public class TreeNode<T> where T : IComparable<T>
 {
@@ -10,5 +11,11 @@ public class TreeNode<T> where T : IComparable<T>
         this.value = value;
         left = null;
         right = null;
+    }
+
+    public override string ToString()
+    {
+        //return $"Data: {value}, Right: {right.value}, Left: {left.value}";
+        return $"Data: {value}";
     }
 }

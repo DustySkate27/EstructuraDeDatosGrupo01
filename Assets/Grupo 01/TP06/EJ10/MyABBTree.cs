@@ -18,7 +18,9 @@ public class MyABBTree<T> where T : IComparable<T>
     public void Insert(T value)
     {
         if (root == null)
-            root = TrackLeaf(root, value, null);
+        {
+            Debug.Log(TrackLeaf(root, value, null));
+        }
         else
             TrackLeaf(root, value, null);
     }
@@ -59,7 +61,7 @@ public class MyABBTree<T> where T : IComparable<T>
 
         TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
 
-        PreOrderSearchForFurthestLeaf(rootRef, -1, ref height); //No se cuenta el nodo root
+        PreOrderSearchForFurthestLeaf(rootRef, 0, ref height); //No se cuenta el nodo root
 
         return height;
     }
@@ -70,7 +72,7 @@ public class MyABBTree<T> where T : IComparable<T>
 
         TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
 
-        InOrderSearchForFurthestLeaf(rootRef, -1, ref height);//No se cuenta el nodo root
+        InOrderSearchForFurthestLeaf(rootRef, 0, ref height);//No se cuenta el nodo root
 
         return height;
     }
@@ -99,7 +101,7 @@ public class MyABBTree<T> where T : IComparable<T>
     private void PreOrderSearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
     {
         if (pivot == null)
-            Debug.Log("Camino Nulleado");
+            throw new NullReferenceException();
         else if (pivot.left == null && pivot.right == null)
         {
             Debug.Log(pivot.value.ToString());
@@ -114,6 +116,7 @@ public class MyABBTree<T> where T : IComparable<T>
             PreOrderSearchForFurthestLeaf(pivot.left, currentHeight, ref maxHeight);
             PreOrderSearchForFurthestLeaf(pivot.right, currentHeight, ref maxHeight);
         }
+        //Mathf.Max
     }
 
     private void InOrderSearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
@@ -183,14 +186,16 @@ public class MyABBTree<T> where T : IComparable<T>
 
     public int BalanceFactor(T value)
     {
-        Debug.Log(root.value.ToString());
         TreeNode<T> aux = TrackRootReference(root, value);
-        Debug.Log(aux.value.ToString());
-        Debug.Log(root.left.value.ToString());
-        Debug.Log(aux.right.value.ToString());
-        int balance = PreOrderGetHeight(aux.left.value) - PreOrderGetHeight(aux.right.value);
 
-        return balance;
+        var left = PreOrderGetHeight(root.left.value);
+        var right = PreOrderGetHeight(root.right.value);
+
+        Debug.Log($"Left: {left}, Right: {right}");
+
+        //int balance = PreOrderGetHeight(root.left.value) - PreOrderGetHeight(root.right.value);
+
+        return 0;
     }
 
 
