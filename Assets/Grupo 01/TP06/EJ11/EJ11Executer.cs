@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using SimpleListLibrary;
 
 public class EJ11Executer : MonoBehaviour
 {
@@ -11,9 +9,12 @@ public class EJ11Executer : MonoBehaviour
     [SerializeField] private TMP_InputField inputFieldInsert;
 
     [Header("Devolver Height")]
-    [SerializeField] private TMP_InputField getHeightPreOrder;
-    [SerializeField] private TMP_InputField getHeightInOrder;
-    [SerializeField] private TMP_InputField getHeightPostOrder;
+    [SerializeField] private TMP_InputField getHeight;
+
+    [Header("Devolver Orden")]
+    [SerializeField] private Button preOrder;
+    [SerializeField] private Button inOrder;
+    [SerializeField] private Button postOrder;
 
     [Header("Balance Factor")]
     [SerializeField] private TMP_InputField getBalanceFactor;
@@ -30,15 +31,17 @@ public class EJ11Executer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tree = new MyABBTree<string>();
+        tree = new MyABBTree<int>();
 
         inputFieldInsert.onEndEdit.AddListener(AddValue);
 
-        getHeightPreOrder.onEndEdit.AddListener(GetPreOrder);
-        getHeightInOrder.onEndEdit.AddListener(GetInOrder);
-        getHeightPostOrder.onEndEdit.AddListener(GetPostOrder);
+        getHeight.onEndEdit.AddListener(GetHeight);
 
-        getBalanceFactor.onEndEdit.AddListener(GetBalnceFactor);
+        preOrder.onClick.AddListener(PreOrder);
+        inOrder.onClick.AddListener(InOrder);
+        postOrder.onClick.AddListener(PostOrder);
+
+        getBalanceFactor.onEndEdit.AddListener(GetBalanceFactor);
 
         breadthSearchButton.onClick.AddListener(GetBreadthSearch);
 
@@ -49,22 +52,37 @@ public class EJ11Executer : MonoBehaviour
         tree.Insert(value);
     }
 
-    public void GetPreOrder(string value)
+    public void GetHeight(string value)
     {
-        heightText.text = tree.PreOrderGetHeight(value).ToString();
+        heightText.text = tree.GetHeight(value).ToString();
     }
 
-    public void GetInOrder (string value)
+    public void PreOrder()
     {
-        heightText.text = tree.InOrderGetHeight(value).ToString();
+        SimpleList<TreeNode<int>> list = tree.PreOrder();
+        for (int i = 0; i < list.Count; i++)
+        {
+            Debug.Log(list[i]);
+        }
     }
-
-    public void GetPostOrder(string value)
+    public void InOrder()
     {
-        heightText.text = tree.PostOrderGetHeight(value).ToString();
+        SimpleList<TreeNode<int>> list = tree.InOrder();
+        for (int i = 0; i < list.Count; i++)
+        {
+            Debug.Log(list[i]);
+        }
     }
-
-    public void GetBalnceFactor(string value)
+    public void PostOrder()
+    {
+        SimpleList<TreeNode<int>> list = tree.PostOrder();
+        for (int i = 0; i < list.Count; i++)
+        {
+            Debug.Log(list[i]);
+        }
+    }
+   
+    public void GetBalanceFactor(int value)
     {
         balanceText.text = tree.BalanceFactor(value).ToString();
     }

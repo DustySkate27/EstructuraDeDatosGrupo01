@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleListLibrary;
+using System;
 using UnityEngine;
 
 public class MyABBTree<T> where T : IComparable<T>
@@ -30,68 +31,42 @@ public class MyABBTree<T> where T : IComparable<T>
 
         if (value.CompareTo(pivot.value) < 0)
             pivot.left = TrackLeaf(pivot.left, value);
+
         else if (value.CompareTo(pivot.value) > 0)
             pivot.right = TrackLeaf(pivot.right, value);
 
         return pivot;
     }
 
-
-    //Buscar el treenode y desde ahi usarlo como referencia al root del arbol o subarbol
-    public int PreOrderGetHeight(T value)
+    //Busca el treenode y desde ahi usarlo como referencia al root del arbol o subarbol
+    public int GetHeight(T value)
     {
-        
-
         TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
 
         if (rootRef == null)
             return -1;
 
         int height = 0;
-        PreOrderSearchForFurthestLeaf(rootRef, 0, ref height); //No se cuenta el nodo root
+        SearchForFurthestLeaf(rootRef, 0, ref height); //No se cuenta el nodo root
 
         return height;
     }
-
-    public int InOrderGetHeight(T value)
-    {
-        int height = 0;
-
-        TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
-
-        InOrderSearchForFurthestLeaf(rootRef, 0, ref height);//No se cuenta el nodo root
-
-        return height;
-    }
-
-    public int PostOrderGetHeight(T value)
-    {
-        int height = 0;
-        TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
-        PostOrderSearchForFurthestLeaf(rootRef, 0, ref height);
-
-        return height;
-    }
-
 
     private TreeNode<T> TrackRootReference(TreeNode<T> pivot, T value)
     {
-        Debug.Log(value.CompareTo(pivot.value));
         if (pivot == null) 
             return null;
         else if (value.Equals(pivot.value))
             return pivot;
         else if (value.CompareTo(pivot.value) < 0)
-        {
             return TrackRootReference(pivot.left, value);
-        }
         else if (value.CompareTo(pivot.value) > 0)
             return TrackRootReference(pivot.right, value);
         else 
             return null;
     }
 
-    private void PreOrderSearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
+    private void SearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
     {
         if (pivot == null)
             return;
@@ -103,56 +78,60 @@ public class MyABBTree<T> where T : IComparable<T>
         else
         {
             currentHeight++;
-            PreOrderSearchForFurthestLeaf(pivot.left, currentHeight, ref maxHeight);
-            PreOrderSearchForFurthestLeaf(pivot.right, currentHeight, ref maxHeight);
-        }
-        //Mathf.Max
-    }
-
-    private void InOrderSearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
-    {
-        if (pivot == null)
-            Debug.Log("Camino Nulleado");
-        else if (pivot.left != null)
-        {
-            Debug.Log(pivot.left.value.ToString());
-            currentHeight++;
-            InOrderSearchForFurthestLeaf(pivot.left, currentHeight, ref maxHeight);
-        }
-        else if (pivot.left == null && pivot.right == null)
-        {
-            Debug.Log(pivot.value.ToString());
-            Debug.Log($"CurrentHeight: {currentHeight}");
-            Debug.Log($"MaxHeight: {maxHeight}");
-            if (currentHeight > maxHeight)
-                maxHeight = currentHeight;
-        }
-        else
-        {
-            Debug.Log(pivot.value.ToString());
-            currentHeight++;
-            InOrderSearchForFurthestLeaf(pivot.right, currentHeight, ref maxHeight);
+            SearchForFurthestLeaf(pivot.left, currentHeight, ref maxHeight);
+            SearchForFurthestLeaf(pivot.right, currentHeight, ref maxHeight);
         }
     }
 
-    private void PostOrderSearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
+    public SimpleList<TreeNode<T>> PreOrder()
     {
-        if (pivot == null)
-            throw new ArgumentNullException();
-        else if (pivot.left != null)
+        SimpleList<TreeNode<T>> list = new SimpleList<TreeNode<T>>();
+        PreOrder(root, list);
+        return list;
+    }
+
+    private void PreOrder(TreeNode<T> node, SimpleList<TreeNode<T>> list)
+    {
+        if (node != null)
         {
-            currentHeight++;
-            PostOrderSearchForFurthestLeaf(pivot.left, currentHeight, ref maxHeight);
+            list.Add(int.Parse());
+            PreOrder(node.left, list);
+            PreOrder(node.right, list);
         }
-        else if (pivot.right != null)
+    }
+
+    public SimpleList<TreeNode<T>> InOrder()
+    {
+        SimpleList<TreeNode<T>> list = new SimpleList<TreeNode<T>>();
+        InOrder(root, list);
+        return list;
+    }
+
+    private void InOrder(TreeNode<T> node, SimpleList<TreeNode<T>> list)
+    {
+        if (node != null)
         {
-            currentHeight++;
-            PostOrderSearchForFurthestLeaf(pivot.right, currentHeight, ref maxHeight);
+            InOrder(node.left, list);
+            list.Add(node);
+            InOrder(node.right, list);
         }
-        else if (pivot.left == null && pivot.right == null)
+
+    }
+
+    public SimpleList<TreeNode<T>> PostOrder()
+    {
+        SimpleList<TreeNode<T>> list = new SimpleList<TreeNode<T>>();
+        PostOrder(root, list);
+        return list;
+    }
+
+    private void PostOrder(TreeNode<T> node, SimpleList<TreeNode<T>> list)
+    {
+        if (node != null)
         {
-            if (currentHeight > maxHeight)
-                maxHeight = currentHeight;
+            PostOrder(node.left, list);
+            PostOrder(node.right, list);
+            list.Add(node);
         }
 
     }
@@ -170,28 +149,24 @@ public class MyABBTree<T> where T : IComparable<T>
             if (current.left != null)
                 queue.Enqueue(current.left);
             if (current.right != null)
-                queue.Enqueue(current.right); 
+                queue.Enqueue(current.right);
         }
     }
 
     public int BalanceFactor(T value)
     {
-        TreeNode<T> aux = TrackRootReference(root, value);
+        TreeNode<T> aux = null;
+        aux.left = TrackRootReference(root, value).left;
+        aux.right = TrackRootReference(root, value).right;
 
-        var left = PreOrderGetHeight(root.left.value);
-        var right = PreOrderGetHeight(root.right.value);
+        var left = GetHeight(aux.left.value);
+        var right = GetHeight(aux.right.value);
 
-        Debug.Log($"Left: {left}, Right: {right}");
 
-        //int balance = PreOrderGetHeight(root.left.value) - PreOrderGetHeight(root.right.value);
+        int balance = left - right;
 
-        return 0;
+        return balance;
     }
-
-
-
-
-
 }
 
 
