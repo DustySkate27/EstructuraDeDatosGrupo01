@@ -17,12 +17,7 @@ public class MyABBTree<T> where T : IComparable<T>
 
     public void Insert(T value)
     {
-        if (root == null)
-        {
-            Debug.Log(TrackLeaf(root, value, null));
-        }
-        else
-            TrackLeaf(root, value, null);
+        TrackLeaf(root, value, null);
     }
 
     private TreeNode<T> TrackLeaf(TreeNode<T> pivot, T value, TreeNode<T> prevRef) //No admite duplicados
@@ -32,7 +27,7 @@ public class MyABBTree<T> where T : IComparable<T>
             pivot = new TreeNode<T>(value);
 
             if (root == null)
-                return pivot;
+                return root = pivot;
             else if (prevRef.value.CompareTo(pivot.value) < 0)
                 prevRef.right = pivot;
             else if (prevRef.value.CompareTo(pivot.value) > 0)
@@ -89,8 +84,10 @@ public class MyABBTree<T> where T : IComparable<T>
 
     private TreeNode<T> TrackRootReference(TreeNode<T> pivot, T value)
     {
-        if (pivot.value.Equals(value))
+        if (value.Equals(pivot.value))
+        {
             return pivot;
+        }
         else if (value.CompareTo(pivot.value) < 0)
             return TrackRootReference(pivot.left, value);
         else if (value.CompareTo(pivot.value) > 0)
@@ -101,18 +98,17 @@ public class MyABBTree<T> where T : IComparable<T>
     private void PreOrderSearchForFurthestLeaf(TreeNode<T> pivot, int currentHeight, ref int maxHeight)
     {
         if (pivot == null)
-            throw new NullReferenceException();
+            Debug.Log(pivot);
         else if (pivot.left == null && pivot.right == null)
         {
-            Debug.Log(pivot.value.ToString());
             if (currentHeight > maxHeight)
                 maxHeight = currentHeight;
-            Debug.Log($"MaxHeight: {maxHeight}");
         }
         else
         {
             currentHeight++;
-
+            Debug.Log(pivot.left);
+            Debug.Log(pivot.right);
             PreOrderSearchForFurthestLeaf(pivot.left, currentHeight, ref maxHeight);
             PreOrderSearchForFurthestLeaf(pivot.right, currentHeight, ref maxHeight);
         }
