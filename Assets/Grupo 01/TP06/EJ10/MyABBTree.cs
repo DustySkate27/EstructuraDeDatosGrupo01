@@ -41,10 +41,14 @@ public class MyABBTree<T> where T : IComparable<T>
     //Busca el treenode y desde ahi usarlo como referencia al root del arbol o subarbol
     public int GetHeight(T value)
     {
+        
         TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
 
         if (rootRef == null)
+        {
+            Debug.Log("No encontre");
             return -1;
+        }
 
         int height = 0;
         SearchForFurthestLeaf(rootRef, 0, ref height); //No se cuenta el nodo root
@@ -94,7 +98,7 @@ public class MyABBTree<T> where T : IComparable<T>
     {
         if (node != null)
         {
-            list.Add(int.Parse());
+            list.Add(node);
             PreOrder(node.left, list);
             PreOrder(node.right, list);
         }
@@ -155,13 +159,29 @@ public class MyABBTree<T> where T : IComparable<T>
 
     public int BalanceFactor(T value)
     {
-        TreeNode<T> aux = null;
+        TreeNode<T> aux = root;
         aux.left = TrackRootReference(root, value).left;
         aux.right = TrackRootReference(root, value).right;
 
-        var left = GetHeight(aux.left.value);
-        var right = GetHeight(aux.right.value);
+        int left;
+        int right;
 
+        if (aux.left != null)
+        {
+            left = GetHeight(aux.left.value);
+        }
+        else
+        {
+            left = -1;
+        }
+        if (aux.right != null)
+        {
+            right = GetHeight(aux.right.value);
+        }
+        else
+        {
+            right = -1;
+        }
 
         int balance = left - right;
 

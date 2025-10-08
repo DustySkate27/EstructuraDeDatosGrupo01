@@ -26,7 +26,7 @@ public class EJ11Executer : MonoBehaviour
 
     [SerializeField] private Button breadthSearchButton;
 
-    MyABBTree<string> tree;
+    MyABBTree<int> tree;
 
     // Start is called before the first frame update
     void Start()
@@ -45,16 +45,25 @@ public class EJ11Executer : MonoBehaviour
 
         breadthSearchButton.onClick.AddListener(GetBreadthSearch);
 
+        //Prueba de ingreso de valores
+        int[] values = { 10, 5, 11, 3 ,6, 7} ;
+        for (int i = 0; i < values.Length; i++)
+        {
+            tree.Insert(values[i]);
+            Debug.Log(values[i]);
+        }
     }
 
     public void AddValue(string value)
     {
-        tree.Insert(value);
+        int num = int.Parse(value);
+        tree.Insert(num);
     }
 
     public void GetHeight(string value)
     {
-        heightText.text = tree.GetHeight(value).ToString();
+        int num = int.Parse(value);
+        heightText.text = tree.GetHeight(num).ToString();
     }
 
     public void PreOrder()
@@ -82,9 +91,10 @@ public class EJ11Executer : MonoBehaviour
         }
     }
    
-    public void GetBalanceFactor(int value)
+    public void GetBalanceFactor(string value)
     {
-        balanceText.text = tree.BalanceFactor(value).ToString();
+        int num = int.Parse(value);
+        balanceText.text = tree.BalanceFactor(num).ToString();
     }
 
     public void GetBreadthSearch()
