@@ -6,6 +6,8 @@ public class MyABBTree<T> where T : IComparable<T>
 {
     private TreeNode<T> root;
 
+    public TreeNode<T> Root { get => root; }
+
     public MyABBTree()
     {
         root = null;
