@@ -6,7 +6,7 @@ public class MyABBTree<T> where T : IComparable<T>
 {
     private TreeNode<T> root;
 
-    public TreeNode<T> Root { get => root; }
+    public TreeNode<T> Root { get => root; set => root = value; }
 
     public MyABBTree()
     {
@@ -58,7 +58,7 @@ public class MyABBTree<T> where T : IComparable<T>
         return height;
     }
 
-    private TreeNode<T> TrackRootReference(TreeNode<T> pivot, T value)
+    public TreeNode<T> TrackRootReference(TreeNode<T> pivot, T value)
     {
         if (pivot == null) 
             return null;

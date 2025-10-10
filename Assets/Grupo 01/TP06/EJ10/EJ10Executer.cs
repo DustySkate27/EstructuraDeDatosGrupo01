@@ -13,7 +13,6 @@ public class EJ10Executer : MonoBehaviour
             return;
         isRun = false;
 
-
         tree = new MyABBTree<int>();
 
         foreach (int i in numbers)
