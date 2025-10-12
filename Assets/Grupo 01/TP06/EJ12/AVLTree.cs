@@ -3,36 +3,31 @@ using UnityEngine;
 
 public class AVLTree<T> : MyABBTree<T> where T : IComparable<T>
 {
-    public MyABBTree<T> aVLTree;
+    public AVLTree() : base() { }
 
-    public AVLTree()
-    {
-        aVLTree = new MyABBTree<T>();
-    }
-    public AVLTree(T value)
-    {
-        aVLTree = new MyABBTree<T>(value);
-    }
+    public AVLTree(T value) : base(value) { }
 
     public void Balance(T value)
     {
-        TreeNode<T> node = aVLTree.TrackRootReference(aVLTree.Root, value);
+        TreeNode<T> node = TrackRootReference(Root, value);
         Debug.Log(node);
-        Debug.Log(node.left);
+        Debug.Log(node.right);
+        Debug.Log(node.right.right);
+        Debug.Log(node.right.right.right);
 
-        if (aVLTree.BalanceFactor(node.value) > 1 && aVLTree.BalanceFactor(node.left.value) >= 0)
+        if (BalanceFactor(node.value) > 1 && BalanceFactor(node.left.value) >= 0)
         {
             LLRotation(node);
         }
-        else if (aVLTree.BalanceFactor(node.value) < -1 && aVLTree.BalanceFactor(node.right.value) <= 0)
+        else if (BalanceFactor(node.value) < -1 && BalanceFactor(node.right.value) <= 0)
         {
             RRRotation(node);
         }
-        else if (aVLTree.BalanceFactor(node.value) < -1 && aVLTree.BalanceFactor(node.right.value) >= 0)
+        else if (BalanceFactor(node.value) < -1 && BalanceFactor(node.right.value) >= 0)
         {
             RLRotation(node);
         }
-        else if (aVLTree.BalanceFactor(node.value) > 1 && aVLTree.BalanceFactor(node.left.value) <= 0)
+        else if (BalanceFactor(node.value) > 1 && BalanceFactor(node.left.value) <= 0)
         {
             LRRotation(node);
         }
@@ -40,28 +35,18 @@ public class AVLTree<T> : MyABBTree<T> where T : IComparable<T>
 
     private void LLRotation(TreeNode<T> node)
     {
-        TreeNode<T> x = node.right;
-        TreeNode<T> y = x.right;
-
-        x = node;
-        x.right = y;
-        x.left = node;
-
-        Debug.Log(x);
-        Debug.Log(x.left);
-        Debug.Log(x.right);
-        
+        Debug.Log("LL rotation");
     }
     private void RRRotation(TreeNode<T> node) 
     {
-
+        Debug.Log("RR rotation");
     }
     private void RLRotation(TreeNode<T> node) 
-    { 
-
+    {
+        Debug.Log("RL rotation");
     }
     private void LRRotation(TreeNode<T> node) 
-    { 
-
+    {
+        Debug.Log("LR rotation");
     }
 }

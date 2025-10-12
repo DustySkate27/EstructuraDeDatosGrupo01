@@ -4,7 +4,7 @@ using UnityEngine;
 public class TP12Executer : MonoBehaviour
 {
     AVLTree<int> tree = new AVLTree<int>();
-    int[] numbers = new int[] { 1, 2, 3};
+    int[] numbers = new int[] { 1, 2, 3, 4};
     public bool isRun;
 
     void Update()
@@ -18,7 +18,7 @@ public class TP12Executer : MonoBehaviour
         foreach (int i in numbers)
         {
             int index = i;
-            tree.aVLTree.Insert(index);
+            tree.Insert(index);
         }
         tree.Balance(1);
     }
