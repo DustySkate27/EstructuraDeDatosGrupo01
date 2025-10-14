@@ -1,10 +1,10 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [ExecuteAlways]
 public class TP12Executer : MonoBehaviour
 {
     AVLTree<int> tree = new AVLTree<int>();
-    int[] numbers = new int[] { 5, 2, 3, 4, 7};
     public bool isRun;
 
     void Update()
@@ -15,9 +15,10 @@ public class TP12Executer : MonoBehaviour
 
         tree = new AVLTree<int>();
 
-        for (int i = 0; i < numbers.Length; i++)
+        for (int i = 0; i < 100; i++)
         {
-            tree.InsertN(numbers[i]);
+            int number = Random.Range(0, 1001);
+            tree.InsertN(number);
         }
 
         Debug.Log(tree.PostOrder());

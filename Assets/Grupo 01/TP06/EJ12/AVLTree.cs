@@ -40,8 +40,6 @@ public class AVLTree<T> : MyABBTree<T> where T : IComparable<T>
 
     private TreeNode<T> LLRotation(TreeNode<T> node)
     {
-        Debug.Log("LL");
-
         TreeNode<T> x = node.left;
         TreeNode<T> t2 = x.right;
 
@@ -52,8 +50,6 @@ public class AVLTree<T> : MyABBTree<T> where T : IComparable<T>
     }
     private TreeNode<T> RRRotation(TreeNode<T> node) 
     {
-        Debug.Log("RR");
-        
         TreeNode<T> x = node.right;
         TreeNode<T> t2 = x.left;
 
@@ -64,13 +60,10 @@ public class AVLTree<T> : MyABBTree<T> where T : IComparable<T>
     }
     private TreeNode<T> RLRotation(TreeNode<T> node)
     {
-        Debug.Log("RL");
-
         return LLRotation(RRRotation(node));
     }
     private TreeNode<T> LRRotation(TreeNode<T> node) 
     {
-        Debug.Log("LR");
         return RRRotation(LLRotation(node));
     }
 }
