@@ -18,7 +18,7 @@ public class MyABBTree<T> where T : IComparable<T>
         root = new TreeNode<T>(value);
     }
 
-    public void Insert(T value)
+    public virtual void Insert(T value)
     {
         if (root == null)
             root = TrackLeaf(root, value);
@@ -162,13 +162,11 @@ public class MyABBTree<T> where T : IComparable<T>
     public int BalanceFactor(T value)
     {
         TreeNode<T> aux = root;
-        aux.left = TrackRootReference(root, value).left;
-        aux.right = TrackRootReference(root, value).right;
 
-        int left;
-        int right;
+        int left = 0;
+        int right = 0;
 
-        if (aux.left != null)
+        if (TrackRootReference(root, value).left != null)
         {
             left = GetHeight(aux.left.value);
         }
@@ -176,7 +174,7 @@ public class MyABBTree<T> where T : IComparable<T>
         {
             left = -1;
         }
-        if (aux.right != null)
+        if (TrackRootReference(root, value).right != null)
         {
             right = GetHeight(aux.right.value);
         }
