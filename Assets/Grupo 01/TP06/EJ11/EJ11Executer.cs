@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using SimpleListLibrary;
 
+
 public class EJ11Executer : MonoBehaviour
 {
     [Header("Ingresa valor")]
@@ -72,7 +73,8 @@ public class EJ11Executer : MonoBehaviour
     public void GetHeight(string value)
     {
         int num = int.Parse(value);
-        heightText.text = tree.GetHeight(num).ToString();
+        TreeNode<int> node = tree.TrackNodeByValue(num, tree.Root);
+        heightText.text = tree.GetNodeHeight(node).ToString();
     }
 
     public void PreOrder()
@@ -109,7 +111,8 @@ public class EJ11Executer : MonoBehaviour
     public void GetBalanceFactor(string value)
     {
         int num = int.Parse(value);
-        balanceText.text = tree.BalanceFactor(num).ToString();
+        TreeNode<int> node = tree.TrackNodeByValue(num, tree.Root);
+        balanceText.text = tree.NodeBalanceFactor(node).ToString();
     }
 
     public void GetBreadthSearch()

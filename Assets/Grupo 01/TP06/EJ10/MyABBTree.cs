@@ -18,18 +18,16 @@ public class MyABBTree<T> where T : IComparable<T>
         root = new TreeNode<T>(value);
     }
 
-    public virtual void Insert(T value)
+    public virtual TreeNode<T> Insert(T value)
     {
-        if (root == null)
-            root = TrackLeaf(root, value);
-        else
-            TrackLeaf(root, value);
+        root = TrackLeaf(root, value);
+        return root;
     }
 
-    private TreeNode<T> TrackLeaf(TreeNode<T> pivot, T value) //No admite duplicados
+    public TreeNode<T> TrackLeaf(TreeNode<T> pivot, T value) //No admite duplicados
     {
         if (pivot == null)
-            return new TreeNode<T>(value);
+            return new TreeNode<T>(value); 
 
         if (value.CompareTo(pivot.value) < 0)
             pivot.left = TrackLeaf(pivot.left, value);
@@ -41,34 +39,58 @@ public class MyABBTree<T> where T : IComparable<T>
     }
 
     //Busca el treenode y desde ahi usarlo como referencia al root del arbol o subarbol
-    public int GetHeight(T value)
+    public int GetHeight()
     {
-        
-        TreeNode<T> rootRef = TrackRootReference(root, value); //Devuelve treenode
 
-        if (rootRef == null)
+        if (root == null)
         {
             Debug.Log("No encontre");
             return -1;
         }
 
         int height = 0;
-        SearchForFurthestLeaf(rootRef, 0, ref height); //No se cuenta el nodo root
+        SearchForFurthestLeaf(root, 0, ref height); //No se cuenta el nodo root
 
         return height;
     }
 
-    public TreeNode<T> TrackRootReference(TreeNode<T> pivot, T value)
+    public int GetNodeHeight(TreeNode<T> node)
+    {
+        if (node == null)
+        {
+            Debug.Log("No encontre");
+            return -1;
+        }
+
+        int height = 0;
+        SearchForFurthestLeaf(TrackRootReference(root, node), 0, ref height);
+
+        return height;
+    }
+
+    public TreeNode<T> TrackRootReference(TreeNode<T> aux, TreeNode<T> pivot)
     {
         if (pivot == null) 
             return null;
-        else if (value.Equals(pivot.value))
+        else if (aux == pivot)
             return pivot;
-        else if (value.CompareTo(pivot.value) < 0)
-            return TrackRootReference(pivot.left, value);
-        else if (value.CompareTo(pivot.value) > 0)
-            return TrackRootReference(pivot.right, value);
+        else if (pivot.value.CompareTo(aux.value) < 0)
+            return TrackRootReference(aux.left, pivot);
+        else if (pivot.value.CompareTo(aux.value) > 0)
+            return TrackRootReference(aux.right, pivot);
         else 
+            return null;
+    }
+
+    public TreeNode<T> TrackNodeByValue(T value, TreeNode<T> pivot)
+    {
+        if (pivot.value.CompareTo(value) == 0)
+            return pivot;
+        else if (pivot.value.CompareTo(value) > 0)
+            return TrackNodeByValue(value, pivot.left);
+        else if (pivot.value.CompareTo(value) < 0)
+            return TrackNodeByValue(value, pivot.right);
+        else
             return null;
     }
 
@@ -159,24 +181,23 @@ public class MyABBTree<T> where T : IComparable<T>
         }
     }
 
-    public int BalanceFactor(T value)
+    public int BalanceFactor()
     {
-        TreeNode<T> aux = root;
 
-        int left = 0;
-        int right = 0;
+        int left;
+        int right;
 
-        if (TrackRootReference(root, value).left != null)
+        if (root.left != null)
         {
-            left = GetHeight(aux.left.value);
+            left = GetNodeHeight(root.left);
         }
         else
         {
             left = -1;
         }
-        if (TrackRootReference(root, value).right != null)
+        if (root.right != null)
         {
-            right = GetHeight(aux.right.value);
+            right = GetNodeHeight(root.right);
         }
         else
         {
@@ -186,6 +207,38 @@ public class MyABBTree<T> where T : IComparable<T>
         int balance = left - right;
 
         return balance;
+    }
+
+    public int NodeBalanceFactor(TreeNode<T> node)
+    {
+        if (node == null)
+            return -1;
+        else
+        {
+            int left;
+            int right;
+
+            if (node.left != null)
+            {
+                left = GetNodeHeight(node.left);
+            }
+            else
+            {
+                left = -1;
+            }
+            if (node.right != null)
+            {
+                right = GetNodeHeight(node.right);
+            }
+            else
+            {
+                right = -1;
+            }
+
+            int balance = left - right;
+
+            return balance;
+        }
     }
 }
 
