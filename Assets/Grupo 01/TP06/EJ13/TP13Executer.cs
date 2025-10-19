@@ -103,6 +103,33 @@ public class TP13Executer : MonoBehaviour
 
     }
 
+    public void LevelOrder()
+    {
+        contentTransform.sizeDelta = saveSizes;
+
+        ValueChecker();
+
+        currentPlayer = 0;
+        SimpleList<TreeNode<int>> list = tree.PostOrder();
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            result += "Player" + currentPlayer + ": " + new string(list[i].value.ToString()) + "\n";
+            contentTransform.sizeDelta = new Vector2(contentTransform.sizeDelta.x, contentTransform.sizeDelta.y + 22);
+            currentPlayer++;
+
+        }
+
+        Debug.Log(tree.PostOrder());
+        resultText.text = result;
+
+        result = null;
+        list.Clear();
+        checkerList.Clear();
+        tree = new AVLTree<int>();
+
+    }
+
     public void ValueChecker()
     {
         int number = Random.Range(0, 1001);
