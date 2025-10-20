@@ -1,16 +1,12 @@
-﻿using System;
+﻿using SimpleListLibrary;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyLinkedList;
 using UnityEngine;
 
 
 public class MySetList<T> : MySet<T>
 {
     private MyList<T> set;
-    private HashSet<T> setList;
+
     public MySetList(T item)
     {
         set = new MyList<T>();
@@ -35,7 +31,7 @@ public class MySetList<T> : MySet<T>
     }
     public override bool Contains(T item) 
     { 
-        return true;
+        return set.Contains(item);
     }
     public override void Show() 
     {
@@ -65,21 +61,49 @@ public class MySetList<T> : MySet<T>
     }
     public override MySet<T> Union(MySet<T> other)
     {
-        T[] otherArray = other.Elements();
+        SimpleList<T> otherArray = new SimpleList<T>();
         MySetList<T> result = new MySetList<T>();
 
+        for (int i = 0; i < other.Cardinality(); i++) 
+        {
+            if (!set.Contains(other.Elements()[i])) 
+            { 
+                otherArray.Add(other.Elements()[i]);
+            }
+        } 
+
         for (int i = 0; i < set.Counter; i++) result.Add(set[i]);
-        for (int i = 0; i < other.Cardinality(); i++) result.Add(otherArray[i]);
+        for (int i = 0; i < otherArray.Count; i++) result.Add(otherArray[i]);
 
         return result;
     }
     public override MySet<T> Intersect(MySet<T> other) 
     {
-        return null;
+        SimpleList<T> otherArray = new SimpleList<T>();
+        MySetList<T> result = new MySetList<T>();
+
+        for (int i = 0; i < other.Cardinality(); i++)
+        {
+            if (set.Contains(other.Elements()[i]))
+            {
+                otherArray.Add(other.Elements()[i]);
+            }
+        }
+     
+        for (int i = 0; i < otherArray.Count; i++) result.Add(otherArray[i]);
+
+        return result;
     }
     public override MySet<T> Difference(MySet<T> other) 
     {
-        return null;
+        MySetList<T> result = new MySetList<T>();
+
+        for (int i = 0; i < set.Counter; i++)
+        {
+            if (!other.Contains(set[i])) result.Add(set[i]);
+        }
+
+        return result;
     }
 
     public override T[] Elements()

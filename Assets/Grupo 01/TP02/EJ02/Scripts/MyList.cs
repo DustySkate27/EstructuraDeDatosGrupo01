@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.IsolatedStorage;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using MyLinkedList;
-using NUnit.Framework;
-using Unity.Collections.LowLevel.Unsafe;
-using Unity.VisualScripting;
-using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+﻿using MyLinkedList;
+using System;
 
 
 
@@ -147,6 +136,21 @@ public class MyList <T>
         return false;
     }
 
+    public bool Contains(T item)
+    {
+        MyNode<T> auxNode = root;
+        for(int i = 0; i < counter; ++i) 
+        {
+            if (auxNode.isEquals(item))
+            {
+                return true;
+            }
+            else auxNode = auxNode.NextNode;
+        } 
+        return false;
+       
+
+    }
     public void RemoveAt(int index)
     {
 
