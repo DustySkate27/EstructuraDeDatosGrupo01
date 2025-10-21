@@ -117,7 +117,15 @@ public class EJ11Executer : MonoBehaviour
 
     public void GetBreadthSearch()
     {
-        tree.BreadthSearch();
+          outputText.text = "Order Output: ";
+        SimpleList<TreeNode<int>> list = tree.BreadthSearch();
+        for (int i = 0; i < list.Count; i++)
+        {
+            Debug.Log(list[i]);
+            outputText.text += list[i].value.ToString() + ", ";
+        }
+
+        //tree.BreadthSearch();
     }
 
     public void ShowTree(TreeNode<int> node, Vector2 pos, int depth)

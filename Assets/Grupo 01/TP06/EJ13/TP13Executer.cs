@@ -110,7 +110,7 @@ public class TP13Executer : MonoBehaviour
         ValueChecker();
 
         currentPlayer = 0;
-        SimpleList<TreeNode<int>> list = tree.PostOrder();
+        SimpleList<TreeNode<int>> list = tree.BreadthSearch();
 
         for (int i = 0; i < list.Count; i++)
         {

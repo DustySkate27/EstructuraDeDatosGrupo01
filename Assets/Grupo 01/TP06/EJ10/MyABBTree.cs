@@ -164,21 +164,24 @@ public class MyABBTree<T> where T : IComparable<T>
 
     }
 
-    public void BreadthSearch()
+    public SimpleList<TreeNode<T>> BreadthSearch()
     {
         TreeNode<T> current = root;
+        SimpleList<TreeNode<T>> list = new SimpleList<TreeNode<T>>();
         MyQueue<TreeNode<T>> queue = new MyQueue<TreeNode<T>>();
         queue.Enqueue(current);
 
         while (queue.Count > 0)
         {
             current = queue.Dequeue();
-            Debug.Log(current.value.ToString());
+            list.Add(current);
             if (current.left != null)
                 queue.Enqueue(current.left);
             if (current.right != null)
                 queue.Enqueue(current.right);
         }
+
+        return list;
     }
 
     public int BalanceFactor()
