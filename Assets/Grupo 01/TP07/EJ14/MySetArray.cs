@@ -5,7 +5,18 @@ using UnityEngine;
 public class MySetArray<T> : MySet<T>
 {
     public readonly SimpleList<T> set;
+    public override T[] Elements
+    {
+        get
+        {
+            T[] arrayToReturn = new T[set.Count];
 
+            for (int i = 0; i < set.Count; i++) arrayToReturn[i] = set[i];
+
+            return arrayToReturn;
+        }
+
+    }
     public MySetArray(T item)
     {
         set = new SimpleList<T>();
@@ -32,31 +43,9 @@ public class MySetArray<T> : MySet<T>
     {
         return set.Contains(item);
     }
-    public override void Show()
-    {
-        for (int i = 0; i < set.Count; i++)
-        {
-            Debug.Log(set[i]);
-        }
-    }
-    public override string ToString()
-    {
-        string stringToShow = "";
-
-        for (int i = 0; i < set.Count; i++)
-        {
-            stringToShow += (set[i]) + ", ";
-        }
-
-        return stringToShow;
-    }
     public override int Cardinality()
     {
         return set.Count;
-    }
-    public override bool IsEmpty()
-    {
-        return set.IsEmpty();
     }
     public override MySet<T> Union(MySet<T> other)
     {
@@ -66,9 +55,9 @@ public class MySetArray<T> : MySet<T>
 
         for (int i = 0; i < other.Cardinality(); i++)
         {
-            if (!set.Contains(other.Elements()[i]))
+            if (!set.Contains(other.Elements[i]))
             {
-                result.Add(other.Elements()[i]);
+                result.Add(other.Elements[i]);
             }
         }
 
@@ -80,9 +69,9 @@ public class MySetArray<T> : MySet<T>
 
         for (int i = 0; i < other.Cardinality(); i++)
         {
-            if (set.Contains(other.Elements()[i]))
+            if (set.Contains(other.Elements[i]))
             {
-                result.Add(other.Elements()[i]);
+                result.Add(other.Elements[i]);
             }
         }
 
@@ -103,13 +92,6 @@ public class MySetArray<T> : MySet<T>
         return result;
     }
 
-    public override T[] Elements()
-    {
-        T[] arrayToReturn = new T[set.Count];
-
-        for (int i = 0; i < set.Count; i++) arrayToReturn[i] = set[i];
-
-        return arrayToReturn;
-    }
+   
 }
 

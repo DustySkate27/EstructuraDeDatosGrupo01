@@ -6,6 +6,19 @@ public class MySetList<T> : MySet<T>
 {
     private MyList<T> set;
 
+    public override T[] Elements
+    {
+        get
+        {
+            T[] arrayToReturn = new T[set.Counter];
+
+            for (int i = 0; i < set.Counter; i++) arrayToReturn[i] = set[i];
+
+            return arrayToReturn;
+        }
+
+    }
+
     public MySetList(T item)
     {
         set = new MyList<T>();
@@ -66,9 +79,9 @@ public class MySetList<T> : MySet<T>
 
         for (int i = 0; i < other.Cardinality(); i++)
         {
-            if (!set.Contains(other.Elements()[i]))
+            if (!set.Contains(other.Elements[i]))
             {
-                result.Add(other.Elements()[i]);
+                result.Add(other.Elements[i]);
             }
         }
 
@@ -80,9 +93,9 @@ public class MySetList<T> : MySet<T>
 
         for (int i = 0; i < other.Cardinality(); i++)
         {
-            if (set.Contains(other.Elements()[i]))
+            if (set.Contains(other.Elements[i]))
             {
-                result.Add(other.Elements()[i]);
+                result.Add(other.Elements[i]);
             }
         }
 
@@ -103,12 +116,4 @@ public class MySetList<T> : MySet<T>
         return result;
     }
 
-    public override T[] Elements()
-    {
-        T[] arrayToReturn = new T[set.Counter];
-
-        for(int i = 0; i < set.Counter; i++) arrayToReturn[i] = set[i];
-
-        return arrayToReturn;
-    }
 }

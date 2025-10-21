@@ -62,7 +62,7 @@ public class EJ15Executer : MonoBehaviour
 
         for (int i = 0; i < player1.Cardinality(); i++)
         {
-            inventoryText1.text += player1.Elements()[i] + "\n";
+            inventoryText1.text += player1.Elements[i] + "\n";
             inventoryTransform1.sizeDelta = new Vector2(inventoryTransform1.sizeDelta.x, inventoryTransform1.sizeDelta.y + 22);
         }
 
@@ -79,7 +79,7 @@ public class EJ15Executer : MonoBehaviour
 
         for (int i = 0; i < player2.Cardinality(); i++)
         {
-            inventoryText2.text += player2.Elements()[i] + "\n";
+            inventoryText2.text += player2.Elements[i] + "\n";
             inventoryTransform2.sizeDelta = new Vector2(inventoryTransform2.sizeDelta.x, inventoryTransform2.sizeDelta.y + 22);
         }
 
@@ -97,7 +97,7 @@ public class EJ15Executer : MonoBehaviour
         resultText.text = textSave;
 
         result = new SimpleList<Items>();
-        result.AddRange(player1.Union(player2).Elements());
+        result.AddRange(player1.Union(player2).Elements);
 
         for (int i = 0;i < result.Count; i++)
         {
@@ -113,7 +113,7 @@ public class EJ15Executer : MonoBehaviour
         resultText.text = textSave;
 
         result = new SimpleList<Items>();
-        result.AddRange(player1.Intersect(player2).Elements());
+        result.AddRange(player1.Intersect(player2).Elements);
 
         for (int i = 0; i < result.Count; i++)
         {
@@ -132,7 +132,7 @@ public class EJ15Executer : MonoBehaviour
         result = new SimpleList<Items>();
         result = new SimpleList<Items>();
 
-        Items[] resultAr = items.Difference(player1.Union(player2)).Elements();
+        Items[] resultAr = items.Difference(player1.Union(player2)).Elements;
         for (int i = 0; i < resultAr.Length; i++)
         {
             result.Add(resultAr[i]);
