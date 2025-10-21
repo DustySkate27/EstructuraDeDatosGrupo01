@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class MySetArray<T> : MySet<T>
 {
-    private MyList<T> set;
+    public readonly SimpleList<T> set;
 
     public MySetArray(T item)
     {
-        set = new MyList<T>();
+        set = new SimpleList<T>();
         set.Add(item);
     }
     public MySetArray()
     {
-        set = new MyList<T>();
+        set = new SimpleList<T>();
     }
 
     public override void Add(T item)
@@ -34,16 +34,16 @@ public class MySetArray<T> : MySet<T>
     }
     public override void Show()
     {
-        for (int i = 0; i < set.Counter; i++)
+        for (int i = 0; i < set.Count; i++)
         {
             Debug.Log(set[i]);
         }
     }
-    public override string _ToString()
+    public override string ToString()
     {
         string stringToShow = "";
 
-        for (int i = 0; i < set.Counter; i++)
+        for (int i = 0; i < set.Count; i++)
         {
             stringToShow += (set[i]) + ", ";
         }
@@ -52,7 +52,7 @@ public class MySetArray<T> : MySet<T>
     }
     public override int Cardinality()
     {
-        return set.Counter;
+        return set.Count;
     }
     public override bool IsEmpty()
     {
@@ -60,36 +60,31 @@ public class MySetArray<T> : MySet<T>
     }
     public override MySet<T> Union(MySet<T> other)
     {
-        SimpleList<T> otherArray = new SimpleList<T>();
         MySetList<T> result = new MySetList<T>();
+
+        for (int i = 0; i < set.Count; i++) result.Add(set[i]);
 
         for (int i = 0; i < other.Cardinality(); i++)
         {
             if (!set.Contains(other.Elements()[i]))
             {
-                otherArray.Add(other.Elements()[i]);
+                result.Add(other.Elements()[i]);
             }
         }
-
-        for (int i = 0; i < set.Counter; i++) result.Add(set[i]);
-        for (int i = 0; i < otherArray.Count; i++) result.Add(otherArray[i]);
 
         return result;
     }
     public override MySet<T> Intersect(MySet<T> other)
     {
-        SimpleList<T> otherArray = new SimpleList<T>();
         MySetList<T> result = new MySetList<T>();
 
         for (int i = 0; i < other.Cardinality(); i++)
         {
             if (set.Contains(other.Elements()[i]))
             {
-                otherArray.Add(other.Elements()[i]);
+                result.Add(other.Elements()[i]);
             }
         }
-
-        for (int i = 0; i < otherArray.Count; i++) result.Add(otherArray[i]);
 
         return result;
     }
@@ -97,9 +92,12 @@ public class MySetArray<T> : MySet<T>
     {
         MySetList<T> result = new MySetList<T>();
 
-        for (int i = 0; i < set.Counter; i++)
+        for (int i = 0; i < set.Count; i++)
         {
-            if (!other.Contains(set[i])) result.Add(set[i]);
+            if (!other.Contains(set[i]))
+            {
+                result.Add(set[i]);
+            }
         }
 
         return result;
@@ -107,9 +105,9 @@ public class MySetArray<T> : MySet<T>
 
     public override T[] Elements()
     {
-        T[] arrayToReturn = new T[set.Counter];
+        T[] arrayToReturn = new T[set.Count];
 
-        for (int i = 0; i < set.Counter; i++) arrayToReturn[i] = set[i];
+        for (int i = 0; i < set.Count; i++) arrayToReturn[i] = set[i];
 
         return arrayToReturn;
     }

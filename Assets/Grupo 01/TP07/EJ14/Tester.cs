@@ -25,6 +25,6 @@ public class Tester : MonoBehaviour
         testList.Show();
 
       
-        Debug.Log(testList.Difference(testList2)._ToString());
+        Debug.Log(testList.Difference(testList2).ToString());
     }
 }

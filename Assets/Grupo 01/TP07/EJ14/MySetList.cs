@@ -39,7 +39,7 @@ public class MySetList<T> : MySet<T>
             Debug.Log(set[i]);
         }
     }
-    public override string _ToString() 
+    public override string ToString() 
     {
         string stringToShow = "";
 
@@ -60,36 +60,31 @@ public class MySetList<T> : MySet<T>
     }
     public override MySet<T> Union(MySet<T> other)
     {
-        SimpleList<T> otherArray = new SimpleList<T>();
         MySetList<T> result = new MySetList<T>();
 
-        for (int i = 0; i < other.Cardinality(); i++) 
-        {
-            if (!set.Contains(other.Elements()[i])) 
-            { 
-                otherArray.Add(other.Elements()[i]);
-            }
-        } 
-
         for (int i = 0; i < set.Counter; i++) result.Add(set[i]);
-        for (int i = 0; i < otherArray.Count; i++) result.Add(otherArray[i]);
+
+        for (int i = 0; i < other.Cardinality(); i++)
+        {
+            if (!set.Contains(other.Elements()[i]))
+            {
+                result.Add(other.Elements()[i]);
+            }
+        }
 
         return result;
     }
-    public override MySet<T> Intersect(MySet<T> other) 
-    {
-        SimpleList<T> otherArray = new SimpleList<T>();
+    public override MySet<T> Intersect(MySet<T> other)
+    { 
         MySetList<T> result = new MySetList<T>();
 
         for (int i = 0; i < other.Cardinality(); i++)
         {
             if (set.Contains(other.Elements()[i]))
             {
-                otherArray.Add(other.Elements()[i]);
+                result.Add(other.Elements()[i]);
             }
         }
-     
-        for (int i = 0; i < otherArray.Count; i++) result.Add(otherArray[i]);
 
         return result;
     }
@@ -99,7 +94,10 @@ public class MySetList<T> : MySet<T>
 
         for (int i = 0; i < set.Counter; i++)
         {
-            if (!other.Contains(set[i])) result.Add(set[i]);
+            if (!other.Contains(set[i]))
+            {
+                result.Add(set[i]);
+            }
         }
 
         return result;

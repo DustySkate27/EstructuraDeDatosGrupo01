@@ -184,6 +184,20 @@ namespace SimpleListLibrary
             counter = 0;
         }
 
+        public bool Contains(T value)
+        {
+            for (int i = 0; i < counter; i++)
+            {
+                if (arrayD[i].Equals(value)) return true;
+            }
+            return false;
+        }
+
+        public bool IsEmpty()
+        {
+            return counter == 0?  true :  false;
+        }
+
         public void SelectionSort(Comparison<T> comparison)
         {
             for (int i = 0; i < counter - 1; i++) //El i no puede apuntar al tail, porque queda siempre a la derecha (valor más grande)

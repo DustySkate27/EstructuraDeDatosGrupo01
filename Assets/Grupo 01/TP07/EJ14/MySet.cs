@@ -8,7 +8,7 @@ public abstract class MySet<T>
     public abstract void Clear();
     public abstract bool Contains(T item);
     public abstract void Show();
-    public abstract string _ToString();
+    public abstract new string ToString();
     public abstract int Cardinality();
     public abstract bool IsEmpty();
     public abstract MySet<T> Union(MySet<T> other);
