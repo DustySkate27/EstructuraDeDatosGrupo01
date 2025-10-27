@@ -621,7 +621,7 @@ GameObject:
   - component: {fileID: 458607865}
   - component: {fileID: 458607864}
   m_Layer: 0
-  m_Name: TPExecuter
+  m_Name: SpaceMonitor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -669,28 +669,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 479376700}
-  - component: {fileID: 479376699}
+  - component: {fileID: 479376701}
   m_Layer: 0
-  m_Name: Test17
+  m_Name: TP17Executer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &479376699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479376698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fe15bf47c47e4d4da6c2b5a2934f78f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spaceMonitor: {fileID: 458607864}
-  isRun: 0
 --- !u!4 &479376700
 Transform:
   m_ObjectHideFlags: 0
@@ -706,6 +692,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &479376701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479376698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 672c982929a9b814b9c9938e8a29204b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spaceMonitor: {fileID: 458607864}
 --- !u!1 &1279829131
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,6 +855,7 @@ GameObject:
   - component: {fileID: 1510590355}
   - component: {fileID: 1510590354}
   - component: {fileID: 1510590353}
+  - component: {fileID: 1510590357}
   m_Layer: 5
   m_Name: Pluton
   m_TagString: Untagged
@@ -980,6 +980,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510590351}
   m_CullTransparentMesh: 1
+--- !u!114 &1510590357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510590351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f824b4bdde21f54418166d757d5c8e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tpExe: {fileID: 479376701}
 --- !u!1 &1589101563
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,6 +1006,7 @@ GameObject:
   - component: {fileID: 1589101567}
   - component: {fileID: 1589101566}
   - component: {fileID: 1589101565}
+  - component: {fileID: 1589101569}
   m_Layer: 5
   m_Name: Tierra
   m_TagString: Untagged
@@ -1117,6 +1131,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589101563}
   m_CullTransparentMesh: 1
+--- !u!114 &1589101569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589101563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f824b4bdde21f54418166d757d5c8e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tpExe: {fileID: 479376701}
 --- !u!1 &1632974279
 GameObject:
   m_ObjectHideFlags: 0
@@ -1266,6 +1293,7 @@ GameObject:
   - component: {fileID: 1650207893}
   - component: {fileID: 1650207892}
   - component: {fileID: 1650207891}
+  - component: {fileID: 1650207895}
   m_Layer: 5
   m_Name: Saturno
   m_TagString: Untagged
@@ -1390,6 +1418,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1650207889}
   m_CullTransparentMesh: 1
+--- !u!114 &1650207895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650207889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f824b4bdde21f54418166d757d5c8e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tpExe: {fileID: 479376701}
 --- !u!1 &1683714250
 GameObject:
   m_ObjectHideFlags: 0
@@ -1539,6 +1580,7 @@ GameObject:
   - component: {fileID: 1897370159}
   - component: {fileID: 1897370158}
   - component: {fileID: 1897370157}
+  - component: {fileID: 1897370161}
   m_Layer: 5
   m_Name: Marte
   m_TagString: Untagged
@@ -1663,6 +1705,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897370155}
   m_CullTransparentMesh: 1
+--- !u!114 &1897370161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897370155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f824b4bdde21f54418166d757d5c8e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tpExe: {fileID: 479376701}
 --- !u!1 &1978971101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,6 +1731,7 @@ GameObject:
   - component: {fileID: 1978971105}
   - component: {fileID: 1978971104}
   - component: {fileID: 1978971103}
+  - component: {fileID: 1978971107}
   m_Layer: 5
   m_Name: Neptuno
   m_TagString: Untagged
@@ -1801,6 +1857,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978971101}
   m_CullTransparentMesh: 1
+--- !u!114 &1978971107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978971101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f824b4bdde21f54418166d757d5c8e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tpExe: {fileID: 479376701}
 --- !u!1 &2069257558
 GameObject:
   m_ObjectHideFlags: 0
