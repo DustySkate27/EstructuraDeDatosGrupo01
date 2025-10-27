@@ -1,19 +1,14 @@
-using SimpleListLibrary;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class TP17Executer : MonoBehaviour
+public class SpaceMonitor : MonoBehaviour
 {
     public List<PlanetConfig> planetsList;
     public MyALGraph<string> graph;
 
     private void Start()
     {
-        planetsList = GetComponent<List<PlanetConfig>>();
-        graph = GetComponent<MyALGraph<string>>();
-
+        graph = new MyALGraph<string>();
         foreach (PlanetConfig config in planetsList)
         {
             graph.AddVertex(config.PlanetName);
@@ -29,12 +24,14 @@ public class TP17Executer : MonoBehaviour
         PlanetConfig origin = TrackPlanet(originName);
         PlanetConfig end = TrackPlanet(endName);
 
-        if (graph.ContainsEdge(originName, endName))
+        if (graph.ContainsEdge(originName, endName)) //Hay camino directo?
         {
             return graph.GetWeight(originName, endName);
         }
-
-
+        else if (hasAnyonePlanet(endName, out string newTarget)) //Hay alguien que tenga dicho camino directo?
+        {
+            return GetRoad(originName, newTarget) + GetRoad(newTarget, endName); //Hay forma de llegar desde el origen a dicho alguien?
+        }
         return -1;
     }
     public PlanetConfig TrackPlanet(string planetName)
@@ -46,22 +43,18 @@ public class TP17Executer : MonoBehaviour
         return null;
     }
 
-    public List<string> GetEdgeList(List<string> namesList, string endName)
+    public bool hasAnyonePlanet (string endName, out string newTarget)
     {
-        for (int i = 0; i < planetsList.Count; i++)
+        for(int i = 0; i < planetsList.Count; i++)
         {
             if (graph.ContainsEdge(planetsList[i].PlanetName, endName))
             {
-                return namesList[i] = planetsList[i].PlanetName;
+                newTarget = planetsList[i].PlanetName;
+                return true;
             }
         }
+        newTarget = null;
+        return false;
     }
-
-    /*
-    1. buscar en iteracion un contains edge true
-    2. if true {buscar conexion a ese}
-    3. if false {recursiva}
-    4. 
-    */
 
 }

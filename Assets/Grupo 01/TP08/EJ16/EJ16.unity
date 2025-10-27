@@ -176,7 +176,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
+      propertyPath: edgeList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
       propertyPath: 'edges.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 4ad407c5dbee8db4eaa617944c9b2404, type: 2}
+    - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
+      propertyPath: 'edgeList.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 4ad407c5dbee8db4eaa617944c9b2404, type: 2}
     - target: {fileID: 8500928157116017052, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
@@ -245,7 +253,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
+      propertyPath: edgeList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
       propertyPath: 'edges.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 66c6cd4633f508a4f9e0aa7aed821957, type: 2}
+    - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
+      propertyPath: 'edgeList.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 66c6cd4633f508a4f9e0aa7aed821957, type: 2}
     - target: {fileID: 8500928157116017052, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
@@ -409,11 +425,23 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
+      propertyPath: edgeList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
       propertyPath: 'edges.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 7b7966ce8f3342a4cb212cb0ee21a463, type: 2}
     - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
       propertyPath: 'edges.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bad5f9e5f963a5b40b5abe921c5edd22, type: 2}
+    - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
+      propertyPath: 'edgeList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7b7966ce8f3342a4cb212cb0ee21a463, type: 2}
+    - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
+      propertyPath: 'edgeList.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: bad5f9e5f963a5b40b5abe921c5edd22, type: 2}
     - target: {fileID: 8500928157116017052, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
@@ -619,11 +647,23 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
+      propertyPath: edgeList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
       propertyPath: 'edges.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 4fb9ce97d71af654da24bb32dfabdb57, type: 2}
     - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
       propertyPath: 'edges.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 21fb30b22da39e74aabe50d1f83cdb9f, type: 2}
+    - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
+      propertyPath: 'edgeList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 4fb9ce97d71af654da24bb32dfabdb57, type: 2}
+    - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
+      propertyPath: 'edgeList.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: 21fb30b22da39e74aabe50d1f83cdb9f, type: 2}
     - target: {fileID: 8500928157116017052, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
@@ -688,7 +728,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
+      propertyPath: edgeList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
       propertyPath: 'edges.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 24e4e4f208b20a74da1d1e1c8a69d809, type: 2}
+    - target: {fileID: 6776970258753702121, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
+      propertyPath: 'edgeList.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 24e4e4f208b20a74da1d1e1c8a69d809, type: 2}
     - target: {fileID: 8500928157116017052, guid: a01d8420183a1204399547e56cd6a0a2, type: 3}
