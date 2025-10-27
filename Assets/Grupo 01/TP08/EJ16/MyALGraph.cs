@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class MyALGraph<T>
@@ -32,7 +30,7 @@ public class MyALGraph<T>
             {
                 for (int i = 0; i < entry.Count; i++) 
                 {
-                    if (entry[i].Item1.Equals(vertex))
+                    if (entry[i].Item1.Equals(vertex)) 
                     {
                         entry.RemoveAt(i);
                     }
@@ -45,17 +43,17 @@ public class MyALGraph<T>
     {
         if (dic.TryGetValue(from, out var list))
         {
-            for (int i = 0; i < list.Count; i++) 
+            for (int i = 0; i < list.Count; i++)
             { 
-                if (list[i].Item1.Equals(edge.Item1)) return;
+                if (list[i].Item1.Equals(edge.Item1)) return; 
             }
-            list.Add(edge);
+            list.Add(edge); 
         }
     }
 
     public void RemoveEdge(T from, T to)
     {
-        if (dic.TryGetValue(from,out var list))
+        if (dic.TryGetValue(from, out var list)) 
         {
             for(int i = 0;i < list.Count; i++)
             {
@@ -77,7 +75,7 @@ public class MyALGraph<T>
         {
             for (int i = 0; i < list.Count; i++)
             {
-                if (list[i].Item1.Equals(to)) return true;
+                if (list[i].Item1.Equals(to)) return true; 
             } 
             return false;
         }
