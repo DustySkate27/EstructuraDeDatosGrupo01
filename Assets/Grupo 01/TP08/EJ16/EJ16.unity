@@ -1581,7 +1581,6 @@ MonoBehaviour:
   planet: {fileID: 11400000, guid: 01903a6eacf62614c9815d5587694f4c, type: 2}
   edgeList:
   - {fileID: 11400000, guid: 21fb30b22da39e74aabe50d1f83cdb9f, type: 2}
-  - {fileID: 11400000, guid: 4fb9ce97d71af654da24bb32dfabdb57, type: 2}
 --- !u!114 &1897370158
 MonoBehaviour:
   m_ObjectHideFlags: 0
