@@ -15,7 +15,7 @@ public class PlanetButton : MonoBehaviour
     {
         planetButton = GetComponent<Button>();
         config = GetComponent<PlanetConfig>();
-        planetButton.onClick.AddListener(() => tpExe.AssignNames(config.PlanetName));
+        planetButton.onClick.AddListener(() => tpExe.AddPlanet(config));
     }
 
 }

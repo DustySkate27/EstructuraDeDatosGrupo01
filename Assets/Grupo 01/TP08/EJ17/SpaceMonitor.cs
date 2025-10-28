@@ -1,3 +1,4 @@
+using SimpleListLibrary;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,13 +6,14 @@ using UnityEngine;
 
 public class SpaceMonitor : MonoBehaviour
 {
-    public List<PlanetConfig> planetsList;
+    public List<PlanetConfig> planetsSO;
+    private SimpleList<PlanetConfig> planetsToVisit = new SimpleList<PlanetConfig>();
     public MyALGraph<string> graph;
 
     public void Start()
     {
         graph = new MyALGraph<string>();
-        foreach (PlanetConfig config in planetsList)
+        foreach (PlanetConfig config in planetsSO)
         {
             graph.AddVertex(config.PlanetName);
             foreach (Edge edge in config.edgeList)
@@ -21,6 +23,53 @@ public class SpaceMonitor : MonoBehaviour
         }
     }
 
+    public int? VisitingPlanets()
+    {
+        int? weightVisited = 0;
+        for (int i = 0; i < planetsToVisit.Count; i++)
+        {
+            if(i == planetsToVisit.Count - 1)
+            {
+                Debug.Log("final");
+                return weightVisited;
+            }
+            else
+            {
+                if (graph.ContainsEdge(planetsToVisit[i].PlanetName, planetsToVisit[i+1].PlanetName))
+                {
+                    weightVisited += graph.GetWeight(planetsToVisit[i].PlanetName, planetsToVisit[i+1].PlanetName);
+                }
+                else
+                {
+                    Debug.Log("no hay nada");
+                    planetsToVisit.Clear();
+                    return null;
+                }
+            }
+        }
+        planetsToVisit.Clear();
+        return null;
+    }
+
+    public void AddPlanetToVisit(PlanetConfig planetToAdd)
+    {
+        if (planetsToVisit.Count == 0)
+        {
+            Debug.Log(planetToAdd.PlanetName);
+            planetsToVisit = new SimpleList<PlanetConfig>();
+            planetsToVisit.Add(planetToAdd);
+        }
+        else if (planetsToVisit.Count > 0)
+        {
+            Debug.Log(planetToAdd.PlanetName);
+            planetsToVisit.Add(planetToAdd);
+        }
+    }
+
+    public void ClearVisitList()
+    {
+        planetsToVisit.Clear();
+    }
     public int? GetRoad(string originName, string endName)
     {
         if (graph.ContainsEdge(originName, endName)) //Hay camino directo?
@@ -38,11 +87,11 @@ public class SpaceMonitor : MonoBehaviour
 
     public bool hasAnyonePlanet (string endName, out string newTarget)
     {
-        for(int i = 0; i < planetsList.Count; i++)
+        for(int i = 0; i < planetsSO.Count; i++)
         {
-            if (graph.ContainsEdge(planetsList[i].PlanetName, endName))
+            if (graph.ContainsEdge(planetsSO[i].PlanetName, endName))
             {
-                newTarget = planetsList[i].PlanetName;
+                newTarget = planetsSO[i].PlanetName;
                 return true;
             }
         }
