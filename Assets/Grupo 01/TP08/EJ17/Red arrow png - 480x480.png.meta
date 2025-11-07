@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Red arrow png - 480x480_0: 58470454157386943
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -120,7 +120,7 @@ public class TP13Executer : MonoBehaviour
 
         }
 
-        Debug.Log(tree.PostOrder());
+        Debug.Log(tree.BreadthSearch());
         resultText.text = result;
 
         result = null;

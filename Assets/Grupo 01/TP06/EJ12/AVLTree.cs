@@ -60,10 +60,12 @@ public class AVLTree<T> : MyABBTree<T> where T : IComparable<T>
     }
     private TreeNode<T> RLRotation(TreeNode<T> node)
     {
-        return LLRotation(RRRotation(node));
+        node.right = LLRotation(node.right);
+        return RRRotation(node);
     }
     private TreeNode<T> LRRotation(TreeNode<T> node) 
     {
-        return RRRotation(LLRotation(node));
+        node.left = RRRotation(node.left);
+        return LLRotation(node);
     }
 }

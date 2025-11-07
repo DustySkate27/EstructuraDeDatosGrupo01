@@ -33,14 +33,8 @@ public class EJ15Executer : MonoBehaviour
     {
         InitializeItems(40);
         InitializeInventories(20);
-
-
     }
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
     void InitializeItems(int quantity)
     {
         for (int i = 0; i < quantity; i++)
@@ -63,7 +57,7 @@ public class EJ15Executer : MonoBehaviour
         for (int i = 0; i < player1.Cardinality(); i++)
         {
             inventoryText1.text += player1.Elements[i] + "\n";
-            inventoryTransform1.sizeDelta = new Vector2(inventoryTransform1.sizeDelta.x, inventoryTransform1.sizeDelta.y + 22);
+            inventoryTransform1.sizeDelta = new Vector2(inventoryTransform1.sizeDelta.x, inventoryTransform1.sizeDelta.y + 25);
         }
 
 
@@ -73,19 +67,19 @@ public class EJ15Executer : MonoBehaviour
             if (Random.Range(0, 9) < 7)
             {
                 player2.Add(items.set[Random.Range(0, items.Cardinality())]);
-                inventoryTransform2.sizeDelta = new Vector2(inventoryTransform2.sizeDelta.x, inventoryTransform2.sizeDelta.y + 22);
+                inventoryTransform2.sizeDelta = new Vector2(inventoryTransform2.sizeDelta.x, inventoryTransform2.sizeDelta.y + 25);
             }
         }
 
         for (int i = 0; i < player2.Cardinality(); i++)
         {
             inventoryText2.text += player2.Elements[i] + "\n";
-            inventoryTransform2.sizeDelta = new Vector2(inventoryTransform2.sizeDelta.x, inventoryTransform2.sizeDelta.y + 22);
+            inventoryTransform2.sizeDelta = new Vector2(inventoryTransform2.sizeDelta.x, inventoryTransform2.sizeDelta.y + 25);
         }
 
         for (int i = 0;i < player1.Cardinality() + player2.Cardinality(); i++)
         {
-            resultTransform.sizeDelta = new Vector2(resultTransform.sizeDelta.x, resultTransform.sizeDelta.y + 22);
+            resultTransform.sizeDelta = new Vector2(resultTransform.sizeDelta.x, resultTransform.sizeDelta.y + 25);
         }
 
     }

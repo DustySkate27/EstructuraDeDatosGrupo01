@@ -52,16 +52,6 @@ public class EJ11Executer : MonoBehaviour
         getBalanceFactor.onEndEdit.AddListener(GetBalanceFactor);
 
         breadthSearchButton.onClick.AddListener(GetBreadthSearch);
-
-     // //Prueba de ingreso de valores
-     // int[] values = { 10, 5, 11, 3 ,6, 7} ;
-     // for (int i = 0; i < values.Length; i++)
-     // {
-     //     tree.Insert(values[i]);
-     //     Debug.Log(values[i]);
-     // }
-
-      
     }
 
     public void AddValue(string value)
@@ -128,7 +118,7 @@ public class EJ11Executer : MonoBehaviour
         //tree.BreadthSearch();
     }
 
-    public void ShowTree(TreeNode<int> node, Vector2 pos, int depth)
+    public void ShowTree(TreeNode<int> node, Vector2 pos, float depth)
     {
         if (node == null) return;
 
@@ -136,9 +126,9 @@ public class EJ11Executer : MonoBehaviour
         visualTree.Add(newNode);
         newNode.GetComponentInChildren<TextMeshProUGUI>().text = node.value.ToString();
 
-        if (node.left != null) ShowTree(node.left, pos + ( new Vector2( -areaX / (depth + 1), areaY)), depth + 1);
+        if (node.left != null) ShowTree(node.left, pos + new Vector2( -areaX / (depth + 1.5f), areaY), depth + 1f);
 
-        if (node.right != null) ShowTree(node.right, pos + (new Vector2(areaX / (depth + 1), areaY)), depth + 1);
+        if (node.right != null) ShowTree(node.right, pos + (new Vector2(areaX / (depth + 1.5f), areaY)), depth + 1f);
     }
 
     public void DrawTree()
