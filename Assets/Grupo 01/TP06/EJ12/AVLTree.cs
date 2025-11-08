@@ -33,8 +33,6 @@ public class AVLTree<T> : MyABBTree<T> where T : IComparable<T>
                 return RLRotation(node);
         }
         
-            NodeBalanceFactor(node.left);
-        NodeBalanceFactor(node.right);
         return node;
     }
 

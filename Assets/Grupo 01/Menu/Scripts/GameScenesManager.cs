@@ -20,7 +20,7 @@ public class GameScenesManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        sceneCount = 0;
+        sceneCount = 00;
     }
 
 
@@ -28,7 +28,7 @@ public class GameScenesManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if(sceneCount < 6)
+            if(sceneCount < 10)
             {
                 sceneCount++;
                 LoadGameScene(sceneCount);
@@ -48,7 +48,7 @@ public class GameScenesManager : MonoBehaviour
             }
             else
             {
-                sceneCount = 6;
+                sceneCount = 10;
                 LoadGameScene(sceneCount);
             }
            
@@ -61,7 +61,7 @@ public class GameScenesManager : MonoBehaviour
 
     public void LoadGameScene(int sceneName) 
     {
-        SceneManager.LoadScene("EJ0" + sceneName.ToString());
+        SceneManager.LoadScene("EJ" + sceneName.ToString());
     }
 
 }
