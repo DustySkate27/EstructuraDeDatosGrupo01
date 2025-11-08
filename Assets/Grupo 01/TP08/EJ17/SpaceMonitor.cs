@@ -25,7 +25,7 @@ public class SpaceMonitor : MonoBehaviour
 
     public void AddPlanetToVisit(PlanetConfig planetToAdd)
     {
-        if (planetsToVisit.Count == 0 && planetsToVisit == null)
+        if (planetsToVisit.Count == 0)
         {
             Debug.Log(planetToAdd.PlanetName);
             planetsToVisit = new SimpleList<PlanetConfig>();
@@ -45,7 +45,6 @@ public class SpaceMonitor : MonoBehaviour
         {
             if(i == planetsToVisit.Count - 1) //Si mi planeta es el último (index)
             {
-                Debug.Log("final");
                 return weightVisited; //Returneo el peso, no hay mas aristas.
             }
             else
@@ -57,7 +56,6 @@ public class SpaceMonitor : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("no hay nada");
                     planetsToVisit.Clear(); //False, cleareo la lista, el viaje fallo
                     return null;
                 }

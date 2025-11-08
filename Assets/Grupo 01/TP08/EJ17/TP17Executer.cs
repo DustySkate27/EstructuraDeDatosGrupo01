@@ -31,7 +31,6 @@ public class TP17Executer : MonoBehaviour
 
     public void ExecuteRoad()
     {
-        Debug.Log(spaceMonitor.VisitingPlanets());
         if (spaceMonitor.VisitingPlanets() != null)
         {
             weightUI.text = spaceMonitor.VisitingPlanets().ToString();
