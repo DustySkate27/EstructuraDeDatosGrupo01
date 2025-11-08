@@ -12,48 +12,20 @@ public class SpaceMonitor : MonoBehaviour
 
     public void Start()
     {
-        graph = new MyALGraph<string>();
-        foreach (PlanetConfig config in planetsSO)
+        graph = new MyALGraph<string>(); //Creo el grafo
+        foreach (PlanetConfig config in planetsSO) //Por cada planeta en mi lista de Scriptable Objects
         {
-            graph.AddVertex(config.PlanetName);
-            foreach (Edge edge in config.edgeList)
+            graph.AddVertex(config.PlanetName); //Añado cada planeta con su nombre como key
+            foreach (Edge edge in config.edgeList) //Por cada arista dentro de la lista de aristas que posee cada planeta
             {
-                graph.AddEdge(config.PlanetName, (edge.targetPlanet.name, edge.weight));
+                graph.AddEdge(config.PlanetName, (edge.targetPlanet.name, edge.weight)); //Añado, con su key, cada arista al grafo
             }
         }
-    }
-
-    public int? VisitingPlanets()
-    {
-        int? weightVisited = 0;
-        for (int i = 0; i < planetsToVisit.Count; i++)
-        {
-            if(i == planetsToVisit.Count - 1)
-            {
-                Debug.Log("final");
-                return weightVisited;
-            }
-            else
-            {
-                if (graph.ContainsEdge(planetsToVisit[i].PlanetName, planetsToVisit[i+1].PlanetName))
-                {
-                    weightVisited += graph.GetWeight(planetsToVisit[i].PlanetName, planetsToVisit[i+1].PlanetName);
-                }
-                else
-                {
-                    Debug.Log("no hay nada");
-                    planetsToVisit.Clear();
-                    return null;
-                }
-            }
-        }
-        planetsToVisit.Clear();
-        return null;
     }
 
     public void AddPlanetToVisit(PlanetConfig planetToAdd)
     {
-        if (planetsToVisit.Count == 0)
+        if (planetsToVisit.Count == 0 && planetsToVisit == null)
         {
             Debug.Log(planetToAdd.PlanetName);
             planetsToVisit = new SimpleList<PlanetConfig>();
@@ -66,10 +38,44 @@ public class SpaceMonitor : MonoBehaviour
         }
     }
 
+    public int? VisitingPlanets()
+    {
+        int? weightVisited = 0; //Inicializo en 0 el peso que voy a mostrar
+        for (int i = 0; i < planetsToVisit.Count; i++) //Recorro la lista de planetas
+        {
+            if(i == planetsToVisit.Count - 1) //Si mi planeta es el último (index)
+            {
+                Debug.Log("final");
+                return weightVisited; //Returneo el peso, no hay mas aristas.
+            }
+            else
+            {
+                //Sino, chequeo si el planeta que estoy procesando puede ir al siguiente planeta en la lista (de i a i+1)
+                if (graph.ContainsEdge(planetsToVisit[i].PlanetName, planetsToVisit[i+1].PlanetName)) 
+                {
+                    weightVisited += graph.GetWeight(planetsToVisit[i].PlanetName, planetsToVisit[i+1].PlanetName); //True, sumo costo de ese viaje
+                }
+                else
+                {
+                    Debug.Log("no hay nada");
+                    planetsToVisit.Clear(); //False, cleareo la lista, el viaje fallo
+                    return null;
+                }
+            }
+        }
+        planetsToVisit.Clear(); //Si se logra procesar todo el viaje, correctamente, cleareo
+        return null;
+    }
     public void ClearVisitList()
     {
         planetsToVisit.Clear();
     }
+
+
+
+
+    //LOS CÓDIGOS A CONTINUACIÓN SON FUNCIONALES Y ESTÁN AUTOMATIZADOS, PERO SE DESCONTINUARON POR PETICIÓN DE KEVIN Y FEDE.
+    //NO ES NECESARIO QUE LOS LEAN
     public int? GetRoad(string originName, string endName)
     {
         if (graph.ContainsEdge(originName, endName)) //Hay camino directo?

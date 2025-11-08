@@ -13,29 +13,11 @@ public class TP17Executer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI weightUI;
     [SerializeField] private TextMeshProUGUI planetsVisitedUI;
 
-    public void ExecuteRoad()
-    {
-        Debug.Log(spaceMonitor.VisitingPlanets());
-        if (spaceMonitor.VisitingPlanets() != null)
-        {
-            weightUI.text = spaceMonitor.VisitingPlanets().ToString();
-            spaceMonitor.ClearVisitList();
-            originAssigned = false;
-        }
-        else
-        {
-            weightUI.text = "There's no valid road";
-            spaceMonitor.ClearVisitList();
-            originAssigned = false;
-        }
-    }
 
     public void AddPlanet(PlanetConfig planet)
     {
         if (!originAssigned)
         {
-            planetsVisitedUI.text = string.Empty;
-            weightUI.text = string.Empty;
             planetsVisitedUI.text += $"{planet.PlanetName} -> ";
             spaceMonitor.AddPlanetToVisit(planet);
             originAssigned = true;
@@ -45,9 +27,33 @@ public class TP17Executer : MonoBehaviour
             planetsVisitedUI.text += $"{planet.PlanetName} -> ";
             spaceMonitor.AddPlanetToVisit(planet);
         }
-        
     }
 
+    public void ExecuteRoad()
+    {
+        Debug.Log(spaceMonitor.VisitingPlanets());
+        if (spaceMonitor.VisitingPlanets() != null)
+        {
+            weightUI.text = spaceMonitor.VisitingPlanets().ToString();
+        }
+        else
+        {
+            weightUI.text = "There's no valid road";
+        }
+    }
+
+    public void ClearRoad()
+    {
+        planetsVisitedUI.text = string.Empty;
+        weightUI.text = string.Empty;
+        spaceMonitor.ClearVisitList();
+        originAssigned = false;
+    }
+
+
+
+    //LOS CÓDIGOS A CONTINUACIÓN SON FUNCIONALES Y ESTÁN AUTOMATIZADOS, PERO SE DESCONTINUARON POR PETICIÓN DE KEVIN Y FEDE.
+    //NO ES NECESARIO QUE LOS LEAN
     public void AssignNames(string input)
     {
         if (!originAssigned)
