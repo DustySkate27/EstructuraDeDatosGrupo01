@@ -24,7 +24,7 @@ public class MyABBTree<T> where T : IComparable<T>
         return root;
     }
 
-    public TreeNode<T> TrackLeaf(TreeNode<T> pivot, T value) //No admite duplicados
+    public virtual TreeNode<T> TrackLeaf(TreeNode<T> pivot, T value) //No admite duplicados
     {
         if (pivot == null)
             return new TreeNode<T>(value); 

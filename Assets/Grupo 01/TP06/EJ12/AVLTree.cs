@@ -8,6 +8,8 @@ public class AVLTree<T> : MyABBTree<T> where T : IComparable<T>
 
     public AVLTree(T value) : base(value) { }
 
+    public override TreeNode<T> TrackLeaf(T value) {  return null; }
+
     public TreeNode<T> InsertN(T value)
     { 
         Root = Balance(TrackLeaf(Root, value));
