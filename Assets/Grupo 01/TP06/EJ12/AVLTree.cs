@@ -8,12 +8,24 @@ public class AVLTree<T> : MyABBTree<T> where T : IComparable<T>
 
     public AVLTree(T value) : base(value) { }
 
-    public override TreeNode<T> TrackLeaf(T value) {  return null; }
-
     public TreeNode<T> InsertN(T value)
     { 
-        Root = Balance(TrackLeaf(Root, value));
+        Root = TrackLeaf(Root, value);
         return Root;
+    }
+
+    public override TreeNode<T> TrackLeaf(TreeNode<T> pivot, T value)
+    {
+        if (pivot == null)
+            return new TreeNode<T>(value);
+
+        if (value.CompareTo(pivot.value) < 0)
+            pivot.left = TrackLeaf(pivot.left, value);
+
+        else if (value.CompareTo(pivot.value) > 0)
+            pivot.right = TrackLeaf(pivot.right, value);
+
+        return Balance(pivot);
     }
 
     public TreeNode<T> Balance(TreeNode<T> node)
