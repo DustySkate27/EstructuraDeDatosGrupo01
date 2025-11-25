@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MyALGraph<T>
 {
-    private Dictionary<T, List<(T, int)>> dic;
+    public Dictionary<T, List<(T, int)>> dic;
 
     public IEnumerable<T> Vertices { get => dic.Keys; }
 
@@ -37,6 +37,12 @@ public class MyALGraph<T>
                 }
             }
         }
+    }
+
+    public List<(T,int)> GetNode(T nodeToGet)
+    {
+        dic.TryGetValue(nodeToGet, out var nodeRef);
+        return nodeRef;
     }
 
     public void AddEdge(T from, (T, int) edge)
