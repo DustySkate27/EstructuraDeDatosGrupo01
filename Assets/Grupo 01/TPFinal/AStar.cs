@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using static Unity.VisualScripting.Antlr3.Runtime.Tree.TreeWizard;
-using UnityEditor.Experimental.GraphView;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class AStar<T>
 {
-    public List<List <(T, int)>> visitedNodes;
-    public MyQueue<List<(T, int)>> toVisitNodes;
+    /*public List<List<(T, int)>> visitedNodes;
+    public List<List<(T, int)>> toVisitNodes;
+    public List<List<(T, int)>> currentNode;
 
     public float totalDistance;
     public float tentativeDistance;
@@ -21,7 +16,7 @@ public class AStar<T>
         visitedNodes = new List<List<(T, int)>>(); //Inicializamos visitados
         visitedNodes.Add(graph.GetNode(from)); //Añadimos el origen
 
-        toVisitNodes = new MyQueue<List<(T, int)>>(); //Inicializamos por visitar
+        toVisitNodes = new List<List<(T, int)>>(); //Inicializamos por visitar
 
         currentDistance = 0; //Inicializamos distancia al nodo actual G(n)
         tentativeDistance = Vector2.Distance(fromVec, toVec); //Planteamos heurística H(n)
@@ -36,7 +31,7 @@ public class AStar<T>
             }
             else
             {
-                toVisitNodes.Enqueue(graph.GetNode(node));
+                toVisitNodes.Add(graph.GetNode(node));
             }
         }
 
@@ -46,38 +41,95 @@ public class AStar<T>
         //1. Empezar a explorar el mapa desde el origen, buscando el camino mas óptimo y que menos incrementa F(n)
 
         //2. Corroboro si llegué al destino preguntando si el nodo actual == to. 
-            //2A. Sí => cierro recorrido.
-            //2B. No => Continuo recorrido.
+        //2A. Sí => cierro recorrido.
+        //2B. No => Continuo recorrido.
+        if (currentNode.Equals(to))
+        {
+            return;
+        }
+        else
+        {
+
+        }
 
         //3. Chequeo si los vecinos estan en visitedNodes.
-            //3A. Sí => nunca se vuelven a tocar.
+        //3A. Sí => nunca se vuelven a tocar.
 
         //3B. No => Comparo el "newFN(x, H(n), G(n))" de cada nodo vecino y actualizo sus valores.
         //Si un vecino ya tenía valor y el nuevo propuesto es menor, override.
-            //Cuando definí el menor, lo popeo y lo añado a visited. El menor será el siguiente a ser recorrido y procesar sus vecinos. 
-            //Los nodos mayores no se consideran visited porque no se siguieron como recorrido, aunque se deja su valor actualizado.
-            //Los nodos mayores permanecen en la queue con sus valores actualizados.
-            //Si en el futuro su f(n) se vuelve el menor, se convertirán en el siguiente nodo a visitar y recién ahí se mueven a visited.
+        //Cuando definí el menor, lo popeo y lo añado a visited. El menor será el siguiente a ser recorrido y procesar sus vecinos. 
+        //Los nodos mayores no se consideran visited porque no se siguieron como recorrido, aunque se deja su valor actualizado.
+        //Los nodos mayores permanecen en la queue con sus valores actualizados.
+        //Si en el futuro su f(n) se vuelve el menor, se convertirán en el siguiente nodo a visitar y recién ahí se mueven a visited.
 
         //4. Los vecinos que actualizé, pero no visité, los añado a la queue con su coste de visita.
         //Esta lista se revisa post "Paso 2" y pre "Paso 3", para comparar el F(n) actual con el F(n) guardado.
-            //DILEMA: Habría que cambiar la queue por una list, cosa de poder usar sorts y no depender del orden. Esto sería O(n), no evalué mejores soluciones.
+        //DILEMA: Habría que cambiar la queue por una list, cosa de poder usar sorts y no depender del orden. Esto sería O(n), no evalué mejores soluciones.
 
         //5. Repito el proceso.
 
     }
-    
+
     public float newFN(float newNode, float tentative, float current)
     //esta funcion devuelve el coste total del recorrido al vecino. sirve para comparar y procesar costos.
     {
         return newNode + tentative + current;
+    }*/
+
+    public List<T> toVisitNodes;
+    public HashSet<T> visitedNodes;
+    public Dictionary<T, AStarNode<T>> nodeData = new Dictionary<T, AStarNode<T>>();
+
+    public float total;
+    public float tentative;
+
+    public void AStarFunc(MyALGraph<T> graph, T from, T to, Vector2 fromVec, Vector2 toVec)
+    {
+        toVisitNodes = new List<T>();
+        toVisitNodes.Add(to); //Añadimos el origen
+
+        visitedNodes = new HashSet<T>(); //Inicializamos por visitar
+
+        tentative = Vector2.Distance(fromVec, toVec);
+        total = tentative;
+
+        if (total == 0f)
+        {
+            Debug.Log("Nodo destino");
+        }
     }
+
+    public AStarNode<T> Navigate(MyALGraph<T> graph, T from, T to)
+    {
+        if (from.Equals(to))
+        {
+            nodeData.TryGetValue(from, out AStarNode<T> nodeRef);
+            total = nodeRef.F(tentative);
+            return nodeRef;
+        }
+        else if (toVisitNodes.Count != 0)
+        {
+            float? minOpt = null; 
+
+            foreach (var edge in graph.GetNode(from)) 
+            {
+                nodeData.TryGetValue(edge.Item1, out AStarNode<T> nodeRef);
+
+                if (minOpt == null || minOpt > nodeRef.F(tentative))
+                {
+                    minOpt = nodeRef.F(tentative);
+                }
+                else
+                {
+                    toVisitNodes.Add(edge.Item1);
+                    nodeRef.F(tentative)
+                }
+            }
+        }
+        
+    }
+
 }
-
-
-
-
-
 
 /*
 ████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████

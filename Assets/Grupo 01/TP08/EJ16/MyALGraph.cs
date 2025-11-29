@@ -45,6 +45,22 @@ public class MyALGraph<T>
         return nodeRef;
     }
 
+    public List<(T, int)> GetLisghtestNode(List<(T, int)> nodeRef)
+    {
+        List<(T, int)> returnedNode = new List<(T, int)> ();
+        int lowest = nodeRef[0].Item2;
+
+        foreach(var node in nodeRef)
+        {
+            if (node.Item2 < lowest)
+            {
+                lowest = node.Item2;
+                returnedNode = GetNode(node.Item1);
+            }
+        }
+        return returnedNode;
+    }
+
     public void AddEdge(T from, (T, int) edge)
     {
         if (dic.TryGetValue(from, out var list))
