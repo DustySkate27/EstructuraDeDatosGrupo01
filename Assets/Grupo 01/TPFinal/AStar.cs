@@ -8,65 +8,39 @@ public class AStar<T>
     public HashSet<T> visitedNodes;
     public Dictionary<T, AStarNode<T>> nodeData = new Dictionary<T, AStarNode<T>>();
 
-    public float current; //G
-    public float tentative; //H
-    public float total; //F
 
-    public void AStarFunc(MyALGraph<T> graph, T from, T to, Vector2 fromVec, Vector2 toVec)
+    public void AStarFunc(MyALGraph<T> graph, T from, T to, Vector2 toVec)
     {
         toVisitNodes = new List<T>();
-        toVisitNodes.Add(from); //Añadimos el origen
-        nodeData.Add(from, new AStarNode<T>(null, float.PositiveInfinity));
-        nodeData.Add(to, new AStarNode<T>(null, float.PositiveInfinity));
+
+        nodeData.Add(from, new AStarNode<T>(null, 0, toVec));
 
         visitedNodes = new HashSet<T>(); //Inicializamos por visitar
-
-        if (total == 0f)
-        {
-            Debug.Log("Nodo destino");
-        }
     }
 
-    public AStarNode<T> Navigate(MyALGraph<T> graph, T from, T to)
+    public AStarNode<T> Navigate(MyALGraph<T> graph, T from, T to, Vector2 toPos)
     {
-
-
-        if (nodeData.TryGetValue(from, out AStarNode<T> nodeRef) && nodeData.TryGetValue(to, out AStarNode<T> finishRef))
+        if (nodeData.TryGetValue(from, out AStarNode<T> nodeRef))
         {
             if (from.Equals(to))
             {
-                total = nodeRef.F(tentative, current);
                 return nodeRef;
             }
             else if (toVisitNodes.Count != 0)
             {
-                AStarNode<T> minOpt = new AStarNode<T>(null, float.PositiveInfinity);
                 T nextNode = default;
-
-                foreach ((T,int) edge in graph.GetNode(from))  //edge = [item1 = Neighbour Node Value Reference; item2 = Neighbour Node Weight]
-                {
-                    nodeData.TryAdd(edge.Item1, new AStarNode<T>(null, float.PositiveInfinity));
-                    nodeData.TryGetValue(edge.Item1, out AStarNode<T> currentNode);
-                    if (currentNode.tileWeight > edge.Item2) //Actualizo el peso de los nodos vecinos. Influye directamente en F(n)
-                        currentNode.tileWeight = edge.Item2;
-
-                    if (minOpt.F(minOpt.H(finishRef.position), ) > currentNode.F(currentNode.H(finishRef.position), currentNode.G(edge.Item2))
-                    {
-                        minOpt = currentNode;
-                        nextNode = edge.Item1;
-                    }
-                    else
-                    {
-                        toVisitNodes.Add(edge.Item1);
-                    }
+                foreach (var node in graph.GetNode(from)) 
+                { 
+                    toVisitNodes.Add(node.Item1);
+                    nodeData.Add(node.Item1, new AStarNode<T>(nodeRef, (node.Item2 + nodeRef.G), toPos));
                 }
+
                 toVisitNodes.Remove(from);
                 visitedNodes.Add(from);
-                minOpt.parent = nodeRef;
 
                 for (int i = 0; i < toVisitNodes.Count; i++)
                 {
-                    if(nextNode.Equals(default))
+                    if (nextNode.Equals(default))
                     {
                         nextNode = toVisitNodes[i];
                     }
@@ -74,14 +48,15 @@ public class AStar<T>
                     {
                         nodeData.TryGetValue(toVisitNodes[i], out AStarNode<T> currentNode);
                         nodeData.TryGetValue(nextNode, out AStarNode<T> minNode);
-                        if (minNode.F(tentative, current) > currentNode.F(tentative, current))
+                        if (minNode.F > currentNode.F)
                         {
                             nextNode = toVisitNodes[i];
+                            minNode = currentNode;
                         }
                     }
                 }
 
-                Navigate(graph, nextNode, to);
+                return Navigate(graph, nextNode, to, toPos);
             }
         }
         else
@@ -92,81 +67,7 @@ public class AStar<T>
         
         return null;
     }
-
 }
-
-/*public List<List<(T, int)>> visitedNodes;
-    public List<List<(T, int)>> toVisitNodes;
-    public List<List<(T, int)>> currentNode;
-
-    public float totalDistance;
-    public float tentativeDistance;
-    public float currentDistance;
-
-    public void AStarFunc(MyALGraph<T> graph, T from, T to, Vector2 fromVec, Vector2 toVec)
-    {
-        visitedNodes = new List<List<(T, int)>>(); //Inicializamos visitados
-        visitedNodes.Add(graph.GetNode(from)); //Añadimos el origen
-
-        toVisitNodes = new List<List<(T, int)>>(); //Inicializamos por visitar
-
-        currentDistance = 0; //Inicializamos distancia al nodo actual G(n)
-        tentativeDistance = Vector2.Distance(fromVec, toVec); //Planteamos heurística H(n)
-        totalDistance = currentDistance + tentativeDistance; //Inicializamos distancia F(n)
-
-
-        foreach (var node in graph.Vertices) //Agregamos a toVisit a todos los nodos menos al origen.
-        {
-            if (node.Equals(from))
-            {
-                return;
-            }
-            else
-            {
-                toVisitNodes.Add(graph.GetNode(node));
-            }
-        }
-
-        //Logica del recorrido
-        //Sentido obligatorio (Si Lauti mal no recuerda) [OH NO HERMANO]: up, right, down, left
-
-        //1. Empezar a explorar el mapa desde el origen, buscando el camino mas óptimo y que menos incrementa F(n)
-
-        //2. Corroboro si llegué al destino preguntando si el nodo actual == to. 
-        //2A. Sí => cierro recorrido.
-        //2B. No => Continuo recorrido.
-        if (currentNode.Equals(to))
-        {
-            return;
-        }
-        else
-        {
-
-        }
-
-        //3. Chequeo si los vecinos estan en visitedNodes.
-        //3A. Sí => nunca se vuelven a tocar.
-
-        //3B. No => Comparo el "newFN(x, H(n), G(n))" de cada nodo vecino y actualizo sus valores.
-        //Si un vecino ya tenía valor y el nuevo propuesto es menor, override.
-        //Cuando definí el menor, lo popeo y lo añado a visited. El menor será el siguiente a ser recorrido y procesar sus vecinos. 
-        //Los nodos mayores no se consideran visited porque no se siguieron como recorrido, aunque se deja su valor actualizado.
-        //Los nodos mayores permanecen en la queue con sus valores actualizados.
-        //Si en el futuro su f(n) se vuelve el menor, se convertirán en el siguiente nodo a visitar y recién ahí se mueven a visited.
-
-        //4. Los vecinos que actualizé, pero no visité, los añado a la queue con su coste de visita.
-        //Esta lista se revisa post "Paso 2" y pre "Paso 3", para comparar el F(n) actual con el F(n) guardado.
-        //DILEMA: Habría que cambiar la queue por una list, cosa de poder usar sorts y no depender del orden. Esto sería O(n), no evalué mejores soluciones.
-
-        //5. Repito el proceso.
-
-    }
-
-    public float newFN(float newNode, float tentative, float current)
-    //esta funcion devuelve el coste total del recorrido al vecino. sirve para comparar y procesar costos.
-    {
-        return newNode + tentative + current;
-    }*/
 
 /*
 ████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████

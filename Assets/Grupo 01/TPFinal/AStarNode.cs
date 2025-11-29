@@ -1,28 +1,31 @@
-﻿using System.Numerics;
-
+﻿using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class AStarNode<T>
 {
     public AStarNode<T> parent;
     public Vector2 position;
-    public float tileWeight;
     public float G;
+    public float H;
 
-    public AStarNode(AStarNode<T> parent, float weight)
+    public float F { get => G + H; }
+
+    public AStarNode(AStarNode<T> parent, float weight, Vector2 toPos)
     {
         this.parent = parent;
-        tileWeight = weight;
+        G = weight;
+        setH(toPos);
     }
 
-    public float F (float H, float G) 
-    { 
-        return G + H;
-    }
-
-
-    public float H (Vector2 parentVector)
+    public void setG (float newG)
     {
-        return Vector2.Distance(position, parentVector);
+        G += newG;
+    }
+
+    public void setH(Vector2 target)
+    {
+        H = Mathf.Abs(position.x - target.x) + Mathf.Abs(position.y - target.y); ;
     }
 
     public void SetParent(AStarNode<T> parent) 
