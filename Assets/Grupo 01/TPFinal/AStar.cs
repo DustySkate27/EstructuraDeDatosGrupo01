@@ -1,9 +1,101 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AStar<T>
 {
-    /*public List<List<(T, int)>> visitedNodes;
+    public List<T> toVisitNodes;
+    public HashSet<T> visitedNodes;
+    public Dictionary<T, AStarNode<T>> nodeData = new Dictionary<T, AStarNode<T>>();
+
+    public float current; //G
+    public float tentative; //H
+    public float total; //F
+
+    public void AStarFunc(MyALGraph<T> graph, T from, T to, Vector2 fromVec, Vector2 toVec)
+    {
+        toVisitNodes = new List<T>();
+        toVisitNodes.Add(from); //Añadimos el origen
+        nodeData.Add(from, new AStarNode<T>(null, float.PositiveInfinity));
+        nodeData.Add(to, new AStarNode<T>(null, float.PositiveInfinity));
+
+        visitedNodes = new HashSet<T>(); //Inicializamos por visitar
+
+        if (total == 0f)
+        {
+            Debug.Log("Nodo destino");
+        }
+    }
+
+    public AStarNode<T> Navigate(MyALGraph<T> graph, T from, T to)
+    {
+
+
+        if (nodeData.TryGetValue(from, out AStarNode<T> nodeRef) && nodeData.TryGetValue(to, out AStarNode<T> finishRef))
+        {
+            if (from.Equals(to))
+            {
+                total = nodeRef.F(tentative, current);
+                return nodeRef;
+            }
+            else if (toVisitNodes.Count != 0)
+            {
+                AStarNode<T> minOpt = new AStarNode<T>(null, float.PositiveInfinity);
+                T nextNode = default;
+
+                foreach ((T,int) edge in graph.GetNode(from))  //edge = [item1 = Neighbour Node Value Reference; item2 = Neighbour Node Weight]
+                {
+                    nodeData.TryAdd(edge.Item1, new AStarNode<T>(null, float.PositiveInfinity));
+                    nodeData.TryGetValue(edge.Item1, out AStarNode<T> currentNode);
+                    if (currentNode.tileWeight > edge.Item2) //Actualizo el peso de los nodos vecinos. Influye directamente en F(n)
+                        currentNode.tileWeight = edge.Item2;
+
+                    if (minOpt.F(minOpt.H(finishRef.position), ) > currentNode.F(currentNode.H(finishRef.position), currentNode.G(edge.Item2))
+                    {
+                        minOpt = currentNode;
+                        nextNode = edge.Item1;
+                    }
+                    else
+                    {
+                        toVisitNodes.Add(edge.Item1);
+                    }
+                }
+                toVisitNodes.Remove(from);
+                visitedNodes.Add(from);
+                minOpt.parent = nodeRef;
+
+                for (int i = 0; i < toVisitNodes.Count; i++)
+                {
+                    if(nextNode.Equals(default))
+                    {
+                        nextNode = toVisitNodes[i];
+                    }
+                    else
+                    {
+                        nodeData.TryGetValue(toVisitNodes[i], out AStarNode<T> currentNode);
+                        nodeData.TryGetValue(nextNode, out AStarNode<T> minNode);
+                        if (minNode.F(tentative, current) > currentNode.F(tentative, current))
+                        {
+                            nextNode = toVisitNodes[i];
+                        }
+                    }
+                }
+
+                Navigate(graph, nextNode, to);
+            }
+        }
+        else
+        {
+            Debug.Log("El camino no existe");
+            return null;
+        }
+        
+        return null;
+    }
+
+}
+
+/*public List<List<(T, int)>> visitedNodes;
     public List<List<(T, int)>> toVisitNodes;
     public List<List<(T, int)>> currentNode;
 
@@ -75,61 +167,6 @@ public class AStar<T>
     {
         return newNode + tentative + current;
     }*/
-
-    public List<T> toVisitNodes;
-    public HashSet<T> visitedNodes;
-    public Dictionary<T, AStarNode<T>> nodeData = new Dictionary<T, AStarNode<T>>();
-
-    public float total;
-    public float tentative;
-
-    public void AStarFunc(MyALGraph<T> graph, T from, T to, Vector2 fromVec, Vector2 toVec)
-    {
-        toVisitNodes = new List<T>();
-        toVisitNodes.Add(to); //Añadimos el origen
-
-        visitedNodes = new HashSet<T>(); //Inicializamos por visitar
-
-        tentative = Vector2.Distance(fromVec, toVec);
-        total = tentative;
-
-        if (total == 0f)
-        {
-            Debug.Log("Nodo destino");
-        }
-    }
-
-    public AStarNode<T> Navigate(MyALGraph<T> graph, T from, T to)
-    {
-        if (from.Equals(to))
-        {
-            nodeData.TryGetValue(from, out AStarNode<T> nodeRef);
-            total = nodeRef.F(tentative);
-            return nodeRef;
-        }
-        else if (toVisitNodes.Count != 0)
-        {
-            float? minOpt = null; 
-
-            foreach (var edge in graph.GetNode(from)) 
-            {
-                nodeData.TryGetValue(edge.Item1, out AStarNode<T> nodeRef);
-
-                if (minOpt == null || minOpt > nodeRef.F(tentative))
-                {
-                    minOpt = nodeRef.F(tentative);
-                }
-                else
-                {
-                    toVisitNodes.Add(edge.Item1);
-                    nodeRef.F(tentative)
-                }
-            }
-        }
-        
-    }
-
-}
 
 /*
 ████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████

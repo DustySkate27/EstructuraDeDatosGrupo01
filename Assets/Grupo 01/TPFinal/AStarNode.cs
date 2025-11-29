@@ -1,33 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 
 
 public class AStarNode<T>
 {
     public AStarNode<T> parent;
     public Vector2 position;
-    public int G;
+    public float tileWeight;
+    public float G;
 
-    public AStarNode(AStarNode<T> parent, int G)
+    public AStarNode(AStarNode<T> parent, float weight)
     {
         this.parent = parent;
-        this.G = G;
+        tileWeight = weight;
     }
 
-    public float F (float H) 
+    public float F (float H, float G) 
     { 
         return G + H;
     }
 
-    public void UpdateG(int newG)
+
+    public float H (Vector2 parentVector)
     {
-        G = newG;
+        return Vector2.Distance(position, parentVector);
     }
+
     public void SetParent(AStarNode<T> parent) 
     { 
         this.parent = parent;
