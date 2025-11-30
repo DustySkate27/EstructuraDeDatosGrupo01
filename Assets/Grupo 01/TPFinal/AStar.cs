@@ -1,34 +1,34 @@
 ﻿using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class AStar<T>
+public class AStar
 {
-    public List<T> toVisitNodes;
-    public HashSet<T> visitedNodes;
-    public Dictionary<T, AStarNode<T>> nodeData = new Dictionary<T, AStarNode<T>>();
+    public List<Vector2> toVisitNodes;
+    public List<Vector2> finalList;
+    public HashSet<Vector2> visitedNodes;
+    public Dictionary<Vector2, AStarNode> nodeData;
 
 
-    public void AStarFunc(MyALGraph<T> graph, T from, T to, Vector2 fromVec, Vector2 toVec)
+    public void AStarFunc(Vector2Graph graph, Vector2 from, Vector2 to)
     {
-        toVisitNodes = new List<T>();
-
+        toVisitNodes = new List<Vector2>();
+        nodeData = new Dictionary<Vector2, AStarNode>();
         toVisitNodes.Add(from);
-        nodeData.Add(from, new AStarNode<T>(null, 0, fromVec, toVec));
+        nodeData.Add(from, new AStarNode(null, 0, from, to));
 
-        visitedNodes = new HashSet<T>(); //Inicializamos por visitar
+        visitedNodes = new HashSet<Vector2>(); //Inicializamos por visitar
 
-        Navigate(graph, from, to, toVec);
+        Navigate(graph, from, to);
+        Debug.Log(finalList.ToString());
     }
 
-    public AStarNode<T> Navigate(MyALGraph<T> graph, T from, T to, Vector2 toPos)
+    public AStarNode Navigate(Vector2Graph graph, Vector2 from, Vector2 to)
     { 
-        if (nodeData.TryGetValue(from, out AStarNode<T> nodeRef))
+        if (nodeData.ContainsKey(from))
         {
             while (toVisitNodes.Count > 0)
             {
-                T currentNode = toVisitNodes[0];
+                Vector2 currentNode = toVisitNodes[0];
 
                 for (int i = 1; i < toVisitNodes.Count; i++)
                 {
@@ -36,18 +36,34 @@ public class AStar<T>
                         currentNode = toVisitNodes[i];
                 }
 
-                AStarNode<T> currentRef = nodeData[currentNode];
+                AStarNode currentRef = nodeData[currentNode];
+
                 if (currentNode.Equals(to))
                 {
+                    finalList = new List<Vector2>();
+                    AStarNode auxNode = nodeData[to];
+
+                    while (!auxNode.Equals(from))
+                    {
+                        finalList.Add(auxNode.position);
+                        auxNode = auxNode.parent;
+                    }
+
+                    finalList.Add(from);
+                    finalList.Reverse();
+
                     return currentRef;
                 }
 
                 toVisitNodes.Remove(currentNode);
                 visitedNodes.Add(currentNode);
 
+                var edges = graph.GetNode(currentNode);
+                if (edges == null) continue;
+
                 foreach (var edge in graph.GetNode(currentNode)) 
                 {
-                    T neighbour = edge.Item1;
+                    Vector2 neighbour = edge.Item1;
                     float weight = edge.Item2;
                     
                     if (!visitedNodes.Contains(neighbour))
@@ -57,9 +73,9 @@ public class AStar<T>
 
                         if (!nodeData.ContainsKey(neighbour))
                         {
-                            nodeData.Add(neighbour, new AStarNode<T>(currentRef, (weight + currentRef.G), currentRef.position, toPos));
+                            nodeData.Add(neighbour, new AStarNode(currentRef, (weight + currentRef.G), neighbour, to));
                         }
-                        else if (nodeData.TryGetValue(neighbour, out AStarNode<T> neighbourRef))
+                        else if (nodeData.TryGetValue(neighbour, out AStarNode neighbourRef))
                         {
                             if (neighbourRef.G > weight + currentRef.G)
                             {

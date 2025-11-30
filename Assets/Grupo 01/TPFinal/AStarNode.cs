@@ -2,16 +2,16 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class AStarNode<T>
+public class AStarNode
 {
-    public AStarNode<T> parent;
+    public AStarNode parent;
     public Vector2 position;
     public float G;
     public float H;
 
     public float F { get => G + H; }
 
-    public AStarNode(AStarNode<T> parent, float weight, Vector2 fromPos, Vector2 toPos)
+    public AStarNode(AStarNode parent, float weight, Vector2 fromPos, Vector2 toPos)
     {
         this.parent = parent;
         G = weight;
@@ -29,7 +29,7 @@ public class AStarNode<T>
         H = Mathf.Abs(position.x - target.x) + Mathf.Abs(position.y - target.y);
     }
 
-    public void SetParent(AStarNode<T> parent) 
+    public void SetParent(AStarNode parent) 
     { 
         this.parent = parent;
     }
