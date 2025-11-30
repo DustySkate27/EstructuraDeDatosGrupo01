@@ -11,21 +11,22 @@ public class AStarNode<T>
 
     public float F { get => G + H; }
 
-    public AStarNode(AStarNode<T> parent, float weight, Vector2 toPos)
+    public AStarNode(AStarNode<T> parent, float weight, Vector2 fromPos, Vector2 toPos)
     {
         this.parent = parent;
         G = weight;
+        position = fromPos;
         setH(toPos);
     }
 
-    public void setG (float newG)
+    public void setG (float visitCost)
     {
-        G += newG;
+        G = visitCost;
     }
 
     public void setH(Vector2 target)
     {
-        H = Mathf.Abs(position.x - target.x) + Mathf.Abs(position.y - target.y); ;
+        H = Mathf.Abs(position.x - target.x) + Mathf.Abs(position.y - target.y);
     }
 
     public void SetParent(AStarNode<T> parent) 

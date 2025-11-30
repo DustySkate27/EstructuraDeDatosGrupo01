@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class AStar<T>
@@ -9,62 +10,69 @@ public class AStar<T>
     public Dictionary<T, AStarNode<T>> nodeData = new Dictionary<T, AStarNode<T>>();
 
 
-    public void AStarFunc(MyALGraph<T> graph, T from, T to, Vector2 toVec)
+    public void AStarFunc(MyALGraph<T> graph, T from, T to, Vector2 fromVec, Vector2 toVec)
     {
         toVisitNodes = new List<T>();
 
-        nodeData.Add(from, new AStarNode<T>(null, 0, toVec));
+        toVisitNodes.Add(from);
+        nodeData.Add(from, new AStarNode<T>(null, 0, fromVec, toVec));
 
         visitedNodes = new HashSet<T>(); //Inicializamos por visitar
+
+        Navigate(graph, from, to, toVec);
     }
 
     public AStarNode<T> Navigate(MyALGraph<T> graph, T from, T to, Vector2 toPos)
-    {
+    { 
         if (nodeData.TryGetValue(from, out AStarNode<T> nodeRef))
         {
-            if (from.Equals(to))
+            while (toVisitNodes.Count > 0)
             {
-                return nodeRef;
-            }
-            else if (toVisitNodes.Count != 0)
-            {
-                T nextNode = default;
-                foreach (var node in graph.GetNode(from)) 
-                { 
-                    toVisitNodes.Add(node.Item1);
-                    nodeData.Add(node.Item1, new AStarNode<T>(nodeRef, (node.Item2 + nodeRef.G), toPos));
+                T currentNode = toVisitNodes[0];
+
+                for (int i = 1; i < toVisitNodes.Count; i++)
+                {
+                    if (nodeData[toVisitNodes[i]].F < nodeData[currentNode].F)
+                        currentNode = toVisitNodes[i];
                 }
 
-                toVisitNodes.Remove(from);
-                visitedNodes.Add(from);
-
-                for (int i = 0; i < toVisitNodes.Count; i++)
+                AStarNode<T> currentRef = nodeData[currentNode];
+                if (currentNode.Equals(to))
                 {
-                    if (nextNode.Equals(default))
+                    return currentRef;
+                }
+
+                toVisitNodes.Remove(currentNode);
+                visitedNodes.Add(currentNode);
+
+                foreach (var edge in graph.GetNode(currentNode)) 
+                {
+                    T neighbour = edge.Item1;
+                    float weight = edge.Item2;
+                    
+                    if (!visitedNodes.Contains(neighbour))
                     {
-                        nextNode = toVisitNodes[i];
-                    }
-                    else
-                    {
-                        nodeData.TryGetValue(toVisitNodes[i], out AStarNode<T> currentNode);
-                        nodeData.TryGetValue(nextNode, out AStarNode<T> minNode);
-                        if (minNode.F > currentNode.F)
+                        if (!toVisitNodes.Contains(neighbour))
+                            toVisitNodes.Add(neighbour);
+
+                        if (!nodeData.ContainsKey(neighbour))
                         {
-                            nextNode = toVisitNodes[i];
-                            minNode = currentNode;
+                            nodeData.Add(neighbour, new AStarNode<T>(currentRef, (weight + currentRef.G), currentRef.position, toPos));
+                        }
+                        else if (nodeData.TryGetValue(neighbour, out AStarNode<T> neighbourRef))
+                        {
+                            if (neighbourRef.G > weight + currentRef.G)
+                            {
+                                neighbourRef.G = weight + currentRef.G;
+                                neighbourRef.parent = currentRef;
+                            }
                         }
                     }
                 }
-
-                return Navigate(graph, nextNode, to, toPos);
             }
         }
-        else
-        {
-            Debug.Log("El camino no existe");
-            return null;
-        }
-        
+
+        Debug.Log("No existe un camino posible.");
         return null;
     }
 }
