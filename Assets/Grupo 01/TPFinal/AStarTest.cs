@@ -14,7 +14,7 @@ public class AStarTest : MonoBehaviour
 
         
 
-        grid.AStarFunction(new Vector2Int(0,0), new Vector2Int(1,0));
+        grid.AStarFunction(new Vector2Int(0,0), new Vector2Int(3,0));
     }
 
     private void Update()

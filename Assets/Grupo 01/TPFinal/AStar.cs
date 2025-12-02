@@ -19,7 +19,10 @@ public class AStar
         visitedNodes = new HashSet<Vector2Int>(); //Inicializamos por visitar
 
         Navigate(graph, from, to);
-        Debug.Log(finalList.ToString());
+        for(int  i = 0; i < finalList.Count; i++)
+        {
+            Debug.Log(finalList[i]);
+        }
     }
 
     public AStarNode Navigate(Vector2Graph graph, Vector2Int from, Vector2Int to)
@@ -43,7 +46,7 @@ public class AStar
                     finalList = new List<Vector2Int>(); //se crea una lista final
                     AStarNode auxNode = nodeData[to]; //se asigna un nodo aux
 
-                    while (!auxNode.Equals(from)) //Hasta que aux == origen
+                    while (!auxNode.position.Equals(from)) //Hasta que aux == origen
                     {
                         finalList.Add(auxNode.position); //Se añade la posicion del aux a la lista.
                         auxNode = auxNode.parent; //y se cambia el aux por su parent (recorrido inverso)
