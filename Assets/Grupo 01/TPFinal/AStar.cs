@@ -24,60 +24,62 @@ public class AStar
 
     public AStarNode Navigate(Vector2Graph graph, Vector2Int from, Vector2Int to)
     { 
-        if (nodeData.ContainsKey(from))
+        if (nodeData.ContainsKey(from)) //si el origen existe
         {
-            while (toVisitNodes.Count > 0)
+            while (toVisitNodes.Count > 0) //mientras haya nodos que visitar
             {
-                Vector2Int currentNode = toVisitNodes[0];
+                Vector2Int currentNode = toVisitNodes[0]; 
 
-                for (int i = 1; i < toVisitNodes.Count; i++)
+                for (int i = 1; i < toVisitNodes.Count; i++) //se busca el nodo con menor peso, para seguir el recorrido desde ahi
                 {
                     if (nodeData[toVisitNodes[i]].F < nodeData[currentNode].F)
-                        currentNode = toVisitNodes[i];
+                        currentNode = toVisitNodes[i]; 
                 }
 
-                AStarNode currentRef = nodeData[currentNode];
+                AStarNode currentRef = nodeData[currentNode]; //nodo actual
 
-                if (currentNode.Equals(to))
+                if (currentNode.Equals(to)) //Si el actual es la meta
                 {
-                    finalList = new List<Vector2Int>();
-                    AStarNode auxNode = nodeData[to];
+                    finalList = new List<Vector2Int>(); //se crea una lista final
+                    AStarNode auxNode = nodeData[to]; //se asigna un nodo aux
 
-                    while (!auxNode.Equals(from))
+                    while (!auxNode.Equals(from)) //Hasta que aux == origen
                     {
-                        finalList.Add(auxNode.position);
-                        auxNode = auxNode.parent;
+                        finalList.Add(auxNode.position); //Se añade la posicion del aux a la lista.
+                        auxNode = auxNode.parent; //y se cambia el aux por su parent (recorrido inverso)
                     }
 
-                    finalList.Add(from);
-                    finalList.Reverse();
+                    finalList.Add(from); //finalmente, se añade el origen a la lista
+                    finalList.Reverse(); //Y reordena la lista, para poder reproducir el recorrido de origen a meta
 
                     return currentRef;
                 }
 
-                toVisitNodes.Remove(currentNode);
-                visitedNodes.Add(currentNode);
+                //Si el actual no es la meta
+                toVisitNodes.Remove(currentNode); //Se lo remueve de visitado
+                visitedNodes.Add(currentNode); //Se marca como visitado
 
-                var edges = graph.GetNode(currentNode);
-                if (edges == null) continue;
+                var edges = graph.GetNode(currentNode); //Se asignan sus vecinos
+                if (edges == null) continue; //en caso de no tener vecinos, skip
 
-                foreach (var edge in graph.GetNode(currentNode)) 
+                foreach (var edge in graph.GetNode(currentNode)) //por cada vecino
                 {
                     Vector2Int neighbour = edge.Item1;
                     float weight = edge.Item2;
                     
-                    if (!visitedNodes.Contains(neighbour))
+                    if (!visitedNodes.Contains(neighbour)) //si el vecino no fue visitado
                     {
-                        if (!toVisitNodes.Contains(neighbour))
-                            toVisitNodes.Add(neighbour);
+                        if (!toVisitNodes.Contains(neighbour)) //si el vecino  no esta para ser visitado
+                            toVisitNodes.Add(neighbour); //se lo añade a pendientes
 
-                        if (!nodeData.ContainsKey(neighbour))
+                        //si el vecino estaba en pendientes
+                        if (!nodeData.ContainsKey(neighbour)) //si el vecino no estaba en nodeData
                         {
-                            nodeData.Add(neighbour, new AStarNode(currentRef, (weight + currentRef.G), neighbour, to));
+                            nodeData.Add(neighbour, new AStarNode(currentRef, (weight + currentRef.G), neighbour, to)); //se agregan sus datos actualizados
                         }
-                        else if (nodeData.TryGetValue(neighbour, out AStarNode neighbourRef))
+                        else if (nodeData.TryGetValue(neighbour, out AStarNode neighbourRef)) //si estaba, se obtiene su data
                         {
-                            if (neighbourRef.G > weight + currentRef.G)
+                            if (neighbourRef.G > weight + currentRef.G) //y si la previa era menos optima, se la actualiza
                             {
                                 neighbourRef.G = weight + currentRef.G;
                                 neighbourRef.parent = currentRef;
