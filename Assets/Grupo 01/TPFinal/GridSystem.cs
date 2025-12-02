@@ -1,4 +1,6 @@
 using CodeMonkey.Utils;
+using NUnit.Framework;
+using System.Linq;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -10,6 +12,15 @@ public class GridSystem
     private Vector3 origin;
     private int[,] gridArray;
     private TextMesh[,] textArray;
+
+    private Vector2Int[] directions = { 
+        new Vector2Int(1, 0),
+        new Vector2Int(-1, 0),
+        new Vector2Int(0, 1),
+        new Vector2Int(0, -1),
+    };
+
+    public Vector2Graph graph = new Vector2Graph();
 
     public GridSystem(int width, int height, float cellSize, Vector3 origin)
     {
@@ -29,14 +40,26 @@ public class GridSystem
 
                 Debug.DrawLine(GetWorldPosition(x,y), GetWorldPosition(x +1, y), Color.white, 10f);
                 Debug.DrawLine(GetWorldPosition(x,y), GetWorldPosition(x, y +1), Color.white, 10f);
+
+                Vector2Int currentNode = new Vector2Int(x,y);
+                graph.AddVertex(currentNode);
+
+                foreach( var dir in directions)
+                {
+                    Vector2Int neighbor = currentNode + dir;
+
+                    if (neighbor.x < 0 || neighbor.x >= width) continue;
+                    if (neighbor.y < 0 || neighbor.y >= height) continue;
+                    graph.AddEdge(currentNode, (neighbor, 1));
+                }
+
+
             }
         }
         Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 10f);
         Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 10f);
 
         SetValue(2, 1, 4);
-
-
     }
 
     private Vector3 GetWorldPosition(int x, int y)
@@ -74,6 +97,16 @@ public class GridSystem
     public int GetValue(Vector3 worldPosition)
     {
         return GetValue(GetXY(worldPosition).x, GetXY(worldPosition).y);
+    }
+
+    public void AStarFunction(Vector2Int from, Vector2Int to)
+    {
+        Debug.Log("Tiene (0,0): " + graph.ContainsVertex(new Vector2Int(0, 0)));
+        Debug.Log("Tiene (1,0): " + graph.ContainsVertex(new Vector2Int(1, 0)));
+        Debug.Log("Cantidad de vertices: " + graph.Vertices.Count());
+
+        AStar aStar = new AStar();
+        aStar.AStarFunc(graph, from, to);
     }
 
 }

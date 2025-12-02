@@ -3,32 +3,32 @@ using UnityEngine;
 
 public class AStar
 {
-    public List<Vector2> toVisitNodes;
-    public List<Vector2> finalList;
-    public HashSet<Vector2> visitedNodes;
-    public Dictionary<Vector2, AStarNode> nodeData;
+    public List<Vector2Int> toVisitNodes;
+    public List<Vector2Int> finalList;
+    public HashSet<Vector2Int> visitedNodes;
+    public Dictionary<Vector2Int, AStarNode> nodeData;
 
 
-    public void AStarFunc(Vector2Graph graph, Vector2 from, Vector2 to)
+    public void AStarFunc(Vector2Graph graph, Vector2Int from, Vector2Int to)
     {
-        toVisitNodes = new List<Vector2>();
-        nodeData = new Dictionary<Vector2, AStarNode>();
+        toVisitNodes = new List<Vector2Int>();
+        nodeData = new Dictionary<Vector2Int, AStarNode>();
         toVisitNodes.Add(from);
         nodeData.Add(from, new AStarNode(null, 0, from, to));
 
-        visitedNodes = new HashSet<Vector2>(); //Inicializamos por visitar
+        visitedNodes = new HashSet<Vector2Int>(); //Inicializamos por visitar
 
         Navigate(graph, from, to);
         Debug.Log(finalList.ToString());
     }
 
-    public AStarNode Navigate(Vector2Graph graph, Vector2 from, Vector2 to)
+    public AStarNode Navigate(Vector2Graph graph, Vector2Int from, Vector2Int to)
     { 
         if (nodeData.ContainsKey(from))
         {
             while (toVisitNodes.Count > 0)
             {
-                Vector2 currentNode = toVisitNodes[0];
+                Vector2Int currentNode = toVisitNodes[0];
 
                 for (int i = 1; i < toVisitNodes.Count; i++)
                 {
@@ -40,7 +40,7 @@ public class AStar
 
                 if (currentNode.Equals(to))
                 {
-                    finalList = new List<Vector2>();
+                    finalList = new List<Vector2Int>();
                     AStarNode auxNode = nodeData[to];
 
                     while (!auxNode.Equals(from))
@@ -63,7 +63,7 @@ public class AStar
 
                 foreach (var edge in graph.GetNode(currentNode)) 
                 {
-                    Vector2 neighbour = edge.Item1;
+                    Vector2Int neighbour = edge.Item1;
                     float weight = edge.Item2;
                     
                     if (!visitedNodes.Contains(neighbour))

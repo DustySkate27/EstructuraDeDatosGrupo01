@@ -1,7 +1,8 @@
+using CodeMonkey.Utils;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using CodeMonkey.Utils;
 
 public class AStarTest : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class AStarTest : MonoBehaviour
     void Start()
     {
         grid = new GridSystem(4,2, 20f, new Vector3(-100, -60));
+
+        
+
+        grid.AStarFunction(new Vector2Int(0,0), new Vector2Int(1,0));
     }
 
     private void Update()

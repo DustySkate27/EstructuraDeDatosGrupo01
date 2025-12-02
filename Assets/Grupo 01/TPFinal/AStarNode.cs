@@ -3,16 +3,18 @@
 public class AStarNode
 {
     public AStarNode parent;
-    public Vector2 position;
+    public Vector2Int position;
+    public float value;
     public float G;
     public float H;
 
     public float F { get => G + H; }
 
-    public AStarNode(AStarNode parent, float weight, Vector2 fromPos, Vector2 toPos)
+    public AStarNode(AStarNode parent, float weight, Vector2Int fromPos, Vector2Int toPos)
     {
         this.parent = parent;
         G = weight;
+        value = weight;
         position = fromPos;
         setH(toPos);
     }

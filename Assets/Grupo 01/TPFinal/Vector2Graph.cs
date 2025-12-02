@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class Vector2Graph
 {
-    public Dictionary<Vector2, List<(Vector2, int)>> dic;
+    public Dictionary<Vector2Int, List<(Vector2Int, int)>> dic;
 
-    public IEnumerable<Vector2> Vertices { get => dic.Keys; }
+    public IEnumerable<Vector2Int> Vertices { get => dic.Keys; }
 
     public Vector2Graph()
     {
-        dic = new Dictionary<Vector2, List<(Vector2, int)>>();
+        dic = new Dictionary<Vector2Int, List<(Vector2Int, int)>>();
     }
 
-    public void AddVertex(Vector2 vertex)
+    public void AddVertex(Vector2Int vertex)
     {
         if (!dic.ContainsKey(vertex))
         {
-            dic.Add(vertex, new List<(Vector2, int)>());
+            dic.Add(vertex, new List<(Vector2Int, int)>());
         }
     }
 
-    public void RemoveVertex(Vector2 vertex)
+    public void RemoveVertex(Vector2Int vertex)
     {
         if (dic.ContainsKey(vertex))
         {
@@ -40,29 +40,13 @@ public class Vector2Graph
         }
     }
 
-    public List<(Vector2, int)> GetNode(Vector2 nodeToGet)
+    public List<(Vector2Int, int)> GetNode(Vector2Int nodeToGet)
     {
         dic.TryGetValue(nodeToGet, out var nodeRef);
         return nodeRef;
     }
 
-    public List<(Vector2, int)> GetLisghtestNode(List<(Vector2, int)> nodeRef)
-    {
-        List<(Vector2, int)> returnedNode = new List<(Vector2, int)>();
-        int lowest = nodeRef[0].Item2;
-
-        foreach (var node in nodeRef)
-        {
-            if (node.Item2 < lowest)
-            {
-                lowest = node.Item2;
-                returnedNode = GetNode(node.Item1);
-            }
-        }
-        return returnedNode;
-    }
-
-    public void AddEdge(Vector2 from, (Vector2, int) edge)
+    public void AddEdge(Vector2Int from, (Vector2Int, int) edge)
     {
         if (dic.TryGetValue(from, out var list))
         {
@@ -74,7 +58,7 @@ public class Vector2Graph
         }
     }
 
-    public void RemoveEdge(Vector2 from, Vector2 to)
+    public void RemoveEdge(Vector2Int from, Vector2Int to)
     {
         if (dic.TryGetValue(from, out var list))
         {
@@ -87,12 +71,12 @@ public class Vector2Graph
             }
         }
     }
-    public bool ContainsVertex(Vector2 vertex)
+    public bool ContainsVertex(Vector2Int vertex)
     {
         if (dic.ContainsKey(vertex)) return true;
         else return false;
     }
-    public bool ContainsEdge(Vector2 from, Vector2 to)
+    public bool ContainsEdge(Vector2Int from, Vector2Int to)
     {
         if (dic.TryGetValue(from, out var list))
         {
@@ -105,7 +89,7 @@ public class Vector2Graph
         return false;
     }
 
-    public int? GetWeight(Vector2 from, Vector2 to)
+    public int? GetWeight(Vector2Int from, Vector2Int to)
     {
         if (dic.TryGetValue(from, out var list))
         {
