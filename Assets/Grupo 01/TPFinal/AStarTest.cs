@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -64,17 +66,17 @@ public class AStarTest : MonoBehaviour
 
             if (path != null)
             {
-                for (int i = 0; i < path.Count - 1; i++)
-                {
-                    Debug.DrawLine(grid.GetWorldPosition(path[i].x, path[i].y) + new Vector3(cellSize / 2, cellSize / 2), grid.GetWorldPosition(path[i + 1].x, path[i + 1].y) + new Vector3(cellSize / 2, cellSize / 2), Color.green, 10f);
-                    StartCoroutine(Delay());
-                }
+                delayedFor(path);
             }
         }
     }
 
-    private IEnumerator Delay()
+    public async Task delayedFor(List<Vector2Int> path)
     {
-        yield return new WaitForSeconds(1f); 
+        for (int i = 0; i < path.Count - 1; i++)
+        {
+            Debug.DrawLine(grid.GetWorldPosition(path[i].x, path[i].y) + new Vector3(cellSize / 2, cellSize / 2), grid.GetWorldPosition(path[i + 1].x, path[i + 1].y) + new Vector3(cellSize / 2, cellSize / 2), Color.green, 10f);
+            await Task.Delay(500);
+        }
     }
 }

@@ -59,8 +59,6 @@ public class GridSystem
         }
         Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 999999f);
         Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 999999f);
-
-        SetValue(2, 1, 4);
     }
 
     public Vector3 GetWorldPosition(int x, int y)
