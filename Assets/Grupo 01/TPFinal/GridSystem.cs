@@ -1,5 +1,6 @@
 using CodeMonkey.Utils;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
@@ -38,8 +39,8 @@ public class GridSystem
             {
                 textArray[x,y] = UtilsClass.CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x,y) + new Vector3(cellSize, cellSize) * .5f, 30, Color.white, TextAnchor.MiddleLeft);
 
-                Debug.DrawLine(GetWorldPosition(x,y), GetWorldPosition(x +1, y), Color.white, 10f);
-                Debug.DrawLine(GetWorldPosition(x,y), GetWorldPosition(x, y +1), Color.white, 10f);
+                Debug.DrawLine(GetWorldPosition(x,y), GetWorldPosition(x +1, y), Color.white, 999999f);
+                Debug.DrawLine(GetWorldPosition(x,y), GetWorldPosition(x, y +1), Color.white, 999999f);
 
                 Vector2Int currentNode = new Vector2Int(x,y);
                 graph.AddVertex(currentNode);
@@ -52,21 +53,19 @@ public class GridSystem
                     if (neighbor.y < 0 || neighbor.y >= height) continue;
                     graph.AddEdge(currentNode, (neighbor, 1));
                 }
-
-
             }
         }
-        Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 10f);
-        Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 10f);
+        Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 999999f);
+        Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 999999f);
 
         SetValue(2, 1, 4);
     }
 
-    private Vector3 GetWorldPosition(int x, int y)
+    public Vector3 GetWorldPosition(int x, int y)
     {
         return new Vector3(x, y) * cellSize + origin;
     }
-    private Vector2Int GetXY(Vector3 worldPosition)
+    public Vector2Int GetXY(Vector3 worldPosition)
     {
         return new Vector2Int (Mathf.FloorToInt((worldPosition - origin).x / cellSize), Mathf.FloorToInt((worldPosition - origin).y / cellSize));
     }
@@ -77,6 +76,7 @@ public class GridSystem
         {
             gridArray[x, y] = value;
             textArray[x,y].text = gridArray[x,y].ToString();
+            graph.dic.ContainsKey(new Vector2Int(x,y));
         }
     }
 
@@ -99,7 +99,7 @@ public class GridSystem
         return GetValue(GetXY(worldPosition).x, GetXY(worldPosition).y);
     }
 
-    public void AStarFunction(Vector2Int from, Vector2Int to)
+    public List<Vector2Int> AStarFunction(Vector2Int from, Vector2Int to)
     {
         Debug.Log("Tiene (0,0): " + graph.ContainsVertex(new Vector2Int(0, 0)));
         Debug.Log("Tiene (1,0): " + graph.ContainsVertex(new Vector2Int(1, 0)));
@@ -107,6 +107,8 @@ public class GridSystem
 
         AStar aStar = new AStar();
         aStar.AStarFunc(graph, from, to);
+
+        return aStar.finalList;
     }
 
 }
