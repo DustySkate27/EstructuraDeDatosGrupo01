@@ -288,6 +288,9 @@ MonoBehaviour:
   width: 10
   height: 5
   cellSize: 20
+  tileMode: 0
+  start: {x: 0, y: 0}
+  finish: {x: 0, y: 0}
 --- !u!4 &1898838431
 Transform:
   m_ObjectHideFlags: 0

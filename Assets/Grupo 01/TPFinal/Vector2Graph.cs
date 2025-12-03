@@ -52,7 +52,11 @@ public class Vector2Graph
         {
             for (int i = 0; i < list.Count; i++)
             {
-                if (list[i].Item1.Equals(edge.Item1)) return;
+                if (list[i].Item1.Equals(edge.Item1))
+                {
+                    list[i] = edge;
+                    return;
+                }
             }
             list.Add(edge);
         }
@@ -71,11 +75,13 @@ public class Vector2Graph
             }
         }
     }
+
     public bool ContainsVertex(Vector2Int vertex)
     {
         if (dic.ContainsKey(vertex)) return true;
         else return false;
     }
+
     public bool ContainsEdge(Vector2Int from, Vector2Int to)
     {
         if (dic.TryGetValue(from, out var list))
@@ -100,6 +106,21 @@ public class Vector2Graph
             return null;
         }
         return null;
+    }
+
+    public void SetIncomingWeight(Vector2Int node, int newWeight)
+    {
+        foreach (var key in dic.Keys)
+        {
+            var edges = dic[key];
+            for (int i = 0; i < edges.Count; i++)
+            {
+                if (edges[i].Item1.Equals(node))
+                {
+                    edges[i] = (node, newWeight);
+                }
+            }
+        }
     }
 }
 

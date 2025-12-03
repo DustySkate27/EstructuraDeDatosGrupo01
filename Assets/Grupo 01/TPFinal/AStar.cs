@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AStar
@@ -18,11 +19,14 @@ public class AStar
 
         visitedNodes = new HashSet<Vector2Int>(); //Inicializamos por visitar
 
-        Navigate(graph, from, to);
-        for(int  i = 0; i < finalList.Count; i++)
+        var result = Navigate(graph, from, to);
+
+        if (result == null)
         {
-            Debug.Log(finalList[i]);
+            finalList = null;
+            return;
         }
+        
     }
 
     public AStarNode Navigate(Vector2Graph graph, Vector2Int from, Vector2Int to)
@@ -48,8 +52,16 @@ public class AStar
 
                     while (!auxNode.position.Equals(from)) //Hasta que aux == origen
                     {
-                        finalList.Add(auxNode.position); //Se añade la posicion del aux a la lista.
-                        auxNode = auxNode.parent; //y se cambia el aux por su parent (recorrido inverso)
+                        finalList.Add(auxNode.position);//Se añade la posicion del aux a la lista.
+
+                        if (auxNode.parent == null)
+                        {
+                            // Significa que llegó a un nodo aislado → camino imposible
+                            finalList = null;
+                            return null;
+                        }
+
+                        auxNode = auxNode.parent;//y se cambia el aux por su parent (recorrido inverso)
                     }
 
                     finalList.Add(from); //finalmente, se añade el origen a la lista
@@ -69,31 +81,32 @@ public class AStar
                 {
                     Vector2Int neighbour = edge.Item1;
                     float weight = edge.Item2;
-                    
-                    if (!visitedNodes.Contains(neighbour)) //si el vecino no fue visitado
+                    if (weight == 999) continue;
+                    else
                     {
-                        if (!toVisitNodes.Contains(neighbour)) //si el vecino  no esta para ser visitado
-                            toVisitNodes.Add(neighbour); //se lo añade a pendientes
+                        if (!visitedNodes.Contains(neighbour)) //si el vecino no fue visitado
+                        {
+                            if (!toVisitNodes.Contains(neighbour)) //si el vecino  no esta para ser visitado
+                                toVisitNodes.Add(neighbour); //se lo añade a pendientes
 
-                        //si el vecino estaba en pendientes
-                        if (!nodeData.ContainsKey(neighbour)) //si el vecino no estaba en nodeData
-                        {
-                            nodeData.Add(neighbour, new AStarNode(currentRef, (weight + currentRef.G), neighbour, to)); //se agregan sus datos actualizados
-                        }
-                        else if (nodeData.TryGetValue(neighbour, out AStarNode neighbourRef)) //si estaba, se obtiene su data
-                        {
-                            if (neighbourRef.G > weight + currentRef.G) //y si la previa era menos optima, se la actualiza
+                            //si el vecino estaba en pendientes
+                            if (!nodeData.ContainsKey(neighbour)) //si el vecino no estaba en nodeData
                             {
-                                neighbourRef.G = weight + currentRef.G;
-                                neighbourRef.parent = currentRef;
+                                nodeData.Add(neighbour, new AStarNode(currentRef, (weight + currentRef.G), neighbour, to)); //se agregan sus datos actualizados
+                            }
+                            else if (nodeData.TryGetValue(neighbour, out AStarNode neighbourRef)) //si estaba, se obtiene su data
+                            {
+                                if (neighbourRef.G > weight + currentRef.G) //y si la previa era menos optima, se la actualiza
+                                {
+                                    neighbourRef.G = weight + currentRef.G;
+                                    neighbourRef.parent = currentRef;
+                                }
                             }
                         }
                     }
                 }
             }
         }
-
-        Debug.Log("No existe un camino posible.");
         return null;
     }
 }

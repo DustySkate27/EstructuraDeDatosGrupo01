@@ -1,5 +1,6 @@
 using CodeMonkey.Utils;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -41,6 +42,7 @@ public class GridSystem
 
                 Debug.DrawLine(GetWorldPosition(x,y), GetWorldPosition(x +1, y), Color.white, 999999f);
                 Debug.DrawLine(GetWorldPosition(x,y), GetWorldPosition(x, y +1), Color.white, 999999f);
+                
 
                 Vector2Int currentNode = new Vector2Int(x,y);
                 graph.AddVertex(currentNode);
@@ -101,14 +103,25 @@ public class GridSystem
 
     public List<Vector2Int> AStarFunction(Vector2Int from, Vector2Int to)
     {
-        Debug.Log("Tiene (0,0): " + graph.ContainsVertex(new Vector2Int(0, 0)));
-        Debug.Log("Tiene (1,0): " + graph.ContainsVertex(new Vector2Int(1, 0)));
-        Debug.Log("Cantidad de vertices: " + graph.Vertices.Count());
-
         AStar aStar = new AStar();
         aStar.AStarFunc(graph, from, to);
-
-        return aStar.finalList;
+        Debug.Log(aStar.finalList);
+        if(aStar.finalList != null) return aStar.finalList;
+        else
+            return null;
     }
+
+    public void SetWall(Vector2Int xy)
+    {
+        graph.SetIncomingWeight(xy, 999);
+        textArray[xy.x, xy.y] = UtilsClass.CreateWorldText(999.ToString(), null, GetWorldPosition(xy.x, xy.y) + new Vector3(cellSize, cellSize) * .5f, 30, Color.white, TextAnchor.MiddleLeft);
+
+    }
+
+    public void SetTile(Vector2Int xy)
+    {
+        graph.SetIncomingWeight(xy, 1);
+    }
+
 
 }
