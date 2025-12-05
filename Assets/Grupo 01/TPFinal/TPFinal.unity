@@ -291,6 +291,7 @@ MonoBehaviour:
   tileMode: 0
   start: {x: 0, y: 0}
   finish: {x: 0, y: 0}
+  cellBackground: {fileID: 2925324806413537377, guid: dbb8bd644c835f848ada8132ead83ede, type: 3}
 --- !u!4 &1898838431
 Transform:
   m_ObjectHideFlags: 0

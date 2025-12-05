@@ -26,7 +26,6 @@ public class AStar
             finalList = null;
             return;
         }
-        
     }
 
     public AStarNode Navigate(Vector2Graph graph, Vector2Int from, Vector2Int to)

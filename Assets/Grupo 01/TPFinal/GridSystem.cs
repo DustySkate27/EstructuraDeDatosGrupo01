@@ -12,7 +12,9 @@ public class GridSystem
     private int height;
     private float cellSize;
     private Vector3 origin;
+
     private int[,] gridArray;
+    
     private TextMesh[,] textArray;
 
     private Vector2Int[] directions = { 
@@ -32,14 +34,12 @@ public class GridSystem
         this.origin = origin;
 
         gridArray = new int[width, height];
-        textArray = new TextMesh[width, height];
 
         for (int x = 0; x < gridArray.GetLength(0); x++) 
         {
             for (int y = 0; y < gridArray.GetLength(1); y++) 
             {
-                textArray[x,y] = UtilsClass.CreateWorldText(gridArray[x, y].ToString(), null, GetWorldPosition(x,y) + new Vector3(cellSize, cellSize) * .5f, 30, Color.white, TextAnchor.MiddleLeft);
-
+                
                 Debug.DrawLine(GetWorldPosition(x,y), GetWorldPosition(x +1, y), Color.white, 999999f);
                 Debug.DrawLine(GetWorldPosition(x,y), GetWorldPosition(x, y +1), Color.white, 999999f);
                 
@@ -111,15 +111,29 @@ public class GridSystem
 
     public void SetWall(Vector2Int xy)
     {
-        graph.SetIncomingWeight(xy, 999);
-        textArray[xy.x, xy.y] = UtilsClass.CreateWorldText(999.ToString(), null, GetWorldPosition(xy.x, xy.y) + new Vector3(cellSize, cellSize) * .5f, 30, Color.white, TextAnchor.MiddleLeft);
+        if(xy.x >= 0 && xy.y >= 0 && xy.x <= width && xy.y <= height)
+        {
+            graph.SetIncomingWeight(xy, 999);
+        }
 
     }
 
     public void SetTile(Vector2Int xy)
     {
-        graph.SetIncomingWeight(xy, 1);
+        if (xy.x >= 0 && xy.y >= 0 && xy.x <= width && xy.y <= height)
+            graph.SetIncomingWeight(xy, 1);
     }
 
-
+    public int GetWidth()
+    {
+        return width;
+    }
+    public int GetHeight()
+    {
+        return height;
+    }
+    public float CellSize()
+    {
+        return cellSize;
+    }
 }
