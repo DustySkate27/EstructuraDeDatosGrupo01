@@ -16,6 +16,7 @@ public class AStar
         nodeData = new Dictionary<Vector2Int, AStarNode>();
         toVisitNodes.Add(from);
         nodeData.Add(from, new AStarNode(null, 0, from, to));
+        finalList = null;
 
         visitedNodes = new HashSet<Vector2Int>(); //Inicializamos por visitar
 

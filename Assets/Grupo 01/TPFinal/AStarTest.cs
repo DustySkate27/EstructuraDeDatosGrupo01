@@ -92,7 +92,6 @@ public class AStarTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-
             if (grid.AStarFunction(start, finish) != null)
             {
                 List<Vector2Int> path = new List<Vector2Int> (grid.AStarFunction(start, finish));
@@ -110,7 +109,7 @@ public class AStarTest : MonoBehaviour
         for (int i = 1; i < path.Count - 1; i++)
         {
             SetVisited(path[i]);
-            await Task.Delay(500);
+            await Task.Delay(300);
         }
     }
 
@@ -128,6 +127,11 @@ public class AStarTest : MonoBehaviour
                 }
                 else if (index == new Vector2Int(grid.GetWidth() - 1, grid.GetHeight() - 1))
                     SetFinish(index);
+                else if (GetCellSprite(index).color == Color.black)
+                {
+                    grid.SetTile(index);
+                    GetCellSprite(index).color = Color.white;
+                }
                 else
                     GetCellSprite(index).color = Color.white;
             }

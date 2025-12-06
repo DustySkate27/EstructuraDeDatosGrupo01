@@ -38,5 +38,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Grupo 01/TP08/EJ16/EJ10.unity
     guid: cf2aa7be4908b6c43aeb6a647ba01132
+  - enabled: 1
+    path: Assets/Grupo 01/TPFinal/EJ11.unity
+    guid: 842fa8f86a26d3740a1b0e9b30010658
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

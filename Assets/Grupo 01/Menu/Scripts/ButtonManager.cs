@@ -15,6 +15,7 @@ public class ButtonManager : MonoBehaviour
     [SerializeField] private Button scene8;
     [SerializeField] private Button scene9;
     [SerializeField] private Button scene10;
+    [SerializeField] private Button scene11;
 
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class ButtonManager : MonoBehaviour
         scene8.onClick.AddListener(callScene8);
         scene9.onClick.AddListener(callScene9);
         scene10.onClick.AddListener(callScene10);
+        scene11.onClick.AddListener(callScene11);
     }
 
     public void callScene1()
@@ -69,6 +71,10 @@ public class ButtonManager : MonoBehaviour
     public void callScene10()
     {
         GameScenesManager.Instance.LoadGameScene(10);
+    }
+    public void callScene11()
+    {
+        GameScenesManager.Instance.LoadGameScene(11);
     }
 
 }
