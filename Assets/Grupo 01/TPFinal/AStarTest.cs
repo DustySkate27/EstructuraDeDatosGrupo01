@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Threading.Tasks;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,35 +24,42 @@ public class AStarTest : MonoBehaviour
 
     public GameObject cellBackground;
 
-    Dictionary<Vector2Int, SpriteRenderer> cellSpriteColors;
+    private Dictionary<Vector2Int, SpriteRenderer> cellSpriteColors;
+    public TextMeshProUGUI modeUI;
+    public TextMeshProUGUI possibleUI;
     
     void Start()
     {
         grid = new GridSystem(width, height, cellSize, new Vector3(transform.position.x, transform.position.y));
         CreateSpriteList();
+        modeUI.text = "Start (Left Click) | Finish (Right Click)";
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
+        {
             tileMode = !tileMode;
+            if (tileMode)
+                modeUI.text = "Floor (Left Click) | Wall (Right Click)";
+            else
+                modeUI.text = "Start (Left Click) | Finish (Right Click)";
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
             if (tileMode) //pone piso
             {
                 Vector2Int xy = grid.GetXY(UtilsClass.GetMouseWorldPosition());
-                if (GetCellSprite(xy).color == Color.black)
+                if (xy.x >= 0 && xy.y >= 0 && xy.x < width && xy.y < height)
                 {
-                    if (xy.x >= 0 && xy.y >= 0 && xy.x <= width && xy.y <= height)
+                    if (GetCellSprite(xy).color == Color.black)
                     {
                         grid.SetTile(xy);
                         GetCellSprite(xy).color = Color.white;
-                        Debug.Log($"Esta es piso: {grid.GetXY(UtilsClass.GetMouseWorldPosition())}");
                     }
                 }
             }
-
 
             if (!tileMode) //pone start
             {
@@ -65,13 +73,12 @@ public class AStarTest : MonoBehaviour
             if (tileMode)//pone pared
             {
                 Vector2Int xy = grid.GetXY(UtilsClass.GetMouseWorldPosition());
-                if (GetCellSprite(xy).color == Color.white)
+                if (xy.x >= 0 && xy.y >= 0 && xy.x < width && xy.y < height)
                 {
-                    if (xy.x >= 0 && xy.y >= 0 && xy.x <= width && xy.y <= height)
+                    if (GetCellSprite(xy).color == Color.white)
                     {
                         grid.SetWall(xy);
                         GetCellSprite(xy).color = Color.black;
-                        Debug.Log($"Esta es pared: {grid.GetXY(UtilsClass.GetMouseWorldPosition())}");
                     }
                 }
             }
@@ -85,12 +92,16 @@ public class AStarTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            List<Vector2Int> path = grid.AStarFunction(start, finish);
 
-            if (path != null)
+            if (grid.AStarFunction(start, finish) != null)
             {
+                List<Vector2Int> path = new List<Vector2Int> (grid.AStarFunction(start, finish));
+                possibleUI.text = "YES!!";
                 delayedFor(path);
             }
+            else
+                possibleUI.text = "NO!!";
+
         }
     }
 
@@ -101,6 +112,27 @@ public class AStarTest : MonoBehaviour
             SetVisited(path[i]);
             await Task.Delay(500);
         }
+    }
+
+    public void ClearTiles()
+    {
+        for (int i = 0; i < grid.GetWidth(); i++)
+        {
+            for (int j = 0; j < grid.GetHeight(); j++)
+            {
+                Vector2Int index = new Vector2Int(i, j);
+
+                if (index == new Vector2Int(0, 0))
+                {
+                    SetStart(index);
+                }
+                else if (index == new Vector2Int(grid.GetWidth() - 1, grid.GetHeight() - 1))
+                    SetFinish(index);
+                else
+                    GetCellSprite(index).color = Color.white;
+            }
+        }
+        possibleUI.text = "Is it possible?";
     }
 
     public void CreateSpriteList()
@@ -138,7 +170,7 @@ public class AStarTest : MonoBehaviour
 
     public void SetStart(Vector2Int xy)
     {
-        if (xy.x >= 0 && xy.y >= 0 && xy.x <= width && xy.y <= height)
+        if (xy.x >= 0 && xy.y >= 0 && xy.x < width && xy.y < height)
         {
             if (GetCellSprite(xy).color == Color.white)
             {
@@ -148,7 +180,6 @@ public class AStarTest : MonoBehaviour
                     start = xy;
                     GetCellSprite(previousStart).color = Color.white;
                     GetCellSprite(start).color = Color.blue;
-                    Debug.Log($"Start: {start}");
                 }
             }
         }
@@ -156,7 +187,7 @@ public class AStarTest : MonoBehaviour
 
     public void SetFinish(Vector2Int xy)
     {
-        if (xy.x >= 0 && xy.y >= 0 && xy.x <= width && xy.y <= height)
+        if (xy.x >= 0 && xy.y >= 0 && xy.x < width && xy.y < height)
         {
             if (GetCellSprite(xy).color == Color.white)
             {
@@ -166,7 +197,6 @@ public class AStarTest : MonoBehaviour
                     finish = xy;
                     GetCellSprite(previousFinish).color = Color.white;
                     GetCellSprite(finish).color = Color.red;
-                    Debug.Log($"Finish: {finish}");
                 }
             }
         }
