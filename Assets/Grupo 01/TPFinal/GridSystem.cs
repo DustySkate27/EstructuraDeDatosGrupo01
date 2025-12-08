@@ -15,8 +15,6 @@ public class GridSystem
 
     private int[,] gridArray;
     
-    private TextMesh[,] textArray;
-
     private Vector2Int[] directions = { 
         new Vector2Int(1, 0),
         new Vector2Int(-1, 0),
@@ -45,15 +43,15 @@ public class GridSystem
                 
 
                 Vector2Int currentNode = new Vector2Int(x,y);
-                graph.AddVertex(currentNode);
+                graph.AddVertex(currentNode); //Añade la posicion de la celda al grafo
 
-                foreach( var dir in directions)
+                foreach(var dir in directions) //y en cada una de sus direcciones
                 {
-                    Vector2Int neighbor = currentNode + dir;
+                    Vector2Int neighbor = currentNode + dir; //calcula las celdas limitrofes, sus vecinos
 
-                    if (neighbor.x < 0 || neighbor.x >= width) continue;
+                    if (neighbor.x < 0 || neighbor.x >= width) continue; //Y si se encuentra dentro de la grilla
                     if (neighbor.y < 0 || neighbor.y >= height) continue;
-                    graph.AddEdge(currentNode, (neighbor, 1));
+                    graph.AddEdge(currentNode, (neighbor, 1)); //añade al vecino
                 }
             }
         }
@@ -61,49 +59,19 @@ public class GridSystem
         Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 999999f);
     }
 
-    public Vector3 GetWorldPosition(int x, int y)
+    public Vector3 GetWorldPosition(int x, int y) //devuelve al posicion real de la coordenada en la pantalla
     {
         return new Vector3(x, y) * cellSize + origin;
     }
-    public Vector2Int GetXY(Vector3 worldPosition)
+    public Vector2Int GetXY(Vector3 worldPosition) //asocia dicha posicion real a la celda mas próxima
     {
         return new Vector2Int (Mathf.FloorToInt((worldPosition - origin).x / cellSize), Mathf.FloorToInt((worldPosition - origin).y / cellSize));
     }
 
-    public void SetValue(int x, int y, int value)
+    public List<Vector2Int> AStarFunction(Vector2Int from, Vector2Int to) 
     {
-        if (x >= 0 && y >= 0 && x < width && y < height)
-        {
-            gridArray[x, y] = value;
-            textArray[x,y].text = gridArray[x,y].ToString();
-            graph.dic.ContainsKey(new Vector2Int(x,y));
-        }
-    }
-
-    public void SetValue(Vector3 worldPosition, int value)
-    {
-        SetValue(GetXY(worldPosition).x, GetXY(worldPosition).y, value);
-    }
-
-    public int GetValue(int x, int y)
-    {
-        if (x >= 0 && y >= 0 && x < width && y < height)
-        {
-            return gridArray[x, y];
-        }
-        else return 0;
-    }
-
-    public int GetValue(Vector3 worldPosition)
-    {
-        return GetValue(GetXY(worldPosition).x, GetXY(worldPosition).y);
-    }
-
-    public List<Vector2Int> AStarFunction(Vector2Int from, Vector2Int to)
-    {
-        AStar aStar = new AStar();
-        aStar.AStarFunc(graph, from, to);
-        Debug.Log(aStar.finalList);
+        AStar aStar = new AStar(); //Inicializa un A*
+        aStar.AStarFunc(graph, from, to); //Ejecuta el algoritmo
         if(aStar.finalList != null) return aStar.finalList;
         else
             return null;
@@ -113,7 +81,7 @@ public class GridSystem
     {
         if(xy.x >= 0 && xy.y >= 0 && xy.x <= width && xy.y <= height)
         {
-            graph.SetIncomingWeight(xy, 999);
+            graph.SetIncomingWeight(xy, 999); //Cambia el peso para que A* lo evite
         }
 
     }
@@ -121,7 +89,7 @@ public class GridSystem
     public void SetTile(Vector2Int xy)
     {
         if (xy.x >= 0 && xy.y >= 0 && xy.x <= width && xy.y <= height)
-            graph.SetIncomingWeight(xy, 1);
+            graph.SetIncomingWeight(xy, 1); //Cambia el peso para que A* lo recorra
     }
 
     public int GetWidth()

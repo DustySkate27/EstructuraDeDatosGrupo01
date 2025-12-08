@@ -2,19 +2,19 @@
 
 public class AStarNode
 {
-    public AStarNode parent;
-    public Vector2Int position;
-    public float value;
-    public float G;
-    public float H;
+    public AStarNode parent; //Nodo por el cual se accede al actual
+    public Vector2Int position; //Posicion vectorial
+    public float weight;
+    public float G; //Costo de acceso al nodo
+    public float H; //Heuristica hacia la meta
 
-    public float F { get => G + H; }
+    public float F { get => G + H; } //Calculo de costo + estimado de heuristica restante
 
     public AStarNode(AStarNode parent, float weight, Vector2Int fromPos, Vector2Int toPos)
     {
         this.parent = parent;
         G = weight;
-        value = weight;
+        this.weight = weight;
         position = fromPos;
         setH(toPos);
     }

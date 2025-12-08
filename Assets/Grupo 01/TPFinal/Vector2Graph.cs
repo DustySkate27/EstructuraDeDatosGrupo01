@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Vector2Graph
 {
-    public Dictionary<Vector2Int, List<(Vector2Int, int)>> dic;
+    public Dictionary<Vector2Int, List<(Vector2Int, int)>> dic; //Diccionario de acceso al grafo
 
-    public IEnumerable<Vector2Int> Vertices { get => dic.Keys; }
+    public IEnumerable<Vector2Int> Vertices { get => dic.Keys; } //Devuelve los nodos
 
     public Vector2Graph()
     {

@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class AStar
 {
-    public List<Vector2Int> toVisitNodes;
-    public List<Vector2Int> finalList;
-    public HashSet<Vector2Int> visitedNodes;
-    public Dictionary<Vector2Int, AStarNode> nodeData;
+    public List<Vector2Int> toVisitNodes; //Lista de nodos por visitar
+    public List<Vector2Int> finalList; //Lista del camino de A a B que devuelve el algoritmo
+    public HashSet<Vector2Int> visitedNodes; //Set de nodos visitados
+    public Dictionary<Vector2Int, AStarNode> nodeData; //Diccionario de acceso a la información de los nodos
 
 
     public void AStarFunc(Vector2Graph graph, Vector2Int from, Vector2Int to)
     {
-        toVisitNodes = new List<Vector2Int>();
-        nodeData = new Dictionary<Vector2Int, AStarNode>();
-        toVisitNodes.Add(from);
-        nodeData.Add(from, new AStarNode(null, 0, from, to));
-        finalList = null;
+        toVisitNodes = new List<Vector2Int>(); //Inicializa la lista de pendientes
+        nodeData = new Dictionary<Vector2Int, AStarNode>();  //Inicializa el dic de datos
+        toVisitNodes.Add(from); //Añade a pendientes el origen.
+        nodeData.Add(from, new AStarNode(null, 0, from, to)); //Añade los datos del origen
+        finalList = null; //null provisorio del camino final
 
-        visitedNodes = new HashSet<Vector2Int>(); //Inicializamos por visitar
+        visitedNodes = new HashSet<Vector2Int>(); //Inicializa el set de visitados
 
-        var result = Navigate(graph, from, to);
+        var result = Navigate(graph, from, to); //Navega el grafo
 
         if (result == null)
         {
@@ -35,28 +35,27 @@ public class AStar
         {
             while (toVisitNodes.Count > 0) //mientras haya nodos que visitar
             {
-                Vector2Int currentNode = toVisitNodes[0]; 
+                Vector2Int currentNode = toVisitNodes[0]; //almacena la key en un current (nodo a procesar)
 
                 for (int i = 1; i < toVisitNodes.Count; i++) //se busca el nodo con menor peso, para seguir el recorrido desde ahi
                 {
-                    if (nodeData[toVisitNodes[i]].F < nodeData[currentNode].F)
+                    if (nodeData[toVisitNodes[i]].F < nodeData[currentNode].F) //Si el F(i) estimado es menor al de current, entonces se cambia el current
                         currentNode = toVisitNodes[i]; 
                 }
 
-                AStarNode currentRef = nodeData[currentNode]; //nodo actual
+                AStarNode currentRef = nodeData[currentNode]; //se obtiene la referencia del nodo[current]
 
                 if (currentNode.Equals(to)) //Si el actual es la meta
                 {
-                    finalList = new List<Vector2Int>(); //se crea una lista final
-                    AStarNode auxNode = nodeData[to]; //se asigna un nodo aux
+                    finalList = new List<Vector2Int>(); //se sobreescribe la lista final
+                    AStarNode auxNode = nodeData[to]; //se asigna un nodo aux 
 
                     while (!auxNode.position.Equals(from)) //Hasta que aux == origen
                     {
                         finalList.Add(auxNode.position);//Se añade la posicion del aux a la lista.
 
-                        if (auxNode.parent == null)
+                        if (auxNode.parent == null) //Significa que llegó a un nodo aislado => camino imposible
                         {
-                            // Significa que llegó a un nodo aislado → camino imposible
                             finalList = null;
                             return null;
                         }
@@ -71,18 +70,18 @@ public class AStar
                 }
 
                 //Si el actual no es la meta
-                toVisitNodes.Remove(currentNode); //Se lo remueve de visitado
-                visitedNodes.Add(currentNode); //Se marca como visitado
+                toVisitNodes.Remove(currentNode); //Se lo remueve de visitado al nodo actual
+                visitedNodes.Add(currentNode); //y lo marca como visitado
 
                 var edges = graph.GetNode(currentNode); //Se asignan sus vecinos
                 if (edges == null) continue; //en caso de no tener vecinos, skip
 
                 foreach (var edge in graph.GetNode(currentNode)) //por cada vecino
                 {
-                    Vector2Int neighbour = edge.Item1;
-                    float weight = edge.Item2;
-                    if (weight == 999) continue;
-                    else
+                    Vector2Int neighbour = edge.Item1; //se asigna la Key del vecino
+                    float weight = edge.Item2; //Y su peso, que influye en el G de los nodos y, por ende, en el F(n)
+                    if (weight == 999) continue; //Si es una pared, skip
+                    else //Si no
                     {
                         if (!visitedNodes.Contains(neighbour)) //si el vecino no fue visitado
                         {
@@ -98,8 +97,8 @@ public class AStar
                             {
                                 if (neighbourRef.G > weight + currentRef.G) //y si la previa era menos optima, se la actualiza
                                 {
-                                    neighbourRef.G = weight + currentRef.G;
-                                    neighbourRef.parent = currentRef;
+                                    neighbourRef.G = weight + currentRef.G; //Los Gs de cada nodo son equivalentes a lo que cuesta llegar a cada uno
+                                    neighbourRef.parent = currentRef; //Se actualiza el ultimo nodo optimo que permite llegar al vecino
                                 }
                             }
                         }
